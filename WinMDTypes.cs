@@ -103,29 +103,142 @@ namespace WinMDGraph
             public PropertyInfo Property;
             public EventInfo Event;
 
+            private static string TypeToName(Type type)
+            {
+                string name = type.Name;
+                if (type.GenericTypeArguments.Length > 0)
+                {
+                    name += "<" + type.GenericTypeArguments.Select(genericType => TypeToName(genericType)) + ">";
+                }
+                return name;
+            }
+
+            public string Name
+            {
+                get
+                {
+                    string name = null;
+                    if (Interface != null)
+                    {
+                        name = TypeToName(Interface);
+                    }
+                    else if (Class != null)
+                    {
+                        name = TypeToName(Class);
+                    }
+                    else if (Method != null)
+                    {
+                        name = Method.Name;
+                    }
+                    else if (Property != null)
+                    {
+                        name = Property.Name;
+                    }
+                    else if (Event != null)
+                    {
+                        name = Event.Name;
+                    }
+                    else
+                    {
+                        throw new Exception("Unexpected kind.");
+                    }
+                    return name;
+                }
+            }
+
+            public Type CorrespondingType
+            {
+                get
+                {
+                    Type type = null;
+                    if (Interface != null)
+                    {
+                        type = Interface;
+                    }
+                    else if (Class != null)
+                    {
+                        type = Class;
+                    }
+                    else if (Method != null)
+                    {
+                        type = Method.DeclaringType;
+                    }
+                    else if (Property != null)
+                    {
+                        type = Property.DeclaringType;
+                    }
+                    else if (Event != null)
+                    {
+                        type = Event.DeclaringType;
+                    }
+                    else
+                    {
+                        throw new Exception("Unexpected kind.");
+                    }
+                    return type;
+                }
+            }
+
+            public string Namespace
+            {
+                get
+                {
+                    return this.CorrespondingType.Namespace;
+                }
+            }
+
+            public string FullName
+            {
+                get
+                {
+                    string className = "";
+                    if (Method != null)
+                    {
+                        className = TypeToName(Method.DeclaringType) + ".";
+                    }
+                    else if (Property != null)
+                    {
+                        className = TypeToName(Property.DeclaringType) + ".";
+                    }
+                    else if (Event != null)
+                    {
+                        className = TypeToName(Event.DeclaringType) + ".";
+                    }
+                    return Namespace + "." + className + Name;
+                }
+            }
+
+            public string KindName
+            {
+                get
+                {
+                    if (this.Interface != null)
+                    {
+                        return "Interface";
+                    }
+                    else if (this.Class != null)
+                    {
+                        return "Class";
+                    }
+                    else if (this.Method != null)
+                    {
+                        return "Method";
+                    }
+                    else if (this.Property != null)
+                    {
+                        return "Property";
+                    }
+                    else if (this.Event != null)
+                    {
+                        return "Event";
+                    }
+                    throw new Exception("Error");
+                }
+            }
+
             public override string ToString()
             {
-                if (this.Interface != null)
-                {
-                    return "Interface " + this.Interface.FullName;
-                }
-                else if (this.Class != null)
-                {
-                    return "Class " + this.Class.FullName;
-                }
-                else if (this.Method != null)
-                {
-                    return "Method " + this.Method.DeclaringType.FullName + "." + this.Method.Name;
-                }
-                else if (this.Property != null)
-                {
-                    return "Property " + this.Property.DeclaringType.FullName + "." + this.Property.Name;
-                }
-                else if (this.Event != null)
-                {
-                    return "Event " + this.Event.DeclaringType.FullName + "." + this.Event.Name;
-                }
-                throw new Exception("Error");
+                return KindName + " " + FullName;
             }
 
             public bool Equals(TypeInfo other)

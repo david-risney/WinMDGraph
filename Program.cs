@@ -9,13 +9,31 @@ namespace WinMDGraph
     {
         static string EncodeNameForDot(string raw)
         {
-            return raw.Replace('`', '_').Replace('.', '_');
+            string result = "";
+            for (int idx = 0; idx < raw.Length; ++idx)
+            {
+                char c = raw[idx];
+                if ((c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9') ||
+                c == '_')
+                {
+                    result += c;
+                }
+                else 
+                {
+                    result += "_";
+                }
+            }
+            return result;
         }
 
         private class ParsedArgs
         {
             public ParsedArgs(string[] args)
             {
+                originalText = String.Join(" ", args);
+
                 for (int idx = 0; idx < args.Length; ++idx)
                 {
                     switch (args[idx])
@@ -43,57 +61,28 @@ namespace WinMDGraph
             }
             public List<string> files = new List<string>();
             public List<string> matches = new List<string>();
+            public string originalText;
         }
 
         static void Main(string[] args)
         {
             ParsedArgs parsedArgs = new ParsedArgs(args);
-            ConsoleWriteClassFactory(parsedArgs.files, parsedArgs.matches);
-        }
-
-        static Type NodeToType(Graph<WinMDTypes.TypeInfo>.Node node)
-        {
-            return node.Context.Type;
-        }
-
-        static string TypeInfoToFullName(WinMDTypes.TypeInfo typeInfo)
-        {
-            return typeInfo.Type.FullName;
-        }
-
-        static string NodeToNamespace(Graph<WinMDTypes.TypeInfo>.Node node)
-        {
-            return NodeToType(node).Namespace;
-        }
-
-        static string NodeToName(Graph<WinMDTypes.TypeInfo>.Node node)
-        {
-            return NodeToType(node).Name;
-        }
-
-        static string NodeToFullname(Graph<WinMDTypes.TypeInfo>.Node node)
-        {
-            return NodeToType(node).FullName;
-        }
-
-        static string NodeToDebugDescrption(Graph<WinMDTypes.TypeInfo>.Node node)
-        {
-            return node.Context.ToString();
+            ConsoleWriteWinMDTypes(parsedArgs.files, parsedArgs.matches);
         }
 
         static string EdgeToNamespace(Graph<WinMDTypes.TypeInfo>.Edge edge)
         {
-            string ns1 = NodeToNamespace(edge.Start);
-            string ns2 = NodeToNamespace(edge.End);
+            string ns1 = edge.Start.Context.Namespace;
+            string ns2 = edge.End.Context.Namespace;
             return ns1 == ns2 ? ns1 : "";
         }
 
-        static void ConsoleWriteClassFactory(List<string> files, List<string> matchesRaw)
+        static void ConsoleWriteWinMDTypes(List<string> files, List<string> matchesRaw)
         {
             List<Regex> matches = matchesRaw.Select<string, Regex>(matchRaw => new Regex(matchRaw)).ToList();
             WinMDTypes typeStore = new WinMDTypes(files.ToArray());
             var graph = typeStore.CreateGraph(typeInfo => {
-                string fullName = TypeInfoToFullName(typeInfo);
+                string fullName = typeInfo.FullName;
                 Type type = typeInfo.Type;
                 bool genericArgs = false;
                 if (type != null)
@@ -108,28 +97,28 @@ namespace WinMDGraph
             Console.WriteLine("// All in graph to start");
             foreach (var node in graph.NodeContextToNode.Values)
             {
-                Console.WriteLine("// - " + NodeToDebugDescrption(node));
+                Console.WriteLine("// - " + node.Context);
             }
 
             Console.WriteLine("// Collapse types that don't match any of the regex but are parameterized types");
             foreach (var node in graph.NodeContextToNode.Values.ToList().Where(
                 node =>
-                    (NodeToFullname(node) == null || !matches.Any(match => match.IsMatch(NodeToFullname(node)))) &&
-                    (NodeToType(node) != null && NodeToType(node).GenericTypeArguments.Length > 0)
+                    (node.Context.FullName == null || !matches.Any(match => match.IsMatch(node.Context.FullName))) &&
+                    (node.Context.CorrespondingType != null && node.Context.CorrespondingType.GenericTypeArguments.Length > 0)
             ))
             {
-                Console.WriteLine("// - " + NodeToDebugDescrption(node));
+                Console.WriteLine("// - " + node.Context);
                 node.RemoveAndCollapseAllEdges();
             }
 
             Console.WriteLine("// Remove types that don't match any of the regex");
             foreach (var node in graph.NodeContextToNode.Values.ToList().Where(
                 node =>
-                    (NodeToFullname(node) == null || !matches.Any(match => match.IsMatch(NodeToFullname(node)))) &&
-                    (NodeToType(node) == null || NodeToType(node).GenericTypeArguments.Length == 0)
+                    (node.Context.FullName == null || !matches.Any(match => match.IsMatch(node.Context.FullName))) &&
+                    (node.Context.CorrespondingType == null || node.Context.CorrespondingType.GenericTypeArguments.Length == 0)
             ))
             {
-                Console.WriteLine("// - " + NodeToDebugDescrption(node));
+                Console.WriteLine("// - " + node.Context);
                 node.RemoveAndRemoveAllEdges();
             }
 
@@ -138,13 +127,13 @@ namespace WinMDGraph
                 node => (node.Context.Class == null || node.Context.Class.FullName == null) //&& node.Context.Interface == null
             ))
             {
-                Console.WriteLine("// - " + NodeToDebugDescrption(node));
+                Console.WriteLine("// - " + node.Context);
                 node.RemoveAndCollapseAllEdges();
             }
 
             // Remove self referential edges
             foreach (var edge in graph.Edges.ToList().Where(
-                edge => NodeToFullname(edge.Start) == NodeToFullname(edge.End)
+                edge => edge.Start.Context.FullName == edge.End.Context.FullName
             ))
             {
                 edge.Remove();
@@ -154,16 +143,16 @@ namespace WinMDGraph
 
             foreach (var node in graph.NodeContextToNode.Values)
             {
-                string ns = NodeToNamespace(node);
+                string ns = node.Context.Namespace;
                 List<string> entries = namespaceToEntries.ContainsKey(ns) ? namespaceToEntries[ns] : (namespaceToEntries[ns] = new List<string>());
-                entries.Add(EncodeNameForDot(NodeToName(node)) + ";");
+                entries.Add(EncodeNameForDot(node.Context.Name) + ";");
             }
 
             foreach (var edge in graph.Edges)
             {
                 string ns = EdgeToNamespace(edge);
                 List<string> entries = namespaceToEntries.ContainsKey(ns) ? namespaceToEntries[ns] : (namespaceToEntries[ns] = new List<string>());
-                entries.Add(EncodeNameForDot(NodeToName(edge.Start)) + " -> " + EncodeNameForDot(NodeToName(edge.End)) + ";");
+                entries.Add(EncodeNameForDot(edge.Start.Context.Name) + " -> " + EncodeNameForDot(edge.End.Context.Name) + ";");
             }
 
             Console.WriteLine("digraph {");
