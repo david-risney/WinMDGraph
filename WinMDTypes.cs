@@ -11,7 +11,6 @@ namespace WinMDGraph
     {
         static WinMDTypes()
         {
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += CurrentDomain_ReflectionOnlyAssemblyResolve;
             WindowsRuntimeMetadata.ReflectionOnlyNamespaceResolve += WindowsRuntimeMetadata_ReflectionOnlyNamespaceResolve;
         }
 
@@ -22,11 +21,6 @@ namespace WinMDGraph
                     .FirstOrDefault();
 
             e.ResolvedAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(path));
-        }
-
-        private static Assembly CurrentDomain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            return Assembly.ReflectionOnlyLoad(args.Name);
         }
 
         private List<Type> types;
