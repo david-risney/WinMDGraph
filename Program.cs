@@ -198,8 +198,9 @@ namespace WinMDGraph
                 {
                     outputWriteLine("\tsubgraph cluster_" + keyIdx + " {");
                     outputWriteLine("\t\tlabel = \"" + key + "\";");
-                    outputWriteLine("\t\tcolor = grey50;");
-                    outputWriteLine("\t\tbgcolor = grey80;");
+                    outputWriteLine("\t\tcolor = grey35;");
+                    outputWriteLine("\t\tstyle = filled;");
+                    outputWriteLine("\t\tfillcolor = grey90;");
                     outputWriteLine("\t\tfontname = \"Segoe UI\";");
                     outputWriteLine("\t\tfontsize = 18;");
                     ++keyIdx;
