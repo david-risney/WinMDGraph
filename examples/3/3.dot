@@ -7,8 +7,9 @@ digraph {
 	node [ style = filled ];
 	subgraph cluster_0 {
 		label = "Windows.Services.Maps.OfflineMaps";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		OfflineMapPackageQueryStatus;
@@ -25,8 +26,9 @@ digraph {
 	}
 	subgraph cluster_1 {
 		label = "Windows.Services.Maps";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		MapRouteOptimization;
@@ -67,8 +69,9 @@ digraph {
 	}
 	subgraph cluster_2 {
 		label = "Windows.Services.Maps.LocalSearch";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		LocalLocationFinderStatus;
@@ -83,8 +86,9 @@ digraph {
 	}
 	subgraph cluster_3 {
 		label = "Windows.Services.Maps.Guidance";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		GuidanceRoadSignpost;

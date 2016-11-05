@@ -7,8 +7,9 @@ digraph {
 	node [ style = filled ];
 	subgraph cluster_0 {
 		label = "Windows.Data.Json";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		JsonValueType;
@@ -29,8 +30,9 @@ digraph {
 	}
 	subgraph cluster_1 {
 		label = "Windows.Data.Xml.Dom";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		NodeType;
@@ -117,24 +119,27 @@ digraph {
 	}
 	subgraph cluster_2 {
 		label = "Windows.Data.Xml.Xsl";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		XsltProcessor;
 	}
 	subgraph cluster_3 {
 		label = "Windows.Data.Html";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		HtmlUtilities;
 	}
 	subgraph cluster_4 {
 		label = "Windows.Data.Pdf";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		PdfPageDimensions;
@@ -148,8 +153,9 @@ digraph {
 	}
 	subgraph cluster_5 {
 		label = "Windows.Data.Text";
-		color = grey50;
-		bgcolor = grey80;
+		color = grey35;
+		style = filled;
+		fillcolor = grey90;
 		fontname = "Segoe UI";
 		fontsize = 18;
 		TextSegment;
