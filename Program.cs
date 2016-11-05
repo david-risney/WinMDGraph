@@ -187,6 +187,9 @@ namespace WinMDGraph
             outputWriteLine("digraph {");
             outputWriteLine("\tnode [ fontname = \"Segoe UI\" ];");
             outputWriteLine("\tnode [ shape = \"rectangle\" ];");
+            outputWriteLine("\tnode [ fillcolor = \"white\" ];");
+            outputWriteLine("\tnode [ color = black ];");
+            outputWriteLine("\tnode [ style = filled ];");
             int keyIdx = 0;
 
             foreach (var key in namespaceToEntries.Keys)
@@ -195,9 +198,10 @@ namespace WinMDGraph
                 {
                     outputWriteLine("\tsubgraph cluster_" + keyIdx + " {");
                     outputWriteLine("\t\tlabel = \"" + key + "\";");
-                    outputWriteLine("\t\tcolor = lightgrey;");
-                    outputWriteLine("\t\tbgcolor = lightgrey;");
+                    outputWriteLine("\t\tcolor = grey50;");
+                    outputWriteLine("\t\tbgcolor = grey80;");
                     outputWriteLine("\t\tfontname = \"Segoe UI\";");
+                    outputWriteLine("\t\tfontsize = 18;");
                     ++keyIdx;
                 }
 
