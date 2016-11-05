@@ -2,11 +2,15 @@
 digraph {
 	node [ fontname = "Segoe UI" ];
 	node [ shape = "rectangle" ];
+	node [ fillcolor = "white" ];
+	node [ color = black ];
+	node [ style = filled ];
 	subgraph cluster_0 {
 		label = "Windows.Data.Json";
-		color = lightgrey;
-		bgcolor = lightgrey;
+		color = grey50;
+		bgcolor = grey80;
 		fontname = "Segoe UI";
+		fontsize = 18;
 		JsonValueType;
 		JsonErrorStatus;
 		JsonArray;
@@ -25,9 +29,10 @@ digraph {
 	}
 	subgraph cluster_1 {
 		label = "Windows.Data.Xml.Dom";
-		color = lightgrey;
-		bgcolor = lightgrey;
+		color = grey50;
+		bgcolor = grey80;
 		fontname = "Segoe UI";
+		fontsize = 18;
 		NodeType;
 		XmlNodeList;
 		XmlNamedNodeMap;
@@ -112,23 +117,26 @@ digraph {
 	}
 	subgraph cluster_2 {
 		label = "Windows.Data.Xml.Xsl";
-		color = lightgrey;
-		bgcolor = lightgrey;
+		color = grey50;
+		bgcolor = grey80;
 		fontname = "Segoe UI";
+		fontsize = 18;
 		XsltProcessor;
 	}
 	subgraph cluster_3 {
 		label = "Windows.Data.Html";
-		color = lightgrey;
-		bgcolor = lightgrey;
+		color = grey50;
+		bgcolor = grey80;
 		fontname = "Segoe UI";
+		fontsize = 18;
 		HtmlUtilities;
 	}
 	subgraph cluster_4 {
 		label = "Windows.Data.Pdf";
-		color = lightgrey;
-		bgcolor = lightgrey;
+		color = grey50;
+		bgcolor = grey80;
 		fontname = "Segoe UI";
+		fontsize = 18;
 		PdfPageDimensions;
 		PdfPageRotation;
 		PdfPageRenderOptions;
@@ -140,9 +148,10 @@ digraph {
 	}
 	subgraph cluster_5 {
 		label = "Windows.Data.Text";
-		color = lightgrey;
-		bgcolor = lightgrey;
+		color = grey50;
+		bgcolor = grey80;
 		fontname = "Segoe UI";
+		fontsize = 18;
 		TextSegment;
 		SemanticTextQuery;
 		UnicodeGeneralCategory;
