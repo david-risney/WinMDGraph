@@ -4,3 +4,6 @@ dot.exe .\examples\1\1.dot -Tpng -O
 .\bin\Debug\WinMDGraph.exe -file C:\Windows\System32\WinMetadata\Windows.Web.winmd -match Windows.Web.Http | Out-File -Encoding utf8 .\examples\2\2.dot
 dot.exe .\examples\2\2.dot -Tpng -O 
 
+.\bin\Debug\WinMDGraph.exe -file C:\Windows\System32\WinMetadata\Windows.Services.winmd -match Windows.Services.Map | Out-File -Encoding utf8 .\examples\3\3.dot
+dot.exe .\examples\3\3.dot -Tpng -O 
+
