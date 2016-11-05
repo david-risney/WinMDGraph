@@ -42,7 +42,7 @@ namespace WinMDGraph
                             ++idx;
                             if (idx >= args.Length)
                             {
-                                throw new ArgumentException("-match must be followed by a match pattern");
+                                throw new ArgumentException("-file must be followed by a match pattern");
                             }
                             files.Add(args[idx]);
                             break;
@@ -60,6 +60,15 @@ namespace WinMDGraph
                         default:
                             throw new ArgumentException("Unknown parameter " + args[idx]);
                     }
+                }
+
+                if (files.Count == 0)
+                {
+                    throw new ArgumentException("Must provide at least one -file parameter.");
+                }
+                if (matches.Count == 0)
+                {
+                    matches.Add(".*");
                 }
             }
             public List<string> files = new List<string>();
@@ -90,10 +99,10 @@ namespace WinMDGraph
             {
                 Console.Error.WriteLine("Error: " + e.Message);
                 Console.Error.WriteLine(
-                    "WinMDGraph (-file [WinMD path]|-match [regex]|-verbose)\n"
+                    "WinMDGraph (-file [WinMD path]|-match [regex]|-verbose)*\n"
                     + "\t-file [WinMD file path] - Add metadata from the specified WinMD file\n"
                     + "\t-match [WinMD file path] - Include types with matching full name\n"
-                    + "\t-verbose - Include extra verbose info in the outputs\n"
+                    + "\t-verbose - Include extra verbose info in the output\n"
                     );
             }
         }
