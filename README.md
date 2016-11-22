@@ -11,6 +11,13 @@ The WinMDGraph tool uses .NET reflection APIs to parse WinMD files and produces 
 
 # Statistics
 ## Boolean property first words
+```
+[System.Reflection.Assembly]::LoadFile("C:\Users\Dave\Development\WinMDGraph\WinMD\bin\Debug\WinMD.dll");
+$types = (New-Object WinMD.WinMDTypes -ArgumentList @(,((dir C:\windows\system32\winmetadata\*winmd).fullname))).Types;
+$names = $types.GetProperties() | ?{ $_.propertyType.Name -match "Boolean"; } | %{ New-Object PSObject -P @{"Prefix"=@(NameToWords $_.Name)[0];"Name"=($_.Name)} }
+$names | group prefix | sort count
+```
+
 Count | Prefix
 ------|-------
 2864 | Is
