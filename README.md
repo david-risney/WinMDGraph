@@ -12,6 +12,22 @@ The WinMDGraph tool uses .NET reflection APIs to parse WinMD files and produces 
 # Statistics
 ## Boolean property first words
 ```
+function NameToWords {
+  param($Name);
+  $start = 0;
+  for ($idx = 0; $idx -lt $Name.Length; ++$idx) {
+    if ($idx -gt 0 -and $Name[$idx - 1] -cmatch "[a-z]" -and $Name[$idx] -cmatch "[A-Z]") {
+      $Name.Substring($start, $idx - $start);
+      $start = $idx;
+    }
+    elseif ($idx -gt 0 -and $idx -lt $Name.Length -and $Name[$idx - 1] -cmatch "[A-Z]" -and $Name[$idx] -cmatch "[A-Z]" -and $Name[$idx + 1] -cmatch "[a-z]") {
+      $Name.Substring($start, $idx - $start);
+      $start = $idx;
+    }
+  }
+  $Name.Substring($start, $Name.Length - $start);
+}
+
 [System.Reflection.Assembly]::LoadFile("C:\Users\Dave\Development\WinMDGraph\WinMD\bin\Debug\WinMD.dll");
 $types = (New-Object WinMD.WinMDTypes -ArgumentList @(,((dir C:\windows\system32\winmetadata\*winmd).fullname))).Types;
 $names = $types.GetProperties() | ?{ $_.propertyType.Name -match "Boolean"; } | %{ New-Object PSObject -P @{"Prefix"=@(NameToWords $_.Name)[0];"Name"=($_.Name)} }
