@@ -31,6 +31,14 @@ namespace WinMD
 
         private List<Type> types;
 
+        public WinMDTypes()
+        {
+            this.types = LoadTypesFromAssemblies(
+                Directory.EnumerateFiles(
+                    Environment.ExpandEnvironmentVariables("%systemroot%\\system32\\winmetadata")).ToArray<string>()
+            );
+        }
+
         public WinMDTypes(string[] assemblyPaths)
         {
             this.types = LoadTypesFromAssemblies(assemblyPaths);
@@ -69,7 +77,7 @@ namespace WinMD
 
         public List<Type> Types
         {
-            get { return this.types; }
+            get { return this.types.ToList(); }
         }
 
         public class TypeInfo : IEquatable<TypeInfo>, IComparable<TypeInfo>
