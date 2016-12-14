@@ -1,5 +1,5 @@
 ﻿#WinMD
-The WinMD.dll module uses the builtin .NET WinMD parsing to expose the WinRT type system of specified WinMD files. You can use it from PowerShell or .NET.
+The WinMD.dll module uses the builtin .NET WinMD parsing to expose the WinRT type system of specified WinMD files. You can use it from PowerShell or .NET
 
 ##PowerShell
 To use WinMD.dll in powershell to load the metadata from the current OS:
@@ -44,6 +44,16 @@ Non-IInspectable | IInspectable | Total
 ---|---|---
 7682 | 581 | 8263
 
+### Name length
+```
+$types | ?{ $_.IsInterface } | %{
+    $_.Name;
+    $_.GetEvents().Name;
+    $_.GetMethods() | ?{ !$_.IsSpecialName } | %{ $_.Name; };
+    $_.GetMethods().CustomAttributes | ?{ $_.AttributeType.Name -eq "OverloadAttribute" } | %{ $_.ConstructorArguments.Value };
+    $_.GetProperties().Name
+} | sort Length -desc | group Length
+``` 
 
 ### Boolean property first words
 ```
