@@ -12,6 +12,7 @@ Or to load specific metadata:
 
     [System.Reflection.Assembly]::LoadFile("C:\Users\Dave\Development\WinMDGraph\WinMD\bin\Debug\WinMD.dll");
     $typeSystem = New-Object WinMD.WinMDTypes -ArgumentList @(,("C:\example1.winmd","C:\example2.winmd"));
+    $typeSystem.Types;
 
 ##Examples
 ###Changed events and their corresponding properties
