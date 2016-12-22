@@ -31,17 +31,23 @@ namespace WinMD
 
         private List<Type> types;
 
-        public WinMDTypes()
+        public WinMDTypes() : this(new string[] { })
         {
-            this.types = LoadTypesFromAssemblies(
-                Directory.EnumerateFiles(
-                    Environment.ExpandEnvironmentVariables("%systemroot%\\system32\\winmetadata")).ToArray<string>()
-            );
         }
 
         public WinMDTypes(string[] assemblyPaths)
         {
-            this.types = LoadTypesFromAssemblies(assemblyPaths);
+            if (assemblyPaths.Length > 0)
+            {
+                this.types = LoadTypesFromAssemblies(assemblyPaths);
+            }
+            else
+            {
+                this.types = LoadTypesFromAssemblies(
+                    Directory.EnumerateFiles(
+                        Environment.ExpandEnvironmentVariables("%systemroot%\\system32\\winmetadata")).ToArray<string>()
+                );
+            }
         }
 
         private Assembly LoadAssembly(string assemblyPath)
