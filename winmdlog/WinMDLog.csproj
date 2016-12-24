@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbiTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,7 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WinMDGraph\WinMD\WinMD.csproj">
+    <ProjectReference Include="..\WinMD\WinMD.csproj">
       <Project>{e79dff4f-2bcb-4c76-a74e-920f02d70cb8}</Project>
       <Name>WinMD</Name>
     </ProjectReference>
