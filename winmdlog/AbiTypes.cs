@@ -112,20 +112,20 @@ namespace WinMDLog
 
     class AbiType
     {
-        public AbiType(Type raAbiType)
+        public AbiType(Type rawType)
         {
-            this.raAbiType = raAbiType;
-            this.unprojectedType = UnprojectType(raAbiType);
+            this.rawType = rawType;
+            this.unprojectedType = UnprojectType(rawType);
             this.defaultInterface = GetDefaultInterface(this.unprojectedType);
         }
 
-        private Type raAbiType;
+        private Type rawType;
         private Type unprojectedType;
         private Type defaultInterface;
 
-        private static Type UnprojectType(Type raAbiType)
+        private static Type UnprojectType(Type rawType)
         {
-            Type type = raAbiType;
+            Type type = rawType;
             string fullname = type.Namespace + "." + type.Name;
 
             switch (fullname)
@@ -169,9 +169,9 @@ namespace WinMDLog
             }
         }
 
-        private static Type GetDefaultInterface(Type raAbiType)
+        private static Type GetDefaultInterface(Type rawType)
         {
-            Type defaultInterface = raAbiType;
+            Type defaultInterface = rawType;
             if (defaultInterface.IsClass && defaultInterface.Namespace.StartsWith("Windows."))
             {
                 defaultInterface = defaultInterface.GetInterfaces()[0];
@@ -203,25 +203,25 @@ namespace WinMDLog
             return name;
         }
 
-        private static string GetAbiTypeShortName(Type raAbiType)
+        private static string GetAbiTypeShortName(Type rawType)
         {
-            string name = GetAbiTypeNameStrict(raAbiType.Namespace + "." + raAbiType.Name);
+            string name = GetAbiTypeNameStrict(rawType.Namespace + "." + rawType.Name);
 
             if (name == null)
             {
-                name = RemoveGenericTypeArtifact(raAbiType.Name);
+                name = RemoveGenericTypeArtifact(rawType.Name);
             }
 
             return name;
         }
 
-        private static string GetAbiTypeFullName(Type raAbiType)
+        private static string GetAbiTypeFullName(Type rawType)
         {
-            string name = GetAbiTypeNameStrict(raAbiType.Namespace + "." + raAbiType.Name);
+            string name = GetAbiTypeNameStrict(rawType.Namespace + "." + rawType.Name);
 
             if (name == null)
             {
-                name = raAbiType.Namespace.Replace(".", "::") + "::" + RemoveGenericTypeArtifact(raAbiType.Name);
+                name = rawType.Namespace.Replace(".", "::") + "::" + RemoveGenericTypeArtifact(rawType.Name);
             }
 
             return name;
