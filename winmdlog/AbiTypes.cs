@@ -65,8 +65,9 @@ namespace WinMDLog
 
         public string GetParameters(ReferenceCollector refs)
         {
-            List<string> parameters = this.methodInfo.GetParameters().Select(parameter =>
-            {
+            List<string> parameters = this.methodInfo.GetParameters().Where(
+                parameter => AbiTypeRuntimeClass.IsValidType(parameter.ParameterType)
+            ).Select(parameter => {
                 AbiTypeRuntimeClass paramType = new AbiTypeRuntimeClass(parameter.ParameterType);
                 return (parameter.IsIn ? paramType.GetShortNameAsInParam(refs) : paramType.GetShortNameAsOutParam(refs)) + " " + parameter.Name;
             }).ToList();
@@ -263,10 +264,19 @@ namespace WinMDLog
 
     class AbiTypeRuntimeClass : IAbiType
     {
+        static public bool IsValidType(Type type)
+        {
+            return UnprojectType(type) != null;
+        }
+
         public AbiTypeRuntimeClass(Type rawType)
         {
             this.rawType = rawType;
             this.unprojectedType = UnprojectType(rawType);
+            if (this.unprojectedType == null)
+            {
+                throw new InvalidOperationException();
+            }
             this.defaultInterface = GetDefaultInterface(this.unprojectedType);
         }
 
@@ -343,8 +353,29 @@ namespace WinMDLog
                 case "System.TimeSpan":
                     type = Type.ReflectionOnlyGetType("Windows.Foundation.TimeSpan, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
-                case "System::Collections::Generic::IList":
-                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Collections.IVector, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                case "System.Collections.Generic.IEnumerable`1":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.Collections.IIterable`1[[" + 
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Collections.IEnumerable":
+                    type = null;
+                    break;
+                case "System.Collections.Generic.IReadOnlyList`1":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.Collections.IVectorView`1[[" +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Collections.Generic.IReadOnlyCollection`1":
+                    type = null;
+                    break;
+                case "System.Collections.Generic.IList`1":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.Collections.IVector`1[[" +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
             }
 
@@ -541,10 +572,11 @@ namespace WinMDLog
 
             if (type.GenericTypeArguments.Count() > 0)
             {
-                name += "<" + String.Join(", ", type.GenericTypeArguments.Select(typeArgument =>
-                {
-                    return (new AbiTypeRuntimeClass(typeArgument)).GetShortName(refs);
-                })) + ">";
+                name += "<" + String.Join(", ", type.GenericTypeArguments.Where(
+                    typeArg => AbiTypeRuntimeClass.IsValidType(typeArg)
+                ).Select(typeArgument => 
+                    (new AbiTypeRuntimeClass(typeArgument)).GetShortName(refs)
+                )) + ">";
             }
 
             return name;
@@ -566,7 +598,11 @@ namespace WinMDLog
 
         public IAbiType[] GetParentClasses(ReferenceCollector refs)
         {
-            return this.unprojectedType.GetInterfaces().Select(tinterface => new AbiTypeRuntimeClass(tinterface)).ToArray();
+            return this.unprojectedType.GetInterfaces().Where(
+                tinterface => AbiTypeRuntimeClass.IsValidType(tinterface)
+            ).Select(
+                tinterface => new AbiTypeRuntimeClass(tinterface)
+            ).ToArray();
         }
 
         public string RuntimeClassName
@@ -617,10 +653,11 @@ namespace WinMDLog
 
             if (type.GenericTypeArguments.Count() > 0)
             {
-                name += "<" + String.Join(", ", type.GenericTypeArguments.Select(typeArgument =>
-                {
-                    return (new AbiTypeRuntimeClass(typeArgument)).GetFullName(refs);
-                })) + ">";
+                name += "<" + String.Join(", ", type.GenericTypeArguments.Where(
+                    typeArgument => AbiTypeRuntimeClass.IsValidType(typeArgument)
+                ).Select(
+                    typeArgument => (new AbiTypeRuntimeClass(typeArgument)).GetFullName(refs)
+                )) + ">";
             }
 
             return name;
