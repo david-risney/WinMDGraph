@@ -42,7 +42,7 @@ namespace WinMDLog
                             ++idx;
                             if (idx >= args.Length)
                             {
-                                throw new ArgumentException("-outPath must be followed by a match pattern");
+                                throw new ArgumentException("-outPath must be followed by a path");
                             }
                             outPath = args[idx];
                             break;
@@ -53,7 +53,7 @@ namespace WinMDLog
 
                 if (matches.Count == 0)
                 {
-                    matches.Add(new Regex(".*"));
+                    throw new ArgumentException("Must specify at least one -match parameter.");
                 }
 
                 if (outPath != null)
@@ -78,18 +78,26 @@ namespace WinMDLog
 
         void Run()
         {
-            List<Type> types = (new WinMDTypes(args.files.ToArray())).Types;
-            
-            foreach (Type rawType in types.Where(type => 
-                !type.IsInterface && 
+            var types = (new WinMDTypes(args.files.ToArray())).Types.Where(type =>
+                !type.IsInterface &&
                 !type.IsEnum &&
                 args.matches.Any(regex => regex.IsMatch(type.Namespace + "." + type.Name))
-            ))
+            ).SelectMany(rawType => {
+                List<IAbiType> typeAndFactory = new List<IAbiType>();
+                IAbiType type = new AbiTypeRuntimeClass(rawType);
+                typeAndFactory.Add(type);
+                if (type.Factory != null)
+                {
+                    typeAndFactory.Add(type.Factory);
+                }
+                return typeAndFactory;
+            });
+            
+            foreach (IAbiType type in types)
             {
-                AbiType type = new AbiType(rawType);
                 ReferenceCollector refs = new ReferenceCollector(type.Namespace);
 
-                string rootTemplate =
+                const string rootTemplate =
 @"$includeStatements
 #include <wrl/implements.h>
 
@@ -97,7 +105,7 @@ using namespace Microsoft::WRL;
 $usingNamespaceStatements
 
 $namespaceDefinitionBegin
-class $className WrlFinal : RuntimeClass<
+class $className WrlFinal : $parentHelperClass<
 $parentClasses
     >
 {
@@ -107,15 +115,13 @@ public:
     $className();
     HRESULT RuntimeClassInitialize();
 
-$InterfaceImplementationDeclarations
+$interfaceImplementationDeclarations
 private:
-$EventHelperDeclaration
+$eventHelperDeclaration
 };
+$activatableClassStatements
 
-$ActivatableClassStatements
-
-$InterfaceImplementationDefinitions
-
+$interfaceImplementationDefinitions
 $namespaceDefinitionEnd";
 
                 string result = rootTemplate.
@@ -123,10 +129,18 @@ $namespaceDefinitionEnd";
                     Replace("$namespaceDefinitionEnd", type.NamespaceDefinitionEndStatement).
                     Replace("$className", type.ShortNameNoTypeParameters).
                     Replace("$runtimeclassStringName", type.RuntimeClassName).
-                    Replace("$ActivatableClassStatements", String.Join("\n", type.GetActivatableClassStatements(refs))).
-                    Replace("$parentClasses", String.Join("\n", type.GetParentClasses(refs).Select(parent => "    " + parent.GetShortName(refs))));
+                    Replace("$parentHelperClass", type.ParentHelperClassName).
+                    Replace("$activatableClassStatements", String.Join("\n", type.GetActivatableClassStatements(refs)));
 
-                result = result.Replace("$InterfaceImplementationDeclarations",
+                var parentClasses = type.GetParentClasses(refs).Select(parent => "    " + parent.GetShortName(refs));
+                if (type.IsAgile)
+                {
+                    parentClasses = new string[] { "    FtmBase" }.Concat(parentClasses);
+                }
+                result = result.
+                    Replace("$parentClasses", String.Join(",\n", parentClasses));
+
+                result = result.Replace("$interfaceImplementationDeclarations",
                     String.Join("\n", type.GetParentClasses(refs).Select(tinterface =>
                     {
                         string[] header = new string[] { "    // " + tinterface.GetFullName(refs) };
@@ -153,7 +167,7 @@ $namespaceDefinitionEnd";
                         return String.Join("\n", header.Concat(methods).Concat(readOnlyProperties).Concat(readWriteProperties).Concat(events).Concat(tail));
                     })));
 
-                result = result.Replace("$InterfaceImplementationDefinitions",
+                result = result.Replace("$interfaceImplementationDefinitions",
                     String.Join("\n", type.GetParentClasses(refs).Select(tinterface =>
                     {
                         string header = "// " + tinterface.GetFullName(refs);
@@ -209,7 +223,7 @@ $namespaceDefinitionEnd";
                         return String.Join("\n", methods.Concat(events).Concat(readOnlyProperties).Concat(readWriteProperties));
                     })));
 
-                result = result.Replace("$EventHelperDeclaration", 
+                result = result.Replace("$eventHelperDeclaration", 
                     String.Join("\n", type.GetParentClasses(refs).SelectMany(
                         tinterface => tinterface.Events
                     ).Select(
@@ -248,9 +262,10 @@ $namespaceDefinitionEnd";
             {
                 Console.Error.WriteLine("Error: " + e.Message);
                 Console.Error.WriteLine(
-                    "WinMDLog (-file [WinMD path]|-match [regex])*\n"
+                    "WinMDLog (-file [WinMD path]|-match [regex]|-outPath [output directory])*\n"
                     + "\t-file [WinMD file path] - Add metadata from the specified WinMD file\n"
-                    + "\t-match [WinMD file path] - Include types with matching full name\n"
+                    + "\t-match [WinMD file path] - Process runtime classes with matching full name\n"
+                    + "\t-outPath [output directory] - Write runtime classes into individual files in that path\n"
                     );
             }
 
