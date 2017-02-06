@@ -91,7 +91,7 @@ namespace WinMDLog
                     typeAndFactory.Add(type.Factory);
                 }
                 return typeAndFactory;
-            });
+            }).Where(abiType => !abiType.NoInstanceClass);
             
             foreach (IAbiType type in types)
             {

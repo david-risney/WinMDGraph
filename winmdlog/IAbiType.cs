@@ -4,7 +4,7 @@
     {
         string ParentHelperClassName { get; }
         IAbiType Factory { get; }
-        AbiTypeRuntimeClass DefaultInterface { get; }
+        bool NoInstanceClass { get; }
         AbiEvent[] Events { get; }
         bool IsAgile { get; }
         AbiMethod[] Methods { get; }

@@ -1,0 +1,39 @@
+﻿#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Custom
+{
+class KnownDeviceTypesFactory WrlFinal : AgileActivationFactory<
+    IKnownDeviceTypesStatics
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Custom_KnownDeviceTypesFactory, BaseTrust);
+
+public:
+    KnownDeviceTypesFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Custom::IKnownDeviceTypesStatics
+    IFACEMETHOD(get_Unknown)(_Out_ UINT16* value);
+
+private:
+
+};
+
+
+// Windows::Devices::Custom::IKnownDeviceTypesStatics
+IFACEMETHODIMP KnownDeviceTypesFactory::get_Unknown(_Out_ UINT16* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

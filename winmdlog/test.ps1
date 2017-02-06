@@ -25,7 +25,7 @@ $idx = 0;
     "-match Windows.System.RemoteSystems.RemoteSystemSessionController",
 
 # 3 Test covers:
-#   - IDisposable unprojection
+#   - IDisposable/ICloseable unprojection
     "-match Windows.Devices.Adc.AdcChannel",
 
 # 4 Test covers:
@@ -34,7 +34,15 @@ $idx = 0;
 
 # 5 Test covers:
 #   - Method parameter that is a reference
-    "-match Windows.Devices.Gpio.GpioController"
+    "-match Windows.Devices.Gpio.GpioController",
+
+# 6 Test covers:
+#   - IList unprojection
+    "-match Windows.Devices.Gpio.GpioChangeReader",
+
+# 7 Test covers:
+#   - Static only class
+    "-match Windows.Devices.Custom.KnownDeviceTypes"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {

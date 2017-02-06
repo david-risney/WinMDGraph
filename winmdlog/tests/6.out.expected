@@ -1,0 +1,189 @@
+﻿#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioChangeReader WrlFinal : RuntimeClass<
+    FtmBase,
+    IGpioChangeReader,
+    IClosable
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioChangeReader, BaseTrust);
+
+public:
+    GpioChangeReader();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioChangeReader
+    IFACEMETHOD(Start)();
+    IFACEMETHOD(Stop)();
+    IFACEMETHOD(Clear)();
+    IFACEMETHOD(GetNextItem)(_Out_ GpioChangeRecord* value);
+    IFACEMETHOD(PeekNextItem)(_Out_ GpioChangeRecord* value);
+    IFACEMETHOD(GetAllItems)(_Outptr_ IVector<GpioChangeRecord>** value);
+    IFACEMETHOD(WaitForItemsAsync)(_In_ INT32 count, _Outptr_ IAsyncAction** value);
+    IFACEMETHOD(get_Capacity)(_Out_ INT32* value);
+    IFACEMETHOD(get_IsEmpty)(_Out_ boolean* value);
+    IFACEMETHOD(get_IsOverflowed)(_Out_ boolean* value);
+    IFACEMETHOD(get_IsStarted)(_Out_ boolean* value);
+    IFACEMETHOD(get_Length)(_Out_ INT32* value);
+    IFACEMETHOD(get_Polarity)(_Out_ GpioChangePolarity* value);
+    IFACEMETHOD(put_Polarity)(_In_ GpioChangePolarity value);
+
+    // Windows::Foundation::IClosable
+    IFACEMETHOD(Close)();
+
+private:
+
+};
+ActivatableClassWithFactory(GpioChangeReader, IGpioChangeReaderFactory);
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::Start()
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::Stop()
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::Clear()
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::GetNextItem(_Out_ GpioChangeRecord* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::PeekNextItem(_Out_ GpioChangeRecord* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::GetAllItems(_Outptr_ IVector<GpioChangeRecord>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::WaitForItemsAsync(_In_ INT32 count, _Outptr_ IAsyncAction** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::get_Capacity(_Out_ INT32* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::get_IsEmpty(_Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::get_IsOverflowed(_Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::get_IsStarted(_Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::get_Length(_Out_ INT32* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::get_Polarity(_Out_ GpioChangePolarity* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReader
+IFACEMETHODIMP GpioChangeReader::put_Polarity(_In_ GpioChangePolarity value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IClosable
+IFACEMETHODIMP GpioChangeReader::Close()
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioChangeReaderFactory WrlFinal : AgileActivationFactory<
+    IGpioChangeReaderFactory
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioChangeReaderFactory, BaseTrust);
+
+public:
+    GpioChangeReaderFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioChangeReaderFactory
+    IFACEMETHOD(Create)(_In_ GpioPin* pin, _Outptr_ GpioChangeReader** value);
+    IFACEMETHOD(CreateWithCapacity)(_In_ GpioPin* pin, _In_ INT32 minCapacity, _Outptr_ GpioChangeReader** value);
+
+private:
+
+};
+
+
+// Windows::Devices::Gpio::IGpioChangeReaderFactory
+IFACEMETHODIMP GpioChangeReaderFactory::Create(_In_ GpioPin* pin, _Outptr_ GpioChangeReader** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioChangeReaderFactory
+IFACEMETHODIMP GpioChangeReaderFactory::CreateWithCapacity(_In_ GpioPin* pin, _In_ INT32 minCapacity, _Outptr_ GpioChangeReader** value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

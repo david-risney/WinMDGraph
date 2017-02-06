@@ -142,11 +142,11 @@ namespace WinMDLog
             }
         }
 
-        public AbiTypeRuntimeClass DefaultInterface
+        public bool NoInstanceClass
         {
             get
             {
-                throw new NotImplementedException();
+                return false;
             }
         }
 
@@ -269,6 +269,15 @@ namespace WinMDLog
             return UnprojectType(type) != null;
         }
 
+        private bool noInstanceClass;
+        public bool NoInstanceClass
+        {
+            get
+            {
+                return this.noInstanceClass;
+            }
+        }
+
         public AbiTypeRuntimeClass(Type rawType)
         {
             if (rawType.Name.EndsWith("&"))
@@ -281,7 +290,7 @@ namespace WinMDLog
             {
                 throw new InvalidOperationException();
             }
-            this.defaultInterface = GetDefaultInterface(this.unprojectedType);
+            this.noInstanceClass = this.unprojectedType.GetInterfaces().Count() == 0;
         }
 
         public IAbiType[] GetFactoryAndStaticInterfaces(ReferenceCollector refs)
@@ -336,7 +345,6 @@ namespace WinMDLog
 
         private Type rawType;
         private Type unprojectedType;
-        private Type defaultInterface;
 
         private static Type UnprojectType(Type rawType)
         {
@@ -439,24 +447,6 @@ namespace WinMDLog
                 Console.WriteLine("/* Error: " + e.Message + " " + e.StackTrace + " */");
                 return new string[] { };
             }
-        }
-
-        private static Type GetDefaultInterface(Type rawType)
-        {
-            Type defaultInterface = rawType;
-            if (defaultInterface.IsClass && defaultInterface.Namespace.StartsWith("Windows."))
-            {
-                try
-                {
-                    defaultInterface = defaultInterface.GetInterfaces()[0];
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("// GetDefaultInterface failed for " + rawType.FullName);
-                    throw e;
-                }
-            }
-            return defaultInterface;
         }
 
         private static Dictionary<string, string> rawTypeNameToAbiTypeName = new Dictionary<string, string>(){
@@ -665,14 +655,6 @@ namespace WinMDLog
             get
             {
                 return String.Join("\n", this.unprojectedType.Namespace.Split('.').Select(tnamespace => "}"));
-            }
-        }
-
-        public AbiTypeRuntimeClass DefaultInterface
-        {
-            get
-            {
-                return new AbiTypeRuntimeClass(this.defaultInterface);
             }
         }
 
