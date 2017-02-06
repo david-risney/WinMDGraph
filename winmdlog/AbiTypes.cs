@@ -271,6 +271,10 @@ namespace WinMDLog
 
         public AbiTypeRuntimeClass(Type rawType)
         {
+            if (rawType.Name.EndsWith("&"))
+            {
+                rawType = Type.ReflectionOnlyGetType(rawType.AssemblyQualifiedName.Replace("&", ""), true, false);
+            }
             this.rawType = rawType;
             this.unprojectedType = UnprojectType(rawType);
             if (this.unprojectedType == null)
@@ -347,6 +351,12 @@ namespace WinMDLog
                 case "System.IDisposable":
                     type = Type.ReflectionOnlyGetType("Windows.Foundation.IClosable, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
+                case "System.Nullable`1":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.IReference`1[[" +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
                 case "System.DateTimeOffset":
                     type = Type.ReflectionOnlyGetType("Windows.Foundation.DateTime, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
@@ -357,6 +367,27 @@ namespace WinMDLog
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IIterable`1[[" + 
                         rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Collections.Generic.KeyValuePair`2":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.Collections.IKeyValuePair`2[[" +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + ", " +
+                        rawType.GenericTypeArguments[1].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Collections.Generic.IDictionary`2":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.Collections.IMap`2[[" +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + ", " +
+                        rawType.GenericTypeArguments[1].AssemblyQualifiedName +
+                        "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Collections.Generic.IReadOnlyDictionary`2":
+                    type = Type.ReflectionOnlyGetType(
+                        "Windows.Foundation.Collections.IMapView`2[[" +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + ", " +
+                        rawType.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.IEnumerable":

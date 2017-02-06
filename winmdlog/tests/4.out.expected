@@ -1,0 +1,161 @@
+﻿#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioPinValueChangedEventArgs WrlFinal : RuntimeClass<
+    FtmBase,
+    IGpioPinValueChangedEventArgs
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPinValueChangedEventArgs, BaseTrust);
+
+public:
+    GpioPinValueChangedEventArgs();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
+    IFACEMETHOD(get_Edge)(_Out_ GpioPinEdge* value);
+
+private:
+
+};
+
+
+// Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
+IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioPin WrlFinal : RuntimeClass<
+    FtmBase,
+    IGpioPin,
+    IClosable
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPin, BaseTrust);
+
+public:
+    GpioPin();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioPin
+    IFACEMETHOD(IsDriveModeSupported)(_In_ GpioPinDriveMode driveMode, _Out_ boolean* value);
+    IFACEMETHOD(GetDriveMode)(_Out_ GpioPinDriveMode* value);
+    IFACEMETHOD(SetDriveMode)(_In_ GpioPinDriveMode value);
+    IFACEMETHOD(Write)(_In_ GpioPinValue value);
+    IFACEMETHOD(Read)(_Out_ GpioPinValue* value);
+    IFACEMETHOD(get_PinNumber)(_Out_ INT32* value);
+    IFACEMETHOD(get_SharingMode)(_Out_ GpioSharingMode* value);
+    IFACEMETHOD(get_DebounceTimeout)(_Out_ TimeSpan* value);
+    IFACEMETHOD(put_DebounceTimeout)(_In_ TimeSpan value);
+    IFACEMETHOD(add_ValueChanged)(_In_ TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(remove_ValueChanged)(_In_ EventRegistrationToken token);
+
+    // Windows::Foundation::IClosable
+    IFACEMETHOD(Close)();
+
+private:
+    AgileEventSource<TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>> m_ValueChangedEventHandlers;
+};
+
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::IsDriveModeSupported(_In_ GpioPinDriveMode driveMode, _Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::GetDriveMode(_Out_ GpioPinDriveMode* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::SetDriveMode(_In_ GpioPinDriveMode value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::Write(_In_ GpioPinValue value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::Read(_Out_ GpioPinValue* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::add_ValueChanged(_In_ TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
+{
+    return m_ValueChangedEventHandlers.Add(eventHandler, token);
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::remove_ValueChanged(_In_ EventRegistrationToken token)
+{
+    return m_ValueChangedEventHandlers.Remove(token);
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::get_PinNumber(_Out_ INT32* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::get_SharingMode(_Out_ GpioSharingMode* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::get_DebounceTimeout(_Out_ TimeSpan* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioPin
+IFACEMETHODIMP GpioPin::put_DebounceTimeout(_In_ TimeSpan value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IClosable
+IFACEMETHODIMP GpioPin::Close()
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

@@ -1,0 +1,65 @@
+﻿#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Adc
+{
+class AdcChannel WrlFinal : RuntimeClass<
+    FtmBase,
+    IAdcChannel,
+    IClosable
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Adc_AdcChannel, BaseTrust);
+
+public:
+    AdcChannel();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Adc::IAdcChannel
+    IFACEMETHOD(ReadValue)(_Out_ INT32* value);
+    IFACEMETHOD(ReadRatio)(_Out_ DOUBLE* value);
+    IFACEMETHOD(get_Controller)(_Outptr_ AdcController** value);
+
+    // Windows::Foundation::IClosable
+    IFACEMETHOD(Close)();
+
+private:
+
+};
+
+
+// Windows::Devices::Adc::IAdcChannel
+IFACEMETHODIMP AdcChannel::ReadValue(_Out_ INT32* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Adc::IAdcChannel
+IFACEMETHODIMP AdcChannel::ReadRatio(_Out_ DOUBLE* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Adc::IAdcChannel
+IFACEMETHODIMP AdcChannel::get_Controller(_Outptr_ AdcController** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IClosable
+IFACEMETHODIMP AdcChannel::Close()
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
