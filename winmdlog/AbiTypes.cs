@@ -653,6 +653,7 @@ namespace WinMDLog
             { "System.Byte", "BYTE" },
             { "System.Char", "WCHAR" },
             { "System.Double", "DOUBLE" },
+            { "System.Exception", "HRESULT" },
             { "System.Guid", "GUID" },
             { "System.Int16", "INT16" },
             { "System.Int32", "INT32" },
@@ -802,17 +803,31 @@ namespace WinMDLog
             return name;
         }
 
+        private static bool IgnoreIndirection(Type type)
+        {
+            string name = type.Namespace + "." + type.Name;
+            switch (name)
+            {
+                case "System.String":
+                case "System.Exception":
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
         public string GetShortNameAsOutParam(ReferenceCollector refs)
         {
             Type type = this.unprojectedType;
-            bool doublePointer = (type.Namespace + "." + type.Name != "System.String") && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+            bool doublePointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
             return (doublePointer ? "_Outptr_" : "_Out_") + " " + this.GetShortName(refs) + (doublePointer ? "**" : "*");
         }
 
         public string GetShortNameAsInParam(ReferenceCollector refs)
         {
             Type type = this.unprojectedType;
-            bool pointer = (type.Namespace + "." + type.Name != "System.String") && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+            bool pointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
             return "_In_ " + this.GetShortName(refs) + (pointer ? "*" : "");
         }
 

@@ -21,7 +21,7 @@ public:
 
     // Windows::ApplicationModel::IPackageStagingEventArgs
     IFACEMETHOD(get_ActivityId)(_Out_ GUID* value);
-    IFACEMETHOD(get_ErrorCode)(_Outptr_ System::Exception** value);
+    IFACEMETHOD(get_ErrorCode)(_Out_ HRESULT* value);
     IFACEMETHOD(get_IsComplete)(_Out_ boolean* value);
     IFACEMETHOD(get_Package)(_Outptr_ Package** value);
     IFACEMETHOD(get_Progress)(_Out_ DOUBLE* value);
@@ -38,7 +38,7 @@ IFACEMETHODIMP PackageStagingEventArgs::get_ActivityId(_Out_ GUID* value)
 }
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_ErrorCode(_Outptr_ System::Exception** value)
+IFACEMETHODIMP PackageStagingEventArgs::get_ErrorCode(_Out_ HRESULT* value)
 {
     return E_NOTIMPL;
 }
