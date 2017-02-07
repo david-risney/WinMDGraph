@@ -109,7 +109,7 @@ class $className WrlFinal : $parentHelperClass<
 $parentClasses
     >
 {
-    InspectableClass($runtimeclassStringName, BaseTrust);
+    $inspectableClassKind($runtimeclassStringName, BaseTrust);
 
 public:
     $className();
@@ -130,6 +130,7 @@ $namespaceDefinitionEnd";
                     Replace("$className", type.ShortNameNoTypeParameters).
                     Replace("$runtimeclassStringName", type.RuntimeClassName).
                     Replace("$parentHelperClass", type.ParentHelperClassName).
+                    Replace("$inspectableClassKind", type.InspectableClassKind).
                     Replace("$activatableClassStatements", String.Join("\n", type.GetActivatableClassStatements(refs)));
 
                 var parentClasses = type.GetParentClasses(refs).Select(parent => "    " + parent.GetShortName(refs));

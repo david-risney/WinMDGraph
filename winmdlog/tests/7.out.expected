@@ -14,7 +14,7 @@ class KnownDeviceTypesFactory WrlFinal : AgileActivationFactory<
     IKnownDeviceTypesStatics
     >
 {
-    InspectableClass(RuntimeClass_Windows_Devices_Custom_KnownDeviceTypesFactory, BaseTrust);
+    InspectableClassStatic(RuntimeClass_Windows_Devices_Custom_KnownDeviceTypesFactory, BaseTrust);
 
 public:
     KnownDeviceTypesFactory();

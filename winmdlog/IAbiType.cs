@@ -2,6 +2,7 @@
 {
     interface IAbiType
     {
+        string InspectableClassKind { get; }
         string ParentHelperClassName { get; }
         IAbiType Factory { get; }
         bool NoInstanceClass { get; }

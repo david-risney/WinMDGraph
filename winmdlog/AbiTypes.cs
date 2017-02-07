@@ -113,6 +113,15 @@ namespace WinMDLog
 
     class AbiTypeRuntimeClassFactory : IAbiType
     {
+        public string InspectableClassKind
+        {
+            get
+            {
+                return this.innerClass.NoInstanceClass ? 
+                    "InspectableClassStatic" : 
+                    "InspectableClass";
+            }
+        }
         public IAbiType[] GetFactoryAndStaticInterfaces(ReferenceCollector refs)
         {
             throw new NotImplementedException();
@@ -264,6 +273,14 @@ namespace WinMDLog
 
     class AbiTypeRuntimeClass : IAbiType
     {
+        public string InspectableClassKind
+        {
+            get
+            {
+                return "InspectableClass";
+            }
+        }
+
         static public bool IsValidType(Type type)
         {
             return UnprojectType(type) != null;
