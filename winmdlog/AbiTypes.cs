@@ -691,6 +691,10 @@ namespace WinMDLog
             {
                 name = rawTypeNameToAbiTypeName[rawName];
             }
+            else if (rawName == "System.EventHandler`1")
+            {
+                name = "IEventHandler";
+            }
             return name;
         }
 

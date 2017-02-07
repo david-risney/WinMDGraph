@@ -25,14 +25,14 @@ public:
     IFACEMETHOD(SetContent)(_In_ DataPackage* content);
     IFACEMETHOD(Flush)();
     IFACEMETHOD(Clear)();
-    IFACEMETHOD(add_ContentChanged)(_In_ System::EventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_ContentChanged)(_In_ IEventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ContentChanged)(_In_ EventRegistrationToken token);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
 
 private:
-    AgileEventSource<System::EventHandler<IInspectable>> m_ContentChangedEventHandlers;
+    AgileEventSource<IEventHandler<IInspectable>> m_ContentChangedEventHandlers;
 };
 
 
@@ -61,7 +61,7 @@ IFACEMETHODIMP ClipboardFactory::Clear()
 }
 
 // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-IFACEMETHODIMP ClipboardFactory::add_ContentChanged(_In_ System::EventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClipboardFactory::add_ContentChanged(_In_ IEventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_ContentChangedEventHandlers.Add(eventHandler, token);
 }

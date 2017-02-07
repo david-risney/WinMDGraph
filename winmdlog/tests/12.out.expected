@@ -46,11 +46,11 @@ public:
     IFACEMETHOD(remove_ErrorOccurred)(_In_ EventRegistrationToken token);
     IFACEMETHOD(add_ImagePreviewReceived)(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ImagePreviewReceived)(_In_ EventRegistrationToken token);
-    IFACEMETHOD(add_ReleaseDeviceRequested)(_In_ System::EventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_ReleaseDeviceRequested)(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ReleaseDeviceRequested)(_In_ EventRegistrationToken token);
-    IFACEMETHOD(add_TriggerPressed)(_In_ System::EventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_TriggerPressed)(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_TriggerPressed)(_In_ EventRegistrationToken token);
-    IFACEMETHOD(add_TriggerReleased)(_In_ System::EventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_TriggerReleased)(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_TriggerReleased)(_In_ EventRegistrationToken token);
 
     // Windows::Foundation::IClosable
@@ -68,9 +68,9 @@ private:
     AgileEventSource<TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerDataReceivedEventArgs>> m_DataReceivedEventHandlers;
     AgileEventSource<TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerErrorOccurredEventArgs>> m_ErrorOccurredEventHandlers;
     AgileEventSource<TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs>> m_ImagePreviewReceivedEventHandlers;
-    AgileEventSource<System::EventHandler<ClaimedBarcodeScanner>> m_ReleaseDeviceRequestedEventHandlers;
-    AgileEventSource<System::EventHandler<ClaimedBarcodeScanner>> m_TriggerPressedEventHandlers;
-    AgileEventSource<System::EventHandler<ClaimedBarcodeScanner>> m_TriggerReleasedEventHandlers;
+    AgileEventSource<IEventHandler<ClaimedBarcodeScanner>> m_ReleaseDeviceRequestedEventHandlers;
+    AgileEventSource<IEventHandler<ClaimedBarcodeScanner>> m_TriggerPressedEventHandlers;
+    AgileEventSource<IEventHandler<ClaimedBarcodeScanner>> m_TriggerReleasedEventHandlers;
 };
 
 
@@ -153,7 +153,7 @@ IFACEMETHODIMP ClaimedBarcodeScanner::remove_ImagePreviewReceived(_In_ EventRegi
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::add_ReleaseDeviceRequested(_In_ System::EventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClaimedBarcodeScanner::add_ReleaseDeviceRequested(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_ReleaseDeviceRequestedEventHandlers.Add(eventHandler, token);
 }
@@ -165,7 +165,7 @@ IFACEMETHODIMP ClaimedBarcodeScanner::remove_ReleaseDeviceRequested(_In_ EventRe
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::add_TriggerPressed(_In_ System::EventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClaimedBarcodeScanner::add_TriggerPressed(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_TriggerPressedEventHandlers.Add(eventHandler, token);
 }
@@ -177,7 +177,7 @@ IFACEMETHODIMP ClaimedBarcodeScanner::remove_TriggerPressed(_In_ EventRegistrati
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::add_TriggerReleased(_In_ System::EventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClaimedBarcodeScanner::add_TriggerReleased(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_TriggerReleasedEventHandlers.Add(eventHandler, token);
 }
