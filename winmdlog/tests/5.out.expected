@@ -92,6 +92,9 @@ public:
     IFACEMETHOD(GetControllersAsync)(_In_ IGpioProvider* provider, _Outptr_ IAsyncOperation<IVectorView<GpioController>>** value);
     IFACEMETHOD(GetDefaultAsync)(_Outptr_ IAsyncOperation<GpioController>** value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -111,6 +114,12 @@ IFACEMETHODIMP GpioControllerFactory::GetControllersAsync(_In_ IGpioProvider* pr
 
 // Windows::Devices::Gpio::IGpioControllerStatics2
 IFACEMETHODIMP GpioControllerFactory::GetDefaultAsync(_Outptr_ IAsyncOperation<GpioController>** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP GpioControllerFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

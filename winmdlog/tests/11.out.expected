@@ -176,6 +176,9 @@ public:
     IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value);
     IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Language* language, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -189,6 +192,12 @@ IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRI
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
 IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Language* language, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP AllJoynAboutDataViewFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

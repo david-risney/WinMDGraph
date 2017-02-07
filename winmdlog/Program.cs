@@ -133,11 +133,15 @@ $namespaceDefinitionEnd";
                     Replace("$inspectableClassKind", type.InspectableClassKind).
                     Replace("$activatableClassStatements", String.Join("\n", type.GetActivatableClassStatements(refs)));
 
-                var parentClasses = type.GetParentClasses(refs).Select(parent => "    " + parent.GetShortName(refs));
+                var parentClasses = type.GetParentClasses(refs).
+                    Where(parent => !parent.ImplicitParent).
+                    Select(parent => "    " + parent.GetShortName(refs));
+
                 if (type.IsAgile)
                 {
                     parentClasses = new string[] { "    FtmBase" }.Concat(parentClasses);
                 }
+
                 result = result.
                     Replace("$parentClasses", String.Join(",\n", parentClasses));
 

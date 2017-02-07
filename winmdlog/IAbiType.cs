@@ -2,13 +2,14 @@
 {
     interface IAbiType
     {
+        bool ImplicitParent { get; }
         string InspectableClassKind { get; }
         string ParentHelperClassName { get; }
         IAbiType Factory { get; }
         bool NoInstanceClass { get; }
         AbiEvent[] Events { get; }
         bool IsAgile { get; }
-        AbiMethod[] Methods { get; }
+        IAbiMethod[] Methods { get; }
         string Namespace { get; }
         string NamespaceDefinitionBeginStatement { get; }
         string NamespaceDefinitionEndStatement { get; }

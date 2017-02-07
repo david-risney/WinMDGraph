@@ -23,6 +23,9 @@ public:
     // Windows::Devices::Custom::IKnownDeviceTypesStatics
     IFACEMETHOD(get_Unknown)(_Out_ UINT16* value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -30,6 +33,12 @@ private:
 
 // Windows::Devices::Custom::IKnownDeviceTypesStatics
 IFACEMETHODIMP KnownDeviceTypesFactory::get_Unknown(_Out_ UINT16* value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP KnownDeviceTypesFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

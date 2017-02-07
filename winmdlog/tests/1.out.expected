@@ -99,6 +99,9 @@ public:
     // Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
     IFACEMETHOD(CreateWwwFormUrlDecoder)(_In_ HSTRING query, _Outptr_ WwwFormUrlDecoder** value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -106,6 +109,12 @@ private:
 
 // Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
 IFACEMETHODIMP WwwFormUrlDecoderFactory::CreateWwwFormUrlDecoder(_In_ HSTRING query, _Outptr_ WwwFormUrlDecoder** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP WwwFormUrlDecoderFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

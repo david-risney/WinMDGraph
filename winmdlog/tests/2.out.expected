@@ -86,6 +86,9 @@ public:
     IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _Outptr_ RemoteSystemSessionController** value);
     IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _In_ RemoteSystemSessionOptions* options, _Outptr_ RemoteSystemSessionController** value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -99,6 +102,12 @@ IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRI
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
 IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _In_ RemoteSystemSessionOptions* options, _Outptr_ RemoteSystemSessionController** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP RemoteSystemSessionControllerFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

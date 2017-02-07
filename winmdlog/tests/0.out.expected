@@ -203,6 +203,9 @@ public:
     IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
     IFACEMETHOD(EscapeComponent)(_In_ HSTRING toEscape, _Out_ HSTRING* value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -228,6 +231,12 @@ IFACEMETHODIMP UriFactory::UnescapeComponent(_In_ HSTRING toUnescape, _Out_ HSTR
 
 // Windows::Foundation::IUriEscapeStatics
 IFACEMETHODIMP UriFactory::EscapeComponent(_In_ HSTRING toEscape, _Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP UriFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

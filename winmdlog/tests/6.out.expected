@@ -167,6 +167,9 @@ public:
     IFACEMETHOD(Create)(_In_ GpioPin* pin, _Outptr_ GpioChangeReader** value);
     IFACEMETHOD(CreateWithCapacity)(_In_ GpioPin* pin, _In_ INT32 minCapacity, _Outptr_ GpioChangeReader** value);
 
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
 private:
 
 };
@@ -180,6 +183,12 @@ IFACEMETHODIMP GpioChangeReaderFactory::Create(_In_ GpioPin* pin, _Outptr_ GpioC
 
 // Windows::Devices::Gpio::IGpioChangeReaderFactory
 IFACEMETHODIMP GpioChangeReaderFactory::CreateWithCapacity(_In_ GpioPin* pin, _In_ INT32 minCapacity, _Outptr_ GpioChangeReader** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP GpioChangeReaderFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

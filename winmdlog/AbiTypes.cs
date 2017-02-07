@@ -54,7 +54,32 @@ namespace WinMDLog
         }
     }
 
-    class AbiMethod
+    class PredefinedMethod : IAbiMethod
+    {
+        private string name;
+        private string parameters;
+
+        public PredefinedMethod(string name, string parameters)
+        {
+            this.name = name;
+            this.parameters = parameters;
+        }
+
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+
+        public string GetParameters(ReferenceCollector refs)
+        {
+            return this.parameters;
+        }
+    }
+
+    class AbiMethod : IAbiMethod
     {
         public AbiMethod(MethodInfo methodInfo)
         {
@@ -111,8 +136,162 @@ namespace WinMDLog
         private PropertyInfo propertyInfo;
     }
 
+    class ActivationFactoryAbiInterface : IAbiType
+    {
+        public bool ImplicitParent {  get { return true; } }
+
+        public AbiEvent[] Events
+        {
+            get
+            {
+                return new AbiEvent[] { };
+            }
+        }
+
+        public IAbiType Factory
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string InspectableClassKind
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsAgile
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IAbiMethod[] Methods
+        {
+            get
+            {
+                return new IAbiMethod[] { new PredefinedMethod("ActivateInstance", "_Outptr_ IInspectable** inspectable") };
+            }
+        }
+
+        public string Namespace
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public string NamespaceDefinitionBeginStatement
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string NamespaceDefinitionEndStatement
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool NoInstanceClass
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string ParentHelperClassName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public AbiProperty[] ReadOnlyProperties
+        {
+            get
+            {
+                return new AbiProperty[] { };
+            }
+        }
+        
+        public AbiProperty[] ReadWriteProperties
+        {
+            get
+            {
+                return new AbiProperty[] { };
+            }
+        }
+
+        public string RuntimeClassName
+        {
+            get
+            {
+                return "IActivationFactory";
+            }
+        }
+
+        public string ShortNameNoTypeParameters
+        {
+            get
+            {
+                return "IActivationFactory";
+            }
+        }
+
+        public string[] GetActivatableClassStatements(ReferenceCollector refs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAbiType[] GetFactoryAndStaticInterfaces(ReferenceCollector refs)
+        {
+            return new IAbiType[] { };
+        }
+
+        public string GetFullName(ReferenceCollector refs)
+        {
+            return "IActivationFactory";
+        }
+
+        public IAbiType[] GetParentClasses(ReferenceCollector refs)
+        {
+            return new IAbiType[] { };
+        }
+
+        public string GetShortName(ReferenceCollector refs)
+        {
+            return "IActivationFactory";
+        }
+
+        public string GetShortNameAsInParam(ReferenceCollector refs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetShortNameAsOutParam(ReferenceCollector refs)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     class AbiTypeRuntimeClassFactory : IAbiType
     {
+        public bool ImplicitParent { get { return false; } }
+
         public string InspectableClassKind
         {
             get
@@ -175,7 +354,7 @@ namespace WinMDLog
             }
         }
 
-        public AbiMethod[] Methods
+        public IAbiMethod[] Methods
         {
             get
             {
@@ -252,7 +431,8 @@ namespace WinMDLog
         public IAbiType[] GetParentClasses(ReferenceCollector refs)
         {
             // innerClass's static and activatable interfaces
-            return this.innerClass.GetFactoryAndStaticInterfaces(refs);
+            var parentInterfaces = this.innerClass.GetFactoryAndStaticInterfaces(refs);
+            return parentInterfaces.Concat(new List<IAbiType>() { new ActivationFactoryAbiInterface() }).ToArray();
         }
 
         public string GetShortName(ReferenceCollector refs)
@@ -273,6 +453,8 @@ namespace WinMDLog
 
     class AbiTypeRuntimeClass : IAbiType
     {
+        public bool ImplicitParent { get { return false; } }
+
         public string InspectableClassKind
         {
             get
@@ -543,7 +725,7 @@ namespace WinMDLog
             }
         }
 
-        public AbiMethod[] Methods
+        public IAbiMethod[] Methods
         {
             get
             {
