@@ -79,8 +79,7 @@ namespace WinMDLog
         void Run()
         {
             var types = (new WinMDTypes(args.files.ToArray())).Types.Where(type =>
-                type.IsInterface &&
-                AbiTypeRuntimeClass.IsValidType(type) &&
+                AbiTypeRuntimeClass.IsValidRuntimeClass(type) &&
                 args.matches.Any(regex => regex.IsMatch(type.Namespace + "." + type.Name))
             ).SelectMany(rawType => {
                 List<IAbiType> typeAndFactory = new List<IAbiType>();

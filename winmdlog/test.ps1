@@ -57,8 +57,11 @@ $idx = 0;
 	#	- System.Object unprojection
 	"-match Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager",
 
-	#	- System.ICloneable
-	"-match Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler"
+	#	- Delegate (no stub generated)
+	"-match Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler",
+
+	#	- ICollection unprojection
+	"-match Windows.ApplicationModel.DataTransfer.DataPackagePropertySet"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {

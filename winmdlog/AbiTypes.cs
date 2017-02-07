@@ -465,9 +465,15 @@ namespace WinMDLog
 
         static public bool IsValidType(Type type)
         {
+            return UnprojectType(type) != null;
+        }
+
+        static public bool IsValidRuntimeClass(Type type)
+        {
             return UnprojectType(type) != null &&
                 !IsDelegate(type) &&
-                !type.IsEnum;
+                !type.IsEnum &&
+                !type.IsInterface;
         }
 
         private bool noInstanceClass;
