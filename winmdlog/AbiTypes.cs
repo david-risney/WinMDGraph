@@ -658,6 +658,7 @@ namespace WinMDLog
             { "System.Int16", "INT16" },
             { "System.Int32", "INT32" },
             { "System.Int64", "INT64" },
+            { "System.Object", "IInspectable" },
             { "System.Single", "FLOAT" },
             { "System.String", "HSTRING" },
             { "System.UInt16", "UINT16" },

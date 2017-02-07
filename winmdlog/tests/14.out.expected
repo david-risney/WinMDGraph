@@ -28,7 +28,7 @@ public:
     IFACEMETHOD(get_LastAttemptedSyncTime)(_Out_ DateTime* value);
     IFACEMETHOD(get_LastSuccessfulSyncTime)(_Out_ DateTime* value);
     IFACEMETHOD(get_Status)(_Out_ AppointmentCalendarSyncStatus* value);
-    IFACEMETHOD(add_SyncStatusChanged)(_In_ TypedEventHandler<AppointmentCalendarSyncManager, System::Object>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_SyncStatusChanged)(_In_ TypedEventHandler<AppointmentCalendarSyncManager, IInspectable>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_SyncStatusChanged)(_In_ EventRegistrationToken token);
 
     // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
@@ -40,7 +40,7 @@ public:
     IFACEMETHOD(put_Status)(_In_ AppointmentCalendarSyncStatus value);
 
 private:
-    AgileEventSource<TypedEventHandler<AppointmentCalendarSyncManager, System::Object>> m_SyncStatusChangedEventHandlers;
+    AgileEventSource<TypedEventHandler<AppointmentCalendarSyncManager, IInspectable>> m_SyncStatusChangedEventHandlers;
 };
 
 
@@ -51,7 +51,7 @@ IFACEMETHODIMP AppointmentCalendarSyncManager::SyncAsync(_Outptr_ IAsyncOperatio
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
-IFACEMETHODIMP AppointmentCalendarSyncManager::add_SyncStatusChanged(_In_ TypedEventHandler<AppointmentCalendarSyncManager, System::Object>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP AppointmentCalendarSyncManager::add_SyncStatusChanged(_In_ TypedEventHandler<AppointmentCalendarSyncManager, IInspectable>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_SyncStatusChangedEventHandlers.Add(eventHandler, token);
 }

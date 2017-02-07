@@ -37,7 +37,7 @@ public:
     IFACEMETHOD(get_HardwareVersion)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Manufacturer)(_Out_ HSTRING* value);
     IFACEMETHOD(get_ModelNumber)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Properties)(_Outptr_ IMapView<HSTRING, System::Object>** value);
+    IFACEMETHOD(get_Properties)(_Outptr_ IMapView<HSTRING, IInspectable>** value);
     IFACEMETHOD(get_SoftwareVersion)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Status)(_Out_ INT32* value);
     IFACEMETHOD(get_SupportUrl)(_Outptr_ Uri** value);
@@ -115,7 +115,7 @@ IFACEMETHODIMP AllJoynAboutDataView::get_ModelNumber(_Out_ HSTRING* value)
 }
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataView
-IFACEMETHODIMP AllJoynAboutDataView::get_Properties(_Outptr_ IMapView<HSTRING, System::Object>** value)
+IFACEMETHODIMP AllJoynAboutDataView::get_Properties(_Outptr_ IMapView<HSTRING, IInspectable>** value)
 {
     return E_NOTIMPL;
 }
