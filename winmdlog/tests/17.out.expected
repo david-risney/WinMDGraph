@@ -1,0 +1,83 @@
+﻿#include <Windows.ApplicationModel.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+namespace DataTransfer
+{
+class ClipboardFactory WrlFinal : ActivationFactory<
+    IClipboardStatics
+    >
+{
+    InspectableClassStatic(RuntimeClass_Windows_ApplicationModel_DataTransfer_ClipboardFactory, BaseTrust);
+
+public:
+    ClipboardFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::ApplicationModel::DataTransfer::IClipboardStatics
+    IFACEMETHOD(GetContent)(_Outptr_ DataPackageView** value);
+    IFACEMETHOD(SetContent)(_In_ DataPackage* content);
+    IFACEMETHOD(Flush)();
+    IFACEMETHOD(Clear)();
+    IFACEMETHOD(add_ContentChanged)(_In_ System::EventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(remove_ContentChanged)(_In_ EventRegistrationToken token);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+    AgileEventSource<System::EventHandler<IInspectable>> m_ContentChangedEventHandlers;
+};
+
+
+// Windows::ApplicationModel::DataTransfer::IClipboardStatics
+IFACEMETHODIMP ClipboardFactory::GetContent(_Outptr_ DataPackageView** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::DataTransfer::IClipboardStatics
+IFACEMETHODIMP ClipboardFactory::SetContent(_In_ DataPackage* content)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::DataTransfer::IClipboardStatics
+IFACEMETHODIMP ClipboardFactory::Flush()
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::DataTransfer::IClipboardStatics
+IFACEMETHODIMP ClipboardFactory::Clear()
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::DataTransfer::IClipboardStatics
+IFACEMETHODIMP ClipboardFactory::add_ContentChanged(_In_ System::EventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token)
+{
+    return m_ContentChangedEventHandlers.Add(eventHandler, token);
+}
+
+// Windows::ApplicationModel::DataTransfer::IClipboardStatics
+IFACEMETHODIMP ClipboardFactory::remove_ContentChanged(_In_ EventRegistrationToken token)
+{
+    return m_ContentChangedEventHandlers.Remove(token);
+}
+
+// IActivationFactory
+IFACEMETHODIMP ClipboardFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

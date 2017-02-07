@@ -61,7 +61,10 @@ $idx = 0;
 	"-match Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler",
 
 	#	- ICollection unprojection
-	"-match Windows.ApplicationModel.DataTransfer.DataPackagePropertySet"
+	"-match Windows.ApplicationModel.DataTransfer.DataPackagePropertySet",
+
+	#	- System.EventHandler unprojection
+	"-match Windows.ApplicationModel.DataTransfer.Clipboard"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {
