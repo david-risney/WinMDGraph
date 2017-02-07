@@ -465,7 +465,9 @@ namespace WinMDLog
 
         static public bool IsValidType(Type type)
         {
-            return UnprojectType(type) != null;
+            return UnprojectType(type) != null &&
+                !IsDelegate(type) &&
+                !type.IsEnum;
         }
 
         private bool noInstanceClass;
@@ -648,7 +650,8 @@ namespace WinMDLog
             }
         }
 
-        private static Dictionary<string, string> rawTypeNameToAbiTypeName = new Dictionary<string, string>(){
+        private static Dictionary<string, string> rawTypeNameToAbiTypeName = new Dictionary<string, string>()
+        {
             { "System.Boolean", "boolean" },
             { "System.Byte", "BYTE" },
             { "System.Char", "WCHAR" },
@@ -665,6 +668,12 @@ namespace WinMDLog
             { "System.UInt32", "UINT32" },
             { "System.UInt64", "UINT64" },
         };
+
+        private static bool IsDelegate(Type type)
+        {
+            return type.FullName == "System.Delegate" || 
+                (type.BaseType != null && type.FullName != "System.Object" && IsDelegate(type.BaseType));
+        }
 
         private static string GetAbiTypeNameStrict(string rawName)
         {

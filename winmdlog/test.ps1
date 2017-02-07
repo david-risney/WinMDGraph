@@ -55,7 +55,10 @@ $idx = 0;
 	"-match Windows.ApplicationModel.PackageStagingEventArgs",
 
 	#	- System.Object unprojection
-	"-match Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager"
+	"-match Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager",
+
+	#	- System.ICloneable
+	"-match Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {
