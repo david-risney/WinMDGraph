@@ -36,7 +36,7 @@ public:
 private:
 
 };
-ActivatableClassWithFactory(WwwFormUrlDecoder, IWwwFormUrlDecoderRuntimeClassFactory);
+ActivatableClassWithFactory(WwwFormUrlDecoder, WwwFormUrlDecoderFactory);
 
 // Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
 IFACEMETHODIMP WwwFormUrlDecoder::GetFirstValueByName(_In_ HSTRING name, _Out_ HSTRING* value)

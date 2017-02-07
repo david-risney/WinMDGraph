@@ -315,9 +315,9 @@ namespace WinMDLog
                     new AbiTypeRuntimeClass((Type)attr.ConstructorArguments.First().Value)
                 ));
             }
-            catch (Exception e)
+            catch (TypeLoadException e)
             {
-                Console.WriteLine("/* Error: " + e.Message + " " + e.StackTrace + " */");
+                Console.WriteLine("/* Not sure how to fix this... Error: " + e.Message + " " + e.StackTrace + " */");
             }
 
             return types.ToArray();
@@ -437,14 +437,14 @@ namespace WinMDLog
                         }
                         else if (attr.ConstructorArguments.Count() == 3)
                         {
-                            return "ActivatableClassWithFactory(" + ShortNameNoTypeParameters + ", " + (new AbiTypeRuntimeClass((Type)attr.ConstructorArguments.First().Value)).GetShortName(refs) + ");";
+                            return "ActivatableClassWithFactory(" + ShortNameNoTypeParameters + ", " + Factory.GetShortName(refs) + ");";
                         }
                         throw new Exception("Unknown Activatable attribute type.");
                     }).ToArray();
             }
-            catch (Exception e)
+            catch (TypeLoadException e)
             {
-                Console.WriteLine("/* Error: " + e.Message + " " + e.StackTrace + " */");
+                Console.WriteLine("/* Not sure how to fix this... Error: " + e.Message + " " + e.StackTrace + " */");
                 return new string[] { };
             }
         }
@@ -518,9 +518,9 @@ namespace WinMDLog
                         attr.ConstructorArguments[0].Value.Equals(2)
                     ).Count() > 0;
                 }
-                catch (Exception e)
+                catch (TypeLoadException e)
                 {
-                    Console.WriteLine("/* Error: " + e.Message + " " + e.StackTrace + " */");
+                    Console.WriteLine("/* Not sure how to fix this... Error: " + e.Message + " " + e.StackTrace + " */");
                 }
                 return agile;
             }

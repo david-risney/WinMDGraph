@@ -31,7 +31,7 @@ public:
 private:
     AgileEventSource<TypedEventHandler<RemoteSystemSessionController, RemoteSystemSessionJoinRequestedEventArgs>> m_JoinRequestedEventHandlers;
 };
-ActivatableClassWithFactory(RemoteSystemSessionController, IRemoteSystemSessionControllerFactory);
+ActivatableClassWithFactory(RemoteSystemSessionController, RemoteSystemSessionControllerFactory);
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionController
 IFACEMETHODIMP RemoteSystemSessionController::RemoveParticipantAsync(_In_ RemoteSystemSessionParticipant* pParticipant, _Outptr_ IAsyncOperation<boolean>** value)

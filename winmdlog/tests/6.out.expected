@@ -46,7 +46,7 @@ public:
 private:
 
 };
-ActivatableClassWithFactory(GpioChangeReader, IGpioChangeReaderFactory);
+ActivatableClassWithFactory(GpioChangeReader, GpioChangeReaderFactory);
 
 // Windows::Devices::Gpio::IGpioChangeReader
 IFACEMETHODIMP GpioChangeReader::Start()
