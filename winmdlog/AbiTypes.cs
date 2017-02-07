@@ -578,6 +578,9 @@ namespace WinMDLog
                 case "System.TimeSpan":
                     type = Type.ReflectionOnlyGetType("Windows.Foundation.TimeSpan, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
+                case "System.Collections.Generic.ICollection`1":
+                    type = null;
+                    break;
                 case "System.Collections.Generic.IEnumerable`1":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IIterable`1[[" + 

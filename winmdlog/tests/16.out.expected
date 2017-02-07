@@ -190,7 +190,6 @@ class DataPackagePropertySet WrlFinal : RuntimeClass<
     FtmBase,
     IDataPackagePropertySet,
     IMap<HSTRING, IInspectable>,
-    System::Collections::Generic::ICollection<IKeyValuePair<HSTRING, IInspectable>>,
     IIterable<IKeyValuePair<HSTRING, IInspectable>>,
     IDataPackagePropertySet2,
     IDataPackagePropertySet3
@@ -223,15 +222,6 @@ public:
     IFACEMETHOD(Remove)(_In_ HSTRING key);
     IFACEMETHOD(Clear)();
     IFACEMETHOD(get_Size)(_Out_ UINT32* value);
-
-    // System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-    IFACEMETHOD(Add)(_Outptr_ IKeyValuePair<HSTRING, IInspectable>** item);
-    IFACEMETHOD(Clear)();
-    IFACEMETHOD(Contains)(_Outptr_ IKeyValuePair<HSTRING, IInspectable>** item, _Out_ boolean* value);
-    IFACEMETHOD(CopyTo)(_Outptr_ System::Collections::Generic::KeyValuePair** array, _Out_ INT32* arrayIndex);
-    IFACEMETHOD(Remove)(_Outptr_ IKeyValuePair<HSTRING, IInspectable>** item, _Out_ boolean* value);
-    IFACEMETHOD(get_Count)(_Out_ INT32* value);
-    IFACEMETHOD(get_IsReadOnly)(_Out_ boolean* value);
 
     // Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
     IFACEMETHOD(First)(_Outptr_ IIterator<IKeyValuePair<HSTRING, IInspectable>>** value);
@@ -361,48 +351,6 @@ IFACEMETHODIMP DataPackagePropertySet::Clear()
 
 // Windows::Foundation::Collections::IMap<HSTRING, IInspectable>
 IFACEMETHODIMP DataPackagePropertySet::get_Size(_Out_ UINT32* value)
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::Add(_Outptr_ IKeyValuePair<HSTRING, IInspectable>** item)
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::Clear()
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::Contains(_Outptr_ IKeyValuePair<HSTRING, IInspectable>** item, _Out_ boolean* value)
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::CopyTo(_Outptr_ System::Collections::Generic::KeyValuePair** array, _Out_ INT32* arrayIndex)
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::Remove(_Outptr_ IKeyValuePair<HSTRING, IInspectable>** item, _Out_ boolean* value)
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::get_Count(_Out_ INT32* value)
-{
-    return E_NOTIMPL;
-}
-
-// System::Collections::Generic::ICollection<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-IFACEMETHODIMP DataPackagePropertySet::get_IsReadOnly(_Out_ boolean* value)
 {
     return E_NOTIMPL;
 }
