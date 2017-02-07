@@ -42,7 +42,27 @@ $idx = 0;
 
 # 7 Test covers:
 #   - Static only class
-    "-match Windows.Devices.Custom.KnownDeviceTypes"
+    "-match Windows.Devices.Custom.KnownDeviceTypes",
+
+# 8 Test covers:
+#	- DateTime unprojection
+	"-match Windows.Devices.SmartCards.SmartCardPinResetRequest",
+
+# 9 Test covers:
+#	- Nullable unprojection
+	"-match Windows.Devices.Power.BatteryReport",
+
+# 10 Test covers:
+#	- IDictionary unprojection
+	"-match Windows.Devices.Sms.SmsWapMessage",
+
+# 11 Test covers:
+#	- IReadOnlyDictionary unprojection
+	"-match Windows.Devices.AllJoyn.AllJoynAboutDataView",
+
+# 12 Test covers:
+#	- IKeyValuepair unprojection
+	"-match Windows.Devices.PointOfService.ClaimedBarcodeScanner"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {

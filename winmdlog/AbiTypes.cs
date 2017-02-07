@@ -380,21 +380,21 @@ namespace WinMDLog
                 case "System.Collections.Generic.KeyValuePair`2":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IKeyValuePair`2[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + ", " +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
                         rawType.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.Generic.IDictionary`2":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IMap`2[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + ", " +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
                         rawType.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.Generic.IReadOnlyDictionary`2":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IMapView`2[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + ", " +
+                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
                         rawType.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
