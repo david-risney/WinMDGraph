@@ -1,0 +1,65 @@
+﻿#include <Windows.ApplicationModel.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+class PackageStagingEventArgs WrlFinal : RuntimeClass<
+    FtmBase,
+    IPackageStagingEventArgs
+    >
+{
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_PackageStagingEventArgs, BaseTrust);
+
+public:
+    PackageStagingEventArgs();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::ApplicationModel::IPackageStagingEventArgs
+    IFACEMETHOD(get_ActivityId)(_Out_ GUID* value);
+    IFACEMETHOD(get_ErrorCode)(_Outptr_ System::Exception** value);
+    IFACEMETHOD(get_IsComplete)(_Out_ boolean* value);
+    IFACEMETHOD(get_Package)(_Outptr_ Package** value);
+    IFACEMETHOD(get_Progress)(_Out_ DOUBLE* value);
+
+private:
+
+};
+
+
+// Windows::ApplicationModel::IPackageStagingEventArgs
+IFACEMETHODIMP PackageStagingEventArgs::get_ActivityId(_Out_ GUID* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::IPackageStagingEventArgs
+IFACEMETHODIMP PackageStagingEventArgs::get_ErrorCode(_Outptr_ System::Exception** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::IPackageStagingEventArgs
+IFACEMETHODIMP PackageStagingEventArgs::get_IsComplete(_Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::IPackageStagingEventArgs
+IFACEMETHODIMP PackageStagingEventArgs::get_Package(_Outptr_ Package** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::IPackageStagingEventArgs
+IFACEMETHODIMP PackageStagingEventArgs::get_Progress(_Out_ DOUBLE* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
