@@ -1,0 +1,121 @@
+﻿#include <Windows.ApplicationModel.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+namespace Appointments
+{
+class AppointmentCalendarSyncManager WrlFinal : RuntimeClass<
+    FtmBase,
+    IAppointmentCalendarSyncManager,
+    IAppointmentCalendarSyncManager2
+    >
+{
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_Appointments_AppointmentCalendarSyncManager, BaseTrust);
+
+public:
+    AppointmentCalendarSyncManager();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+    IFACEMETHOD(SyncAsync)(_Outptr_ IAsyncOperation<boolean>** value);
+    IFACEMETHOD(get_LastAttemptedSyncTime)(_Out_ DateTime* value);
+    IFACEMETHOD(get_LastSuccessfulSyncTime)(_Out_ DateTime* value);
+    IFACEMETHOD(get_Status)(_Out_ AppointmentCalendarSyncStatus* value);
+    IFACEMETHOD(add_SyncStatusChanged)(_In_ TypedEventHandler<AppointmentCalendarSyncManager, System::Object>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(remove_SyncStatusChanged)(_In_ EventRegistrationToken token);
+
+    // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+    IFACEMETHOD(get_LastAttemptedSyncTime)(_Out_ DateTime* value);
+    IFACEMETHOD(put_LastAttemptedSyncTime)(_In_ DateTime value);
+    IFACEMETHOD(get_LastSuccessfulSyncTime)(_Out_ DateTime* value);
+    IFACEMETHOD(put_LastSuccessfulSyncTime)(_In_ DateTime value);
+    IFACEMETHOD(get_Status)(_Out_ AppointmentCalendarSyncStatus* value);
+    IFACEMETHOD(put_Status)(_In_ AppointmentCalendarSyncStatus value);
+
+private:
+    AgileEventSource<TypedEventHandler<AppointmentCalendarSyncManager, System::Object>> m_SyncStatusChangedEventHandlers;
+};
+
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+IFACEMETHODIMP AppointmentCalendarSyncManager::SyncAsync(_Outptr_ IAsyncOperation<boolean>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+IFACEMETHODIMP AppointmentCalendarSyncManager::add_SyncStatusChanged(_In_ TypedEventHandler<AppointmentCalendarSyncManager, System::Object>* eventHandler, _Out_ EventRegistrationToken* token)
+{
+    return m_SyncStatusChangedEventHandlers.Add(eventHandler, token);
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+IFACEMETHODIMP AppointmentCalendarSyncManager::remove_SyncStatusChanged(_In_ EventRegistrationToken token)
+{
+    return m_SyncStatusChangedEventHandlers.Remove(token);
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastAttemptedSyncTime(_Out_ DateTime* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastSuccessfulSyncTime(_Out_ DateTime* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_Status(_Out_ AppointmentCalendarSyncStatus* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastAttemptedSyncTime(_Out_ DateTime* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+IFACEMETHODIMP AppointmentCalendarSyncManager::put_LastAttemptedSyncTime(_In_ DateTime value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastSuccessfulSyncTime(_Out_ DateTime* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+IFACEMETHODIMP AppointmentCalendarSyncManager::put_LastSuccessfulSyncTime(_In_ DateTime value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_Status(_Out_ AppointmentCalendarSyncStatus* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
+IFACEMETHODIMP AppointmentCalendarSyncManager::put_Status(_In_ AppointmentCalendarSyncStatus value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

@@ -52,7 +52,10 @@ $idx = 0;
 	"-match Windows.Devices.PointOfService.ClaimedBarcodeScanner",
 
 	#	- System.Exception unprojection
-	"-match Windows.ApplicationModel.PackageStagingEventArgs"
+	"-match Windows.ApplicationModel.PackageStagingEventArgs",
+
+	#	- System.Object unprojection
+	"-match Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {
