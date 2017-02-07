@@ -1,0 +1,64 @@
+﻿#include <Windows.Devices.h>
+#include <Windows.Storage.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Storage::Streams;
+using namespace Windows::Foundation;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace SmartCards
+{
+class SmartCardPinResetRequest WrlFinal : RuntimeClass<
+    FtmBase,
+    ISmartCardPinResetRequest
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_SmartCards_SmartCardPinResetRequest, BaseTrust);
+
+public:
+    SmartCardPinResetRequest();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::SmartCards::ISmartCardPinResetRequest
+    IFACEMETHOD(GetDeferral)(_Outptr_ SmartCardPinResetDeferral** value);
+    IFACEMETHOD(SetResponse)(_In_ IBuffer* response);
+    IFACEMETHOD(get_Challenge)(_Outptr_ IBuffer** value);
+    IFACEMETHOD(get_Deadline)(_Out_ DateTime* value);
+
+private:
+
+};
+
+
+// Windows::Devices::SmartCards::ISmartCardPinResetRequest
+IFACEMETHODIMP SmartCardPinResetRequest::GetDeferral(_Outptr_ SmartCardPinResetDeferral** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::SmartCards::ISmartCardPinResetRequest
+IFACEMETHODIMP SmartCardPinResetRequest::SetResponse(_In_ IBuffer* response)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::SmartCards::ISmartCardPinResetRequest
+IFACEMETHODIMP SmartCardPinResetRequest::get_Challenge(_Outptr_ IBuffer** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::SmartCards::ISmartCardPinResetRequest
+IFACEMETHODIMP SmartCardPinResetRequest::get_Deadline(_Out_ DateTime* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

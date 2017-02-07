@@ -1,0 +1,198 @@
+﻿#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <Windows.Globalization.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+using namespace Windows::Globalization;
+using namespace Windows::Foundation::Collections;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace AllJoyn
+{
+class AllJoynAboutDataView WrlFinal : RuntimeClass<
+    FtmBase,
+    IAllJoynAboutDataView
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataView, BaseTrust);
+
+public:
+    AllJoynAboutDataView();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::AllJoyn::IAllJoynAboutDataView
+    IFACEMETHOD(get_AJSoftwareVersion)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_AppId)(_Out_ GUID* value);
+    IFACEMETHOD(get_AppName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DateOfManufacture)(_Outptr_ IReference<DateTime>** value);
+    IFACEMETHOD(get_DefaultLanguage)(_Outptr_ Language** value);
+    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DeviceName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_HardwareVersion)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Manufacturer)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_ModelNumber)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Properties)(_Outptr_ IMapView<HSTRING, System::Object>** value);
+    IFACEMETHOD(get_SoftwareVersion)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Status)(_Out_ INT32* value);
+    IFACEMETHOD(get_SupportUrl)(_Outptr_ Uri** value);
+    IFACEMETHOD(get_SupportedLanguages)(_Outptr_ IVectorView<Language>** value);
+
+private:
+
+};
+
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_AJSoftwareVersion(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_AppId(_Out_ GUID* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_AppName(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_DateOfManufacture(_Outptr_ IReference<DateTime>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_DefaultLanguage(_Outptr_ Language** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_Description(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_DeviceId(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_DeviceName(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_HardwareVersion(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_Manufacturer(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_ModelNumber(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_Properties(_Outptr_ IMapView<HSTRING, System::Object>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_SoftwareVersion(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_Status(_Out_ INT32* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_SupportUrl(_Outptr_ Uri** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataView
+IFACEMETHODIMP AllJoynAboutDataView::get_SupportedLanguages(_Outptr_ IVectorView<Language>** value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <Windows.Globalization.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+using namespace Windows::Globalization;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace AllJoyn
+{
+class AllJoynAboutDataViewFactory WrlFinal : AgileActivationFactory<
+    IAllJoynAboutDataViewStatics
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataViewFactory, BaseTrust);
+
+public:
+    AllJoynAboutDataViewFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value);
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Language* language, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value);
+
+private:
+
+};
+
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Language* language, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}

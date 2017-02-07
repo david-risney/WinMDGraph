@@ -1,0 +1,71 @@
+﻿#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <Windows.System.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+using namespace Windows::System::Power;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Power
+{
+class BatteryReport WrlFinal : RuntimeClass<
+    FtmBase,
+    IBatteryReport
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Power_BatteryReport, BaseTrust);
+
+public:
+    BatteryReport();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Power::IBatteryReport
+    IFACEMETHOD(get_ChargeRateInMilliwatts)(_Outptr_ IReference<INT32>** value);
+    IFACEMETHOD(get_DesignCapacityInMilliwattHours)(_Outptr_ IReference<INT32>** value);
+    IFACEMETHOD(get_FullChargeCapacityInMilliwattHours)(_Outptr_ IReference<INT32>** value);
+    IFACEMETHOD(get_RemainingCapacityInMilliwattHours)(_Outptr_ IReference<INT32>** value);
+    IFACEMETHOD(get_Status)(_Out_ BatteryStatus* value);
+
+private:
+
+};
+
+
+// Windows::Devices::Power::IBatteryReport
+IFACEMETHODIMP BatteryReport::get_ChargeRateInMilliwatts(_Outptr_ IReference<INT32>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Power::IBatteryReport
+IFACEMETHODIMP BatteryReport::get_DesignCapacityInMilliwattHours(_Outptr_ IReference<INT32>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Power::IBatteryReport
+IFACEMETHODIMP BatteryReport::get_FullChargeCapacityInMilliwattHours(_Outptr_ IReference<INT32>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Power::IBatteryReport
+IFACEMETHODIMP BatteryReport::get_RemainingCapacityInMilliwattHours(_Outptr_ IReference<INT32>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Power::IBatteryReport
+IFACEMETHODIMP BatteryReport::get_Status(_Out_ BatteryStatus* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
