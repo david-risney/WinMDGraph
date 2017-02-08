@@ -64,7 +64,10 @@ $idx = 0;
 	"-match Windows.ApplicationModel.DataTransfer.DataPackagePropertySet",
 
 	#	- System.EventHandler unprojection
-	"-match Windows.ApplicationModel.DataTransfer.Clipboard"
+	"-match Windows.ApplicationModel.DataTransfer.Clipboard",
+
+	#	- System::Collections::Generic::KeyValuePair unprojection
+	"-match Windows.ApplicationModel.Resources.Core.ResourceMapIterator"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {
