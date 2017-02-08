@@ -1,0 +1,206 @@
+﻿#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation::Collections;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Perception
+{
+namespace Provider
+{
+class PerceptionCorrelationGroup WrlFinal : RuntimeClass<
+    FtmBase,
+    IPerceptionCorrelationGroup
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Perception_Provider_PerceptionCorrelationGroup, BaseTrust);
+
+public:
+    PerceptionCorrelationGroup();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Perception::Provider::IPerceptionCorrelationGroup
+    IFACEMETHOD(get_RelativeLocations)(_Outptr_ IVectorView<PerceptionCorrelation>** value);
+
+private:
+
+};
+ActivatableClassWithFactory(PerceptionCorrelationGroup, PerceptionCorrelationGroupFactory);
+
+// Windows::Devices::Perception::Provider::IPerceptionCorrelationGroup
+IFACEMETHODIMP PerceptionCorrelationGroup::get_RelativeLocations(_Outptr_ IVectorView<PerceptionCorrelation>** value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+}
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation::Collections;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Perception
+{
+namespace Provider
+{
+class PerceptionCorrelationGroupFactory WrlFinal : AgileActivationFactory<
+    IPerceptionCorrelationGroupFactory
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Perception_Provider_PerceptionCorrelationGroupFactory, BaseTrust);
+
+public:
+    PerceptionCorrelationGroupFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Perception::Provider::IPerceptionCorrelationGroupFactory
+    IFACEMETHOD(Create)(_In_ IIterable<PerceptionCorrelation>* relativeLocations, _Outptr_ PerceptionCorrelationGroup** value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+// Windows::Devices::Perception::Provider::IPerceptionCorrelationGroupFactory
+IFACEMETHODIMP PerceptionCorrelationGroupFactory::Create(_In_ IIterable<PerceptionCorrelation>* relativeLocations, _Outptr_ PerceptionCorrelationGroup** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP PerceptionCorrelationGroupFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+}
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation::Numerics;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Perception
+{
+namespace Provider
+{
+class PerceptionCorrelation WrlFinal : RuntimeClass<
+    FtmBase,
+    IPerceptionCorrelation
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Perception_Provider_PerceptionCorrelation, BaseTrust);
+
+public:
+    PerceptionCorrelation();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Perception::Provider::IPerceptionCorrelation
+    IFACEMETHOD(get_Orientation)(_Out_ Quaternion* value);
+    IFACEMETHOD(get_Position)(_Out_ Vector3* value);
+    IFACEMETHOD(get_TargetId)(_Out_ HSTRING* value);
+
+private:
+
+};
+ActivatableClassWithFactory(PerceptionCorrelation, PerceptionCorrelationFactory);
+
+// Windows::Devices::Perception::Provider::IPerceptionCorrelation
+IFACEMETHODIMP PerceptionCorrelation::get_Orientation(_Out_ Quaternion* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Perception::Provider::IPerceptionCorrelation
+IFACEMETHODIMP PerceptionCorrelation::get_Position(_Out_ Vector3* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Perception::Provider::IPerceptionCorrelation
+IFACEMETHODIMP PerceptionCorrelation::get_TargetId(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+}
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation::Numerics;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Perception
+{
+namespace Provider
+{
+class PerceptionCorrelationFactory WrlFinal : AgileActivationFactory<
+    IPerceptionCorrelationFactory
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Perception_Provider_PerceptionCorrelationFactory, BaseTrust);
+
+public:
+    PerceptionCorrelationFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Perception::Provider::IPerceptionCorrelationFactory
+    IFACEMETHOD(Create)(_In_ HSTRING targetId, _In_ Vector3 position, _In_ Quaternion orientation, _Outptr_ PerceptionCorrelation** value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+// Windows::Devices::Perception::Provider::IPerceptionCorrelationFactory
+IFACEMETHODIMP PerceptionCorrelationFactory::Create(_In_ HSTRING targetId, _In_ Vector3 position, _In_ Quaternion orientation, _Outptr_ PerceptionCorrelation** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP PerceptionCorrelationFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+}

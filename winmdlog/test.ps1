@@ -67,7 +67,10 @@ $idx = 0;
 	"-match Windows.ApplicationModel.DataTransfer.Clipboard",
 
 	#	- System::Collections::Generic::KeyValuePair unprojection
-	"-match Windows.ApplicationModel.Resources.Core.ResourceMapIterator"
+	"-match Windows.ApplicationModel.Resources.Core.ResourceMapIterator",
+
+	#	- System.Numeric.* unprojection
+	"-match Windows.Devices.Perception.Provider.PerceptionCorrelation"
 ) | %{
     $outPath = "tests\$idx.out.actual";
     if ($Apply) {

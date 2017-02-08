@@ -630,6 +630,25 @@ namespace WinMDLog
                         type.GenericTypeArguments[0].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
+
+                case "System.Numerics.Matrix3x2":
+                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Numerics.Matrix3x2, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Numerics.Matrix4x4":
+                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Numerics.Matrix4x4, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Numerics.Quaternion":
+                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Numerics.Quaternion, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Numerics.Vector2":
+                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Numerics.Vector2, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Numerics.Vector3":
+                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Numerics.Vector3, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
+                case "System.Numerics.Vector4":
+                    type = Type.ReflectionOnlyGetType("Windows.Foundation.Numerics.Vector4, Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
+                    break;
             }
 
             return type;
