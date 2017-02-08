@@ -30,7 +30,7 @@ public:
     // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
     IFACEMETHOD(GetAt)(_In_ UINT32 index, _Outptr_ IWwwFormUrlDecoderEntry** value);
     IFACEMETHOD(IndexOf)(_In_ IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value);
-    IFACEMETHOD(GetMany)(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry[]** items, _Out_ UINT32* value);
+    IFACEMETHOD(GetMany)(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value);
     IFACEMETHOD(get_Size)(_Out_ UINT32* value);
 
 private:
@@ -63,7 +63,7 @@ IFACEMETHODIMP WwwFormUrlDecoder::IndexOf(_In_ IWwwFormUrlDecoderEntry* value, _
 }
 
 // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry[]** items, _Out_ UINT32* value)
+IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value)
 {
     return E_NOTIMPL;
 }

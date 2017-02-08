@@ -556,6 +556,10 @@ namespace WinMDLog
         private static Type UnprojectType(Type rawType)
         {
             Type type = rawType;
+            if (rawType.IsArray)
+            {
+                type = rawType.GetElementType();
+            }
             string fullname = type.Namespace + "." + type.Name;
 
             switch (fullname)
@@ -569,7 +573,7 @@ namespace WinMDLog
                 case "System.Nullable`1":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.IReference`1[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.DateTimeOffset":
@@ -584,28 +588,28 @@ namespace WinMDLog
                 case "System.Collections.Generic.IEnumerable`1":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IIterable`1[[" + 
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.Generic.KeyValuePair`2":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IKeyValuePair`2[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
-                        rawType.GenericTypeArguments[1].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
+                        type.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.Generic.IDictionary`2":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IMap`2[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
-                        rawType.GenericTypeArguments[1].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
+                        type.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.Generic.IReadOnlyDictionary`2":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IMapView`2[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
-                        rawType.GenericTypeArguments[1].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName + "],[" +
+                        type.GenericTypeArguments[1].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.IEnumerable":
@@ -614,7 +618,7 @@ namespace WinMDLog
                 case "System.Collections.Generic.IReadOnlyList`1":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IVectorView`1[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
                 case "System.Collections.Generic.IReadOnlyCollection`1":
@@ -623,7 +627,7 @@ namespace WinMDLog
                 case "System.Collections.Generic.IList`1":
                     type = Type.ReflectionOnlyGetType(
                         "Windows.Foundation.Collections.IVector`1[[" +
-                        rawType.GenericTypeArguments[0].AssemblyQualifiedName +
+                        type.GenericTypeArguments[0].AssemblyQualifiedName +
                         "]], Windows.Foundation, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime", true, false);
                     break;
             }
@@ -700,14 +704,20 @@ namespace WinMDLog
 
         private static string GetAbiTypeShortName(Type rawType)
         {
-            string name = GetAbiTypeNameStrict(rawType.Namespace + "." + rawType.Name);
+            Type type = rawType;
+            if (type.IsArray)
+            {
+                type = type.GetElementType();
+            }
+            string rawName = type.Namespace + "." + type.Name;
+            string name = GetAbiTypeNameStrict(rawName);
 
             if (name == null)
             {
-                name = RemoveGenericTypeArtifact(rawType.Name);
-                if (!rawType.Namespace.StartsWith("Windows"))
+                name = RemoveGenericTypeArtifact(type.Name);
+                if (!type.Namespace.StartsWith("Windows"))
                 {
-                    name = rawType.Namespace.Replace(".", "::") + "::" + name;
+                    name = type.Namespace.Replace(".", "::") + "::" + name;
                 }
             }
 
