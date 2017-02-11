@@ -78,7 +78,19 @@ namespace WinMDLog
 
         void Run()
         {
-            var types = (new WinMDTypes(args.files.ToArray())).Types.Where(type =>
+            string[] filesExpanded = args.files.SelectMany<string, string>(path =>
+            {
+                if (Directory.Exists(path))
+                {
+                    return Directory.EnumerateFiles(path);
+                }
+                else
+                {
+                    return new string[] { path };
+                }
+            }).ToArray();
+
+            var types = (new WinMDTypes(filesExpanded)).Types.Where(type =>
                 AbiTypeRuntimeClass.IsValidRuntimeClass(type) &&
                 args.matches.Any(regex => regex.IsMatch(type.Namespace + "." + type.Name))
             ).SelectMany(rawType => {
