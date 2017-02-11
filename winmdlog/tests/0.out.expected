@@ -22,8 +22,8 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Foundation::IUriRuntimeClass
-    IFACEMETHOD(Equals)(_In_ Uri* pUri, _Out_ boolean* value);
-    IFACEMETHOD(CombineUri)(_In_ HSTRING relativeUri, _Outptr_ Uri** value);
+    IFACEMETHOD(Equals)(_In_ IUriRuntimeClass* pUri, _Out_ boolean* value);
+    IFACEMETHOD(CombineUri)(_In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value);
     IFACEMETHOD(get_AbsoluteUri)(_Out_ HSTRING* value);
     IFACEMETHOD(get_DisplayUri)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Domain)(_Out_ HSTRING* value);
@@ -34,7 +34,7 @@ public:
     IFACEMETHOD(get_Path)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Port)(_Out_ INT32* value);
     IFACEMETHOD(get_Query)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_QueryParsed)(_Outptr_ WwwFormUrlDecoder** value);
+    IFACEMETHOD(get_QueryParsed)(_Outptr_ IWwwFormUrlDecoderRuntimeClass** value);
     IFACEMETHOD(get_RawUri)(_Out_ HSTRING* value);
     IFACEMETHOD(get_SchemeName)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Suspicious)(_Out_ boolean* value);
@@ -53,13 +53,13 @@ private:
 ActivatableClassWithFactory(Uri, UriFactory);
 
 // Windows::Foundation::IUriRuntimeClass
-IFACEMETHODIMP Uri::Equals(_In_ Uri* pUri, _Out_ boolean* value)
+IFACEMETHODIMP Uri::Equals(_In_ IUriRuntimeClass* pUri, _Out_ boolean* value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IUriRuntimeClass
-IFACEMETHODIMP Uri::CombineUri(_In_ HSTRING relativeUri, _Outptr_ Uri** value)
+IFACEMETHODIMP Uri::CombineUri(_In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
@@ -125,7 +125,7 @@ IFACEMETHODIMP Uri::get_Query(_Out_ HSTRING* value)
 }
 
 // Windows::Foundation::IUriRuntimeClass
-IFACEMETHODIMP Uri::get_QueryParsed(_Outptr_ WwwFormUrlDecoder** value)
+IFACEMETHODIMP Uri::get_QueryParsed(_Outptr_ IWwwFormUrlDecoderRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
@@ -196,8 +196,8 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Foundation::IUriRuntimeClassFactory
-    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ Uri** value);
-    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ Uri** value);
+    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value);
 
     // Windows::Foundation::IUriEscapeStatics
     IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
@@ -212,13 +212,13 @@ private:
 
 
 // Windows::Foundation::IUriRuntimeClassFactory
-IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING uri, _Outptr_ Uri** value)
+IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IUriRuntimeClassFactory
-IFACEMETHODIMP UriFactory::CreateWithRelativeUri(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ Uri** value)
+IFACEMETHODIMP UriFactory::CreateWithRelativeUri(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }

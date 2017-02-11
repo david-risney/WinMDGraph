@@ -23,30 +23,30 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::System::RemoteSystems::IRemoteSystemSessionController
-    IFACEMETHOD(RemoveParticipantAsync)(_In_ RemoteSystemSessionParticipant* pParticipant, _Outptr_ IAsyncOperation<boolean>** value);
-    IFACEMETHOD(CreateSessionAsync)(_Outptr_ IAsyncOperation<RemoteSystemSessionCreationResult>** value);
-    IFACEMETHOD(add_JoinRequested)(_In_ TypedEventHandler<RemoteSystemSessionController, RemoteSystemSessionJoinRequestedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(RemoveParticipantAsync)(_In_ IRemoteSystemSessionParticipant* pParticipant, _Outptr_ IAsyncOperation<boolean>** value);
+    IFACEMETHOD(CreateSessionAsync)(_Outptr_ IAsyncOperation<IRemoteSystemSessionCreationResult>** value);
+    IFACEMETHOD(add_JoinRequested)(_In_ TypedEventHandler<IRemoteSystemSessionController, IRemoteSystemSessionJoinRequestedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_JoinRequested)(_In_ EventRegistrationToken token);
 
 private:
-    AgileEventSource<TypedEventHandler<RemoteSystemSessionController, RemoteSystemSessionJoinRequestedEventArgs>> m_JoinRequestedEventHandlers;
+    AgileEventSource<TypedEventHandler<IRemoteSystemSessionController, IRemoteSystemSessionJoinRequestedEventArgs>> m_JoinRequestedEventHandlers;
 };
 ActivatableClassWithFactory(RemoteSystemSessionController, RemoteSystemSessionControllerFactory);
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionController
-IFACEMETHODIMP RemoteSystemSessionController::RemoveParticipantAsync(_In_ RemoteSystemSessionParticipant* pParticipant, _Outptr_ IAsyncOperation<boolean>** value)
+IFACEMETHODIMP RemoteSystemSessionController::RemoveParticipantAsync(_In_ IRemoteSystemSessionParticipant* pParticipant, _Outptr_ IAsyncOperation<boolean>** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionController
-IFACEMETHODIMP RemoteSystemSessionController::CreateSessionAsync(_Outptr_ IAsyncOperation<RemoteSystemSessionCreationResult>** value)
+IFACEMETHODIMP RemoteSystemSessionController::CreateSessionAsync(_Outptr_ IAsyncOperation<IRemoteSystemSessionCreationResult>** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionController
-IFACEMETHODIMP RemoteSystemSessionController::add_JoinRequested(_In_ TypedEventHandler<RemoteSystemSessionController, RemoteSystemSessionJoinRequestedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP RemoteSystemSessionController::add_JoinRequested(_In_ TypedEventHandler<IRemoteSystemSessionController, IRemoteSystemSessionJoinRequestedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_JoinRequestedEventHandlers.Add(eventHandler, token);
 }
@@ -83,8 +83,8 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
-    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _Outptr_ RemoteSystemSessionController** value);
-    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _In_ RemoteSystemSessionOptions* options, _Outptr_ RemoteSystemSessionController** value);
+    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _Outptr_ IRemoteSystemSessionController** value);
+    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _In_ IRemoteSystemSessionOptions* options, _Outptr_ IRemoteSystemSessionController** value);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
@@ -95,13 +95,13 @@ private:
 
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
-IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _Outptr_ RemoteSystemSessionController** value)
+IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _Outptr_ IRemoteSystemSessionController** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
-IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _In_ RemoteSystemSessionOptions* options, _Outptr_ RemoteSystemSessionController** value)
+IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _In_ IRemoteSystemSessionOptions* options, _Outptr_ IRemoteSystemSessionController** value)
 {
     return E_NOTIMPL;
 }

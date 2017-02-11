@@ -93,13 +93,13 @@ namespace WinMDLog
             List<string> parameters = this.methodInfo.GetParameters().Where(
                 parameter => AbiTypeRuntimeClass.IsValidType(parameter.ParameterType)
             ).Select(parameter => {
-                AbiTypeRuntimeClass paramType = new AbiTypeRuntimeClass(parameter.ParameterType);
+                IAbiType paramType = (new AbiTypeRuntimeClass(parameter.ParameterType)).DefaultInterface;
                 return (parameter.IsIn ? paramType.GetShortNameAsInParam(refs) : paramType.GetShortNameAsOutParam(refs)) + " " + parameter.Name;
             }).ToList();
 
             if (methodInfo.ReturnType != null && methodInfo.ReturnType.Name != "Void")
             {
-                parameters.Add((new AbiTypeRuntimeClass(methodInfo.ReturnType)).GetShortNameAsOutParam(refs) + " value");
+                parameters.Add((new AbiTypeRuntimeClass(methodInfo.ReturnType)).DefaultInterface.GetShortNameAsOutParam(refs) + " value");
             }
 
             return String.Join(", ", parameters);
@@ -119,7 +119,13 @@ namespace WinMDLog
 
         public string Name { get { return eventInfo.Name; } }
 
-        public AbiTypeRuntimeClass EventHandlerType { get { return new AbiTypeRuntimeClass(eventInfo.EventHandlerType); } }
+        public IAbiType EventHandlerType
+        {
+            get
+            {
+                return (new AbiTypeRuntimeClass(eventInfo.EventHandlerType)).DefaultInterface;
+            }
+        }
     }
 
     class AbiProperty
@@ -131,13 +137,20 @@ namespace WinMDLog
 
         public string Name { get { return this.propertyInfo.Name; } }
 
-        public AbiTypeRuntimeClass PropertyType { get { return new AbiTypeRuntimeClass(this.propertyInfo.PropertyType); } }
+        public IAbiType PropertyType
+        {
+            get
+            {
+                return (new AbiTypeRuntimeClass(this.propertyInfo.PropertyType)).DefaultInterface;
+            }
+        }
 
         private PropertyInfo propertyInfo;
     }
 
     class ActivationFactoryAbiInterface : IAbiType
     {
+        public IAbiType DefaultInterface { get { return null; } }
         public bool ImplicitParent {  get { return true; } }
 
         public AbiEvent[] Events
@@ -290,6 +303,8 @@ namespace WinMDLog
 
     class AbiTypeRuntimeClassFactory : IAbiType
     {
+        public IAbiType DefaultInterface { get { return null; } }
+
         public bool ImplicitParent { get { return false; } }
 
         public string InspectableClassKind
@@ -453,6 +468,45 @@ namespace WinMDLog
 
     class AbiTypeRuntimeClass : IAbiType
     {
+        public static Type FixDefaultInterfaceRecursive(Type root)
+        {
+            Type fixedType = root;
+
+            if (!root.IsEnum &&
+                !root.Namespace.StartsWith("System"))
+            {
+                if (root.IsConstructedGenericType)
+                {
+                    Type genericTypeCtor = root.GetGenericTypeDefinition();
+                    fixedType = genericTypeCtor.MakeGenericType(
+                        root.GenericTypeArguments.Select(
+                            type => FixDefaultInterfaceRecursive(type)
+                        ).ToArray()
+                    );
+                }
+                else if (root.IsClass &&
+                    !root.IsInterface)
+                {
+                    var parents = root.GetInterfaces();
+                    if (parents.Count() > 0 &&
+                        !parents[0].Namespace.StartsWith("System"))
+                    {
+                        fixedType = parents[0];
+                    }
+                }
+            }
+
+            return fixedType;
+        }
+
+        public IAbiType DefaultInterface
+        {
+            get
+            {
+                return new AbiTypeRuntimeClass(FixDefaultInterfaceRecursive(this.unprojectedType));
+            }
+        }
+
         public bool ImplicitParent { get { return false; } }
 
         public string InspectableClassKind

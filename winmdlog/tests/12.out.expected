@@ -40,11 +40,11 @@ public:
     IFACEMETHOD(put_IsDecodeDataEnabled)(_In_ boolean value);
     IFACEMETHOD(get_IsDisabledOnDataReceived)(_Out_ boolean* value);
     IFACEMETHOD(put_IsDisabledOnDataReceived)(_In_ boolean value);
-    IFACEMETHOD(add_DataReceived)(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerDataReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_DataReceived)(_In_ TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerDataReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_DataReceived)(_In_ EventRegistrationToken token);
-    IFACEMETHOD(add_ErrorOccurred)(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerErrorOccurredEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_ErrorOccurred)(_In_ TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerErrorOccurredEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ErrorOccurred)(_In_ EventRegistrationToken token);
-    IFACEMETHOD(add_ImagePreviewReceived)(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_ImagePreviewReceived)(_In_ TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerImagePreviewReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ImagePreviewReceived)(_In_ EventRegistrationToken token);
     IFACEMETHOD(add_ReleaseDeviceRequested)(_In_ IEventHandler<ClaimedBarcodeScanner>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ReleaseDeviceRequested)(_In_ EventRegistrationToken token);
@@ -61,13 +61,13 @@ public:
     IFACEMETHOD(StopSoftwareTriggerAsync)(_Outptr_ IAsyncAction** value);
 
     // Windows::Devices::PointOfService::IClaimedBarcodeScanner2
-    IFACEMETHOD(GetSymbologyAttributesAsync)(_In_ UINT32 barcodeSymbology, _Outptr_ IAsyncOperation<BarcodeSymbologyAttributes>** value);
-    IFACEMETHOD(SetSymbologyAttributesAsync)(_In_ UINT32 barcodeSymbology, _In_ BarcodeSymbologyAttributes* attributes, _Outptr_ IAsyncOperation<boolean>** value);
+    IFACEMETHOD(GetSymbologyAttributesAsync)(_In_ UINT32 barcodeSymbology, _Outptr_ IAsyncOperation<IBarcodeSymbologyAttributes>** value);
+    IFACEMETHOD(SetSymbologyAttributesAsync)(_In_ UINT32 barcodeSymbology, _In_ IBarcodeSymbologyAttributes* attributes, _Outptr_ IAsyncOperation<boolean>** value);
 
 private:
-    AgileEventSource<TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerDataReceivedEventArgs>> m_DataReceivedEventHandlers;
-    AgileEventSource<TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerErrorOccurredEventArgs>> m_ErrorOccurredEventHandlers;
-    AgileEventSource<TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs>> m_ImagePreviewReceivedEventHandlers;
+    AgileEventSource<TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerDataReceivedEventArgs>> m_DataReceivedEventHandlers;
+    AgileEventSource<TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerErrorOccurredEventArgs>> m_ErrorOccurredEventHandlers;
+    AgileEventSource<TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerImagePreviewReceivedEventArgs>> m_ImagePreviewReceivedEventHandlers;
     AgileEventSource<IEventHandler<ClaimedBarcodeScanner>> m_ReleaseDeviceRequestedEventHandlers;
     AgileEventSource<IEventHandler<ClaimedBarcodeScanner>> m_TriggerPressedEventHandlers;
     AgileEventSource<IEventHandler<ClaimedBarcodeScanner>> m_TriggerReleasedEventHandlers;
@@ -117,7 +117,7 @@ IFACEMETHODIMP ClaimedBarcodeScanner::SetActiveProfileAsync(_In_ HSTRING profile
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::add_DataReceived(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerDataReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClaimedBarcodeScanner::add_DataReceived(_In_ TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerDataReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_DataReceivedEventHandlers.Add(eventHandler, token);
 }
@@ -129,7 +129,7 @@ IFACEMETHODIMP ClaimedBarcodeScanner::remove_DataReceived(_In_ EventRegistration
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::add_ErrorOccurred(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerErrorOccurredEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClaimedBarcodeScanner::add_ErrorOccurred(_In_ TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerErrorOccurredEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_ErrorOccurredEventHandlers.Add(eventHandler, token);
 }
@@ -141,7 +141,7 @@ IFACEMETHODIMP ClaimedBarcodeScanner::remove_ErrorOccurred(_In_ EventRegistratio
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::add_ImagePreviewReceived(_In_ TypedEventHandler<ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP ClaimedBarcodeScanner::add_ImagePreviewReceived(_In_ TypedEventHandler<IClaimedBarcodeScanner, IBarcodeScannerImagePreviewReceivedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_ImagePreviewReceivedEventHandlers.Add(eventHandler, token);
 }
@@ -243,13 +243,13 @@ IFACEMETHODIMP ClaimedBarcodeScanner::StopSoftwareTriggerAsync(_Outptr_ IAsyncAc
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner2
-IFACEMETHODIMP ClaimedBarcodeScanner::GetSymbologyAttributesAsync(_In_ UINT32 barcodeSymbology, _Outptr_ IAsyncOperation<BarcodeSymbologyAttributes>** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::GetSymbologyAttributesAsync(_In_ UINT32 barcodeSymbology, _Outptr_ IAsyncOperation<IBarcodeSymbologyAttributes>** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner2
-IFACEMETHODIMP ClaimedBarcodeScanner::SetSymbologyAttributesAsync(_In_ UINT32 barcodeSymbology, _In_ BarcodeSymbologyAttributes* attributes, _Outptr_ IAsyncOperation<boolean>** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::SetSymbologyAttributesAsync(_In_ UINT32 barcodeSymbology, _In_ IBarcodeSymbologyAttributes* attributes, _Outptr_ IAsyncOperation<boolean>** value)
 {
     return E_NOTIMPL;
 }

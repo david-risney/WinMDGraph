@@ -26,7 +26,7 @@ public:
     // Windows::Devices::Adc::IAdcChannel
     IFACEMETHOD(ReadValue)(_Out_ INT32* value);
     IFACEMETHOD(ReadRatio)(_Out_ DOUBLE* value);
-    IFACEMETHOD(get_Controller)(_Outptr_ AdcController** value);
+    IFACEMETHOD(get_Controller)(_Outptr_ IAdcController** value);
 
     // Windows::Foundation::IClosable
     IFACEMETHOD(Close)();
@@ -49,7 +49,7 @@ IFACEMETHODIMP AdcChannel::ReadRatio(_Out_ DOUBLE* value)
 }
 
 // Windows::Devices::Adc::IAdcChannel
-IFACEMETHODIMP AdcChannel::get_Controller(_Outptr_ AdcController** value)
+IFACEMETHODIMP AdcChannel::get_Controller(_Outptr_ IAdcController** value)
 {
     return E_NOTIMPL;
 }

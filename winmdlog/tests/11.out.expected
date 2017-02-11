@@ -30,7 +30,7 @@ public:
     IFACEMETHOD(get_AppId)(_Out_ GUID* value);
     IFACEMETHOD(get_AppName)(_Out_ HSTRING* value);
     IFACEMETHOD(get_DateOfManufacture)(_Outptr_ IReference<DateTime>** value);
-    IFACEMETHOD(get_DefaultLanguage)(_Outptr_ Language** value);
+    IFACEMETHOD(get_DefaultLanguage)(_Outptr_ ILanguage** value);
     IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
     IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
     IFACEMETHOD(get_DeviceName)(_Out_ HSTRING* value);
@@ -40,8 +40,8 @@ public:
     IFACEMETHOD(get_Properties)(_Outptr_ IMapView<HSTRING, IInspectable>** value);
     IFACEMETHOD(get_SoftwareVersion)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Status)(_Out_ INT32* value);
-    IFACEMETHOD(get_SupportUrl)(_Outptr_ Uri** value);
-    IFACEMETHOD(get_SupportedLanguages)(_Outptr_ IVectorView<Language>** value);
+    IFACEMETHOD(get_SupportUrl)(_Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(get_SupportedLanguages)(_Outptr_ IVectorView<ILanguage>** value);
 
 private:
 
@@ -73,7 +73,7 @@ IFACEMETHODIMP AllJoynAboutDataView::get_DateOfManufacture(_Outptr_ IReference<D
 }
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataView
-IFACEMETHODIMP AllJoynAboutDataView::get_DefaultLanguage(_Outptr_ Language** value)
+IFACEMETHODIMP AllJoynAboutDataView::get_DefaultLanguage(_Outptr_ ILanguage** value)
 {
     return E_NOTIMPL;
 }
@@ -133,13 +133,13 @@ IFACEMETHODIMP AllJoynAboutDataView::get_Status(_Out_ INT32* value)
 }
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataView
-IFACEMETHODIMP AllJoynAboutDataView::get_SupportUrl(_Outptr_ Uri** value)
+IFACEMETHODIMP AllJoynAboutDataView::get_SupportUrl(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataView
-IFACEMETHODIMP AllJoynAboutDataView::get_SupportedLanguages(_Outptr_ IVectorView<Language>** value)
+IFACEMETHODIMP AllJoynAboutDataView::get_SupportedLanguages(_Outptr_ IVectorView<ILanguage>** value)
 {
     return E_NOTIMPL;
 }
@@ -173,8 +173,8 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value);
-    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Language* language, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value);
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
@@ -185,13 +185,13 @@ private:
 
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value)
+IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ AllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Language* language, _Outptr_ IAsyncOperation<AllJoynAboutDataView>** value)
+IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
 {
     return E_NOTIMPL;
 }

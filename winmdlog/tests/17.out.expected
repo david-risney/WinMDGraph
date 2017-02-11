@@ -21,8 +21,8 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-    IFACEMETHOD(GetContent)(_Outptr_ DataPackageView** value);
-    IFACEMETHOD(SetContent)(_In_ DataPackage* content);
+    IFACEMETHOD(GetContent)(_Outptr_ IDataPackageView** value);
+    IFACEMETHOD(SetContent)(_In_ IDataPackage* content);
     IFACEMETHOD(Flush)();
     IFACEMETHOD(Clear)();
     IFACEMETHOD(add_ContentChanged)(_In_ IEventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token);
@@ -37,13 +37,13 @@ private:
 
 
 // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-IFACEMETHODIMP ClipboardFactory::GetContent(_Outptr_ DataPackageView** value)
+IFACEMETHODIMP ClipboardFactory::GetContent(_Outptr_ IDataPackageView** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-IFACEMETHODIMP ClipboardFactory::SetContent(_In_ DataPackage* content)
+IFACEMETHODIMP ClipboardFactory::SetContent(_In_ IDataPackage* content)
 {
     return E_NOTIMPL;
 }

@@ -164,8 +164,8 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Gpio::IGpioChangeReaderFactory
-    IFACEMETHOD(Create)(_In_ GpioPin* pin, _Outptr_ GpioChangeReader** value);
-    IFACEMETHOD(CreateWithCapacity)(_In_ GpioPin* pin, _In_ INT32 minCapacity, _Outptr_ GpioChangeReader** value);
+    IFACEMETHOD(Create)(_In_ IGpioPin* pin, _Outptr_ IGpioChangeReader** value);
+    IFACEMETHOD(CreateWithCapacity)(_In_ IGpioPin* pin, _In_ INT32 minCapacity, _Outptr_ IGpioChangeReader** value);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
@@ -176,13 +176,13 @@ private:
 
 
 // Windows::Devices::Gpio::IGpioChangeReaderFactory
-IFACEMETHODIMP GpioChangeReaderFactory::Create(_In_ GpioPin* pin, _Outptr_ GpioChangeReader** value)
+IFACEMETHODIMP GpioChangeReaderFactory::Create(_In_ IGpioPin* pin, _Outptr_ IGpioChangeReader** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioChangeReaderFactory
-IFACEMETHODIMP GpioChangeReaderFactory::CreateWithCapacity(_In_ GpioPin* pin, _In_ INT32 minCapacity, _Outptr_ GpioChangeReader** value)
+IFACEMETHODIMP GpioChangeReaderFactory::CreateWithCapacity(_In_ IGpioPin* pin, _In_ INT32 minCapacity, _Outptr_ IGpioChangeReader** value)
 {
     return E_NOTIMPL;
 }

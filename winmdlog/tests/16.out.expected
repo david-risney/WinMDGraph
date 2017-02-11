@@ -32,11 +32,11 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ Uri** value);
+    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ IUriRuntimeClass** value);
     IFACEMETHOD(get_ApplicationName)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
     IFACEMETHOD(get_FileTypes)(_Outptr_ IVectorView<HSTRING>** value);
-    IFACEMETHOD(get_Thumbnail)(_Outptr_ RandomAccessStreamReference** value);
+    IFACEMETHOD(get_Thumbnail)(_Outptr_ IRandomAccessStreamReference** value);
     IFACEMETHOD(get_Title)(_Out_ HSTRING* value);
 
     // Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>
@@ -49,8 +49,8 @@ public:
     IFACEMETHOD(First)(_Outptr_ IIterator<IKeyValuePair<HSTRING, IInspectable>>** value);
 
     // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ Uri** value);
-    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ Uri** value);
+    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ IUriRuntimeClass** value);
     IFACEMETHOD(get_LogoBackgroundColor)(_Out_ Color* value);
     IFACEMETHOD(get_PackageFamilyName)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Square30x30Logo)(_Outptr_ IRandomAccessStreamReference** value);
@@ -64,7 +64,7 @@ private:
 
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationListingUri(_Outptr_ Uri** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
@@ -88,7 +88,7 @@ IFACEMETHODIMP DataPackagePropertySetView::get_FileTypes(_Outptr_ IVectorView<HS
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_Thumbnail(_Outptr_ RandomAccessStreamReference** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_Thumbnail(_Outptr_ IRandomAccessStreamReference** value)
 {
     return E_NOTIMPL;
 }
@@ -130,13 +130,13 @@ IFACEMETHODIMP DataPackagePropertySetView::First(_Outptr_ IIterator<IKeyValuePai
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceApplicationLink(_Outptr_ Uri** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceApplicationLink(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceWebLink(_Outptr_ Uri** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceWebLink(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
@@ -203,8 +203,8 @@ public:
 
     // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
     IFACEMETHOD(get_FileTypes)(_Outptr_ IVector<HSTRING>** value);
-    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ Uri** value);
-    IFACEMETHOD(put_ApplicationListingUri)(_In_ Uri* value);
+    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(put_ApplicationListingUri)(_In_ IUriRuntimeClass* value);
     IFACEMETHOD(get_ApplicationName)(_Out_ HSTRING* value);
     IFACEMETHOD(put_ApplicationName)(_In_ HSTRING value);
     IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
@@ -227,10 +227,10 @@ public:
     IFACEMETHOD(First)(_Outptr_ IIterator<IKeyValuePair<HSTRING, IInspectable>>** value);
 
     // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ Uri** value);
-    IFACEMETHOD(put_ContentSourceApplicationLink)(_In_ Uri* value);
-    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ Uri** value);
-    IFACEMETHOD(put_ContentSourceWebLink)(_In_ Uri* value);
+    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(put_ContentSourceApplicationLink)(_In_ IUriRuntimeClass* value);
+    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(put_ContentSourceWebLink)(_In_ IUriRuntimeClass* value);
     IFACEMETHOD(get_LogoBackgroundColor)(_Out_ Color* value);
     IFACEMETHOD(put_LogoBackgroundColor)(_In_ Color value);
     IFACEMETHOD(get_PackageFamilyName)(_Out_ HSTRING* value);
@@ -254,13 +254,13 @@ IFACEMETHODIMP DataPackagePropertySet::get_FileTypes(_Outptr_ IVector<HSTRING>**
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_ApplicationListingUri(_Outptr_ Uri** value)
+IFACEMETHODIMP DataPackagePropertySet::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::put_ApplicationListingUri(_In_ Uri* value)
+IFACEMETHODIMP DataPackagePropertySet::put_ApplicationListingUri(_In_ IUriRuntimeClass* value)
 {
     return E_NOTIMPL;
 }
@@ -362,25 +362,25 @@ IFACEMETHODIMP DataPackagePropertySet::First(_Outptr_ IIterator<IKeyValuePair<HS
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceApplicationLink(_Outptr_ Uri** value)
+IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceApplicationLink(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceApplicationLink(_In_ Uri* value)
+IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceApplicationLink(_In_ IUriRuntimeClass* value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceWebLink(_Outptr_ Uri** value)
+IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceWebLink(_Outptr_ IUriRuntimeClass** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceWebLink(_In_ Uri* value)
+IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceWebLink(_In_ IUriRuntimeClass* value)
 {
     return E_NOTIMPL;
 }

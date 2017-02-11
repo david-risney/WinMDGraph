@@ -25,7 +25,7 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Perception::Provider::IPerceptionCorrelationGroup
-    IFACEMETHOD(get_RelativeLocations)(_Outptr_ IVectorView<PerceptionCorrelation>** value);
+    IFACEMETHOD(get_RelativeLocations)(_Outptr_ IVectorView<IPerceptionCorrelation>** value);
 
 private:
 
@@ -33,7 +33,7 @@ private:
 ActivatableClassWithFactory(PerceptionCorrelationGroup, PerceptionCorrelationGroupFactory);
 
 // Windows::Devices::Perception::Provider::IPerceptionCorrelationGroup
-IFACEMETHODIMP PerceptionCorrelationGroup::get_RelativeLocations(_Outptr_ IVectorView<PerceptionCorrelation>** value)
+IFACEMETHODIMP PerceptionCorrelationGroup::get_RelativeLocations(_Outptr_ IVectorView<IPerceptionCorrelation>** value)
 {
     return E_NOTIMPL;
 }
@@ -68,7 +68,7 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Perception::Provider::IPerceptionCorrelationGroupFactory
-    IFACEMETHOD(Create)(_In_ IIterable<PerceptionCorrelation>* relativeLocations, _Outptr_ PerceptionCorrelationGroup** value);
+    IFACEMETHOD(Create)(_In_ IIterable<IPerceptionCorrelation>* relativeLocations, _Outptr_ IPerceptionCorrelationGroup** value);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
@@ -79,7 +79,7 @@ private:
 
 
 // Windows::Devices::Perception::Provider::IPerceptionCorrelationGroupFactory
-IFACEMETHODIMP PerceptionCorrelationGroupFactory::Create(_In_ IIterable<PerceptionCorrelation>* relativeLocations, _Outptr_ PerceptionCorrelationGroup** value)
+IFACEMETHODIMP PerceptionCorrelationGroupFactory::Create(_In_ IIterable<IPerceptionCorrelation>* relativeLocations, _Outptr_ IPerceptionCorrelationGroup** value)
 {
     return E_NOTIMPL;
 }
@@ -178,7 +178,7 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Perception::Provider::IPerceptionCorrelationFactory
-    IFACEMETHOD(Create)(_In_ HSTRING targetId, _In_ Vector3 position, _In_ Quaternion orientation, _Outptr_ PerceptionCorrelation** value);
+    IFACEMETHOD(Create)(_In_ HSTRING targetId, _In_ Vector3 position, _In_ Quaternion orientation, _Outptr_ IPerceptionCorrelation** value);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
@@ -189,7 +189,7 @@ private:
 
 
 // Windows::Devices::Perception::Provider::IPerceptionCorrelationFactory
-IFACEMETHODIMP PerceptionCorrelationFactory::Create(_In_ HSTRING targetId, _In_ Vector3 position, _In_ Quaternion orientation, _Outptr_ PerceptionCorrelation** value)
+IFACEMETHODIMP PerceptionCorrelationFactory::Create(_In_ HSTRING targetId, _In_ Vector3 position, _In_ Quaternion orientation, _Outptr_ IPerceptionCorrelation** value)
 {
     return E_NOTIMPL;
 }

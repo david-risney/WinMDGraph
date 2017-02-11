@@ -73,14 +73,14 @@ public:
     IFACEMETHOD(get_SharingMode)(_Out_ GpioSharingMode* value);
     IFACEMETHOD(get_DebounceTimeout)(_Out_ TimeSpan* value);
     IFACEMETHOD(put_DebounceTimeout)(_In_ TimeSpan value);
-    IFACEMETHOD(add_ValueChanged)(_In_ TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(add_ValueChanged)(_In_ TypedEventHandler<IGpioPin, IGpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
     IFACEMETHOD(remove_ValueChanged)(_In_ EventRegistrationToken token);
 
     // Windows::Foundation::IClosable
     IFACEMETHOD(Close)();
 
 private:
-    AgileEventSource<TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>> m_ValueChangedEventHandlers;
+    AgileEventSource<TypedEventHandler<IGpioPin, IGpioPinValueChangedEventArgs>> m_ValueChangedEventHandlers;
 };
 
 
@@ -115,7 +115,7 @@ IFACEMETHODIMP GpioPin::Read(_Out_ GpioPinValue* value)
 }
 
 // Windows::Devices::Gpio::IGpioPin
-IFACEMETHODIMP GpioPin::add_ValueChanged(_In_ TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
+IFACEMETHODIMP GpioPin::add_ValueChanged(_In_ TypedEventHandler<IGpioPin, IGpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token)
 {
     return m_ValueChangedEventHandlers.Add(eventHandler, token);
 }

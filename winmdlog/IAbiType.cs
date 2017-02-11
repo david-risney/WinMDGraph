@@ -2,6 +2,7 @@
 {
     interface IAbiType
     {
+        IAbiType DefaultInterface { get; }
         bool ImplicitParent { get; }
         string InspectableClassKind { get; }
         string ParentHelperClassName { get; }

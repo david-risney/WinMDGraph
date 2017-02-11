@@ -25,7 +25,7 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::SmartCards::ISmartCardPinResetRequest
-    IFACEMETHOD(GetDeferral)(_Outptr_ SmartCardPinResetDeferral** value);
+    IFACEMETHOD(GetDeferral)(_Outptr_ ISmartCardPinResetDeferral** value);
     IFACEMETHOD(SetResponse)(_In_ IBuffer* response);
     IFACEMETHOD(get_Challenge)(_Outptr_ IBuffer** value);
     IFACEMETHOD(get_Deadline)(_Out_ DateTime* value);
@@ -36,7 +36,7 @@ private:
 
 
 // Windows::Devices::SmartCards::ISmartCardPinResetRequest
-IFACEMETHODIMP SmartCardPinResetRequest::GetDeferral(_Outptr_ SmartCardPinResetDeferral** value)
+IFACEMETHODIMP SmartCardPinResetRequest::GetDeferral(_Outptr_ ISmartCardPinResetDeferral** value)
 {
     return E_NOTIMPL;
 }

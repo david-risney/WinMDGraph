@@ -22,9 +22,9 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Gpio::IGpioController
-    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _Outptr_ GpioPin** value);
-    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ GpioPin** value);
-    IFACEMETHOD(TryOpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ GpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value);
+    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _Outptr_ IGpioPin** value);
+    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** value);
+    IFACEMETHOD(TryOpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value);
     IFACEMETHOD(get_PinCount)(_Out_ INT32* value);
 
 private:
@@ -33,19 +33,19 @@ private:
 
 
 // Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _Outptr_ GpioPin** value)
+IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _Outptr_ IGpioPin** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ GpioPin** value)
+IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** value)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::TryOpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ GpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value)
+IFACEMETHODIMP GpioController::TryOpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value)
 {
     return E_NOTIMPL;
 }
@@ -86,11 +86,11 @@ public:
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Gpio::IGpioControllerStatics
-    IFACEMETHOD(GetDefault)(_Outptr_ GpioController** value);
+    IFACEMETHOD(GetDefault)(_Outptr_ IGpioController** value);
 
     // Windows::Devices::Gpio::IGpioControllerStatics2
     IFACEMETHOD(GetControllersAsync)(_In_ IGpioProvider* provider, _Outptr_ IAsyncOperation<IVectorView<GpioController>>** value);
-    IFACEMETHOD(GetDefaultAsync)(_Outptr_ IAsyncOperation<GpioController>** value);
+    IFACEMETHOD(GetDefaultAsync)(_Outptr_ IAsyncOperation<IGpioController>** value);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
@@ -101,7 +101,7 @@ private:
 
 
 // Windows::Devices::Gpio::IGpioControllerStatics
-IFACEMETHODIMP GpioControllerFactory::GetDefault(_Outptr_ GpioController** value)
+IFACEMETHODIMP GpioControllerFactory::GetDefault(_Outptr_ IGpioController** value)
 {
     return E_NOTIMPL;
 }
@@ -113,7 +113,7 @@ IFACEMETHODIMP GpioControllerFactory::GetControllersAsync(_In_ IGpioProvider* pr
 }
 
 // Windows::Devices::Gpio::IGpioControllerStatics2
-IFACEMETHODIMP GpioControllerFactory::GetDefaultAsync(_Outptr_ IAsyncOperation<GpioController>** value)
+IFACEMETHODIMP GpioControllerFactory::GetDefaultAsync(_Outptr_ IAsyncOperation<IGpioController>** value)
 {
     return E_NOTIMPL;
 }

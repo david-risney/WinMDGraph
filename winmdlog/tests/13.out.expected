@@ -23,7 +23,7 @@ public:
     IFACEMETHOD(get_ActivityId)(_Out_ GUID* value);
     IFACEMETHOD(get_ErrorCode)(_Out_ HRESULT* value);
     IFACEMETHOD(get_IsComplete)(_Out_ boolean* value);
-    IFACEMETHOD(get_Package)(_Outptr_ Package** value);
+    IFACEMETHOD(get_Package)(_Outptr_ IPackage** value);
     IFACEMETHOD(get_Progress)(_Out_ DOUBLE* value);
 
 private:
@@ -50,7 +50,7 @@ IFACEMETHODIMP PackageStagingEventArgs::get_IsComplete(_Out_ boolean* value)
 }
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_Package(_Outptr_ Package** value)
+IFACEMETHODIMP PackageStagingEventArgs::get_Package(_Outptr_ IPackage** value)
 {
     return E_NOTIMPL;
 }
