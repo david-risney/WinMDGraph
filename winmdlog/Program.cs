@@ -142,7 +142,7 @@ $namespaceDefinitionEnd";
                     Replace("$runtimeclassStringName", type.RuntimeClassName).
                     Replace("$parentHelperClass", type.ParentHelperClassName).
                     Replace("$inspectableClassKind", type.InspectableClassKind).
-                    Replace("$activatableClassStatements", String.Join("\n", type.GetActivatableClassStatements(refs)));
+                    Replace("$activatableClassStatements", String.Join(Environment.NewLine, type.GetActivatableClassStatements(refs)));
 
                 var parentClasses = type.GetParentClasses(refs).
                     Where(parent => !parent.ImplicitParent).
@@ -154,10 +154,10 @@ $namespaceDefinitionEnd";
                 }
 
                 result = result.
-                    Replace("$parentClasses", String.Join(",\n", parentClasses));
+                    Replace("$parentClasses", String.Join("," + Environment.NewLine, parentClasses));
 
                 result = result.Replace("$interfaceImplementationDeclarations",
-                    String.Join("\n", type.GetParentClasses(refs).Select(tinterface =>
+                    String.Join(Environment.NewLine, type.GetParentClasses(refs).Select(tinterface =>
                     {
                         string[] header = new string[] { "    // " + tinterface.GetFullName(refs) };
                         string[] tail = new string[] { "" };
@@ -180,11 +180,11 @@ $namespaceDefinitionEnd";
                             "    IFACEMETHOD(put_" + property.Name + ")(" + property.PropertyType.GetShortNameAsInParam(refs) + " value);"
                         });
 
-                        return String.Join("\n", header.Concat(methods).Concat(readOnlyProperties).Concat(readWriteProperties).Concat(events).Concat(tail));
+                        return String.Join(Environment.NewLine, header.Concat(methods).Concat(readOnlyProperties).Concat(readWriteProperties).Concat(events).Concat(tail));
                     })));
 
                 result = result.Replace("$interfaceImplementationDefinitions",
-                    String.Join("\n", type.GetParentClasses(refs).Select(tinterface =>
+                    String.Join(Environment.NewLine, type.GetParentClasses(refs).Select(tinterface =>
                     {
                         string header = "// " + tinterface.GetFullName(refs);
 
@@ -236,11 +236,11 @@ $namespaceDefinitionEnd";
                             ""
                         });
 
-                        return String.Join("\n", methods.Concat(events).Concat(readOnlyProperties).Concat(readWriteProperties));
+                        return String.Join(Environment.NewLine, methods.Concat(events).Concat(readOnlyProperties).Concat(readWriteProperties));
                     })));
 
                 result = result.Replace("$eventHelperDeclaration", 
-                    String.Join("\n", type.GetParentClasses(refs).SelectMany(
+                    String.Join(Environment.NewLine, type.GetParentClasses(refs).SelectMany(
                         tinterface => tinterface.Events
                     ).Select(
                         tevent => "    AgileEventSource<" + tevent.EventHandlerType.GetShortName(refs) + "> m_" + tevent.Name + "EventHandlers;"
@@ -248,8 +248,8 @@ $namespaceDefinitionEnd";
 
                 // Do these last once refs has been fully populated.
                 result = result.
-                    Replace("$includeStatements", String.Join("\n", refs.IncludeStatements)).
-                    Replace("$usingNamespaceStatements", String.Join("\n", refs.UsingNamespaceStatements));
+                    Replace("$includeStatements", String.Join(Environment.NewLine, refs.IncludeStatements)).
+                    Replace("$usingNamespaceStatements", String.Join(Environment.NewLine, refs.UsingNamespaceStatements));
 
                 if (args.outPath == null)
                 {
@@ -278,10 +278,10 @@ $namespaceDefinitionEnd";
             {
                 Console.Error.WriteLine("Error: " + e.Message);
                 Console.Error.WriteLine(
-                    "WinMDLog (-file [WinMD path]|-match [regex]|-outPath [output directory])*\n"
-                    + "\t-file [WinMD file path] - Add metadata from the specified WinMD file\n"
-                    + "\t-match [WinMD file path] - Process runtime classes with matching full name\n"
-                    + "\t-outPath [output directory] - Write runtime classes into individual files in that path\n"
+                    "WinMDLog (-file [WinMD path]|-match [regex]|-outPath [output directory])*" + Environment.NewLine
+                    + "\t-file [WinMD file path] - Add metadata from the specified WinMD file" + Environment.NewLine
+                    + "\t-match [WinMD file path] - Process runtime classes with matching full name" + Environment.NewLine
+                    + "\t-outPath [output directory] - Write runtime classes into individual files in that path" + Environment.NewLine
                     );
             }
 
