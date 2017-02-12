@@ -73,7 +73,7 @@ namespace WinMDLog
             }
         }
 
-        public string GetParameters(ReferenceCollector refs)
+        public string GetParameters(ReferenceCollector refs, bool commentOutParamNames)
         {
             return this.parameters;
         }
@@ -88,18 +88,28 @@ namespace WinMDLog
 
         public string Name { get { return this.methodInfo.Name; } }
 
-        public string GetParameters(ReferenceCollector refs)
+        public string GetParameters(ReferenceCollector refs, bool commentOutParamNames = false)
         {
             List<string> parameters = this.methodInfo.GetParameters().Where(
                 parameter => AbiTypeRuntimeClass.IsValidType(parameter.ParameterType)
             ).Select(parameter => {
+                string paramName = parameter.Name;
+                if (commentOutParamNames)
+                {
+                    paramName = "/* " + paramName + " */";
+                }
                 IAbiType paramType = (new AbiTypeRuntimeClass(parameter.ParameterType)).DefaultInterface;
-                return (parameter.IsIn ? paramType.GetShortNameAsInParam(refs) : paramType.GetShortNameAsOutParam(refs)) + " " + parameter.Name;
+                return (parameter.IsIn ? paramType.GetShortNameAsInParam(refs) : paramType.GetShortNameAsOutParam(refs)) + " " + paramName;
             }).ToList();
 
             if (methodInfo.ReturnType != null && methodInfo.ReturnType.Name != "Void")
             {
-                parameters.Add((new AbiTypeRuntimeClass(methodInfo.ReturnType)).DefaultInterface.GetShortNameAsOutParam(refs) + " value");
+                string paramName = "value";
+                if (commentOutParamNames)
+                {
+                    paramName = "/* " + paramName + " */";
+                }
+                parameters.Add((new AbiTypeRuntimeClass(methodInfo.ReturnType)).DefaultInterface.GetShortNameAsOutParam(refs) + " " + paramName);
             }
 
             return String.Join(", ", parameters);

@@ -189,37 +189,37 @@ IFACEMETHODIMP ClaimedBarcodeScanner::remove_TriggerReleased(_In_ EventRegistrat
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::get_DeviceId(_Out_ HSTRING* value)
+IFACEMETHODIMP ClaimedBarcodeScanner::get_DeviceId(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::get_IsEnabled(_Out_ boolean* value)
+IFACEMETHODIMP ClaimedBarcodeScanner::get_IsEnabled(_Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::get_IsDecodeDataEnabled(_Out_ boolean* value)
+IFACEMETHODIMP ClaimedBarcodeScanner::get_IsDecodeDataEnabled(_Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::put_IsDecodeDataEnabled(_In_ boolean value)
+IFACEMETHODIMP ClaimedBarcodeScanner::put_IsDecodeDataEnabled(_In_ boolean /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::get_IsDisabledOnDataReceived(_Out_ boolean* value)
+IFACEMETHODIMP ClaimedBarcodeScanner::get_IsDisabledOnDataReceived(_Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::put_IsDisabledOnDataReceived(_In_ boolean value)
+IFACEMETHODIMP ClaimedBarcodeScanner::put_IsDisabledOnDataReceived(_In_ boolean /* value */)
 {
     return E_NOTIMPL;
 }

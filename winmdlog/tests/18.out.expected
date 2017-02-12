@@ -48,13 +48,13 @@ IFACEMETHODIMP ResourceMapIterator::GetMany(_Outptr_ IKeyValuePair<HSTRING, INam
 }
 
 // Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::NamedResource>>
-IFACEMETHODIMP ResourceMapIterator::get_Current(_Outptr_ IKeyValuePair<HSTRING, INamedResource>** value)
+IFACEMETHODIMP ResourceMapIterator::get_Current(_Outptr_ IKeyValuePair<HSTRING, INamedResource>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::NamedResource>>
-IFACEMETHODIMP ResourceMapIterator::get_HasCurrent(_Out_ boolean* value)
+IFACEMETHODIMP ResourceMapIterator::get_HasCurrent(_Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }

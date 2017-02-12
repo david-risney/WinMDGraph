@@ -64,37 +64,37 @@ private:
 
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationName(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationName(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_Description(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_Description(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_FileTypes(_Outptr_ IVectorView<HSTRING>** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_FileTypes(_Outptr_ IVectorView<HSTRING>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_Thumbnail(_Outptr_ IRandomAccessStreamReference** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_Thumbnail(_Outptr_ IRandomAccessStreamReference** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-IFACEMETHODIMP DataPackagePropertySetView::get_Title(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_Title(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -118,7 +118,7 @@ IFACEMETHODIMP DataPackagePropertySetView::Split(_Outptr_ IMapView<HSTRING, IIns
 }
 
 // Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>
-IFACEMETHODIMP DataPackagePropertySetView::get_Size(_Out_ UINT32* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_Size(_Out_ UINT32* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -130,37 +130,37 @@ IFACEMETHODIMP DataPackagePropertySetView::First(_Outptr_ IIterator<IKeyValuePai
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceApplicationLink(_Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceApplicationLink(_Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceWebLink(_Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_ContentSourceWebLink(_Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_LogoBackgroundColor(_Out_ Color* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_LogoBackgroundColor(_Out_ Color* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_PackageFamilyName(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_PackageFamilyName(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-IFACEMETHODIMP DataPackagePropertySetView::get_Square30x30Logo(_Outptr_ IRandomAccessStreamReference** value)
+IFACEMETHODIMP DataPackagePropertySetView::get_Square30x30Logo(_Outptr_ IRandomAccessStreamReference** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView3
-IFACEMETHODIMP DataPackagePropertySetView::get_EnterpriseId(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySetView::get_EnterpriseId(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -248,67 +248,67 @@ private:
 
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_FileTypes(_Outptr_ IVector<HSTRING>** value)
+IFACEMETHODIMP DataPackagePropertySet::get_FileTypes(_Outptr_ IVector<HSTRING>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP DataPackagePropertySet::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::put_ApplicationListingUri(_In_ IUriRuntimeClass* value)
+IFACEMETHODIMP DataPackagePropertySet::put_ApplicationListingUri(_In_ IUriRuntimeClass* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_ApplicationName(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySet::get_ApplicationName(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::put_ApplicationName(_In_ HSTRING value)
+IFACEMETHODIMP DataPackagePropertySet::put_ApplicationName(_In_ HSTRING /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_Description(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySet::get_Description(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::put_Description(_In_ HSTRING value)
+IFACEMETHODIMP DataPackagePropertySet::put_Description(_In_ HSTRING /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_Thumbnail(_Outptr_ IRandomAccessStreamReference** value)
+IFACEMETHODIMP DataPackagePropertySet::get_Thumbnail(_Outptr_ IRandomAccessStreamReference** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::put_Thumbnail(_In_ IRandomAccessStreamReference* value)
+IFACEMETHODIMP DataPackagePropertySet::put_Thumbnail(_In_ IRandomAccessStreamReference* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::get_Title(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySet::get_Title(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-IFACEMETHODIMP DataPackagePropertySet::put_Title(_In_ HSTRING value)
+IFACEMETHODIMP DataPackagePropertySet::put_Title(_In_ HSTRING /* value */)
 {
     return E_NOTIMPL;
 }
@@ -350,7 +350,7 @@ IFACEMETHODIMP DataPackagePropertySet::Clear()
 }
 
 // Windows::Foundation::Collections::IMap<HSTRING, IInspectable>
-IFACEMETHODIMP DataPackagePropertySet::get_Size(_Out_ UINT32* value)
+IFACEMETHODIMP DataPackagePropertySet::get_Size(_Out_ UINT32* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -362,73 +362,73 @@ IFACEMETHODIMP DataPackagePropertySet::First(_Outptr_ IIterator<IKeyValuePair<HS
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceApplicationLink(_Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceApplicationLink(_Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceApplicationLink(_In_ IUriRuntimeClass* value)
+IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceApplicationLink(_In_ IUriRuntimeClass* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceWebLink(_Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP DataPackagePropertySet::get_ContentSourceWebLink(_Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceWebLink(_In_ IUriRuntimeClass* value)
+IFACEMETHODIMP DataPackagePropertySet::put_ContentSourceWebLink(_In_ IUriRuntimeClass* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_LogoBackgroundColor(_Out_ Color* value)
+IFACEMETHODIMP DataPackagePropertySet::get_LogoBackgroundColor(_Out_ Color* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_LogoBackgroundColor(_In_ Color value)
+IFACEMETHODIMP DataPackagePropertySet::put_LogoBackgroundColor(_In_ Color /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_PackageFamilyName(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySet::get_PackageFamilyName(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_PackageFamilyName(_In_ HSTRING value)
+IFACEMETHODIMP DataPackagePropertySet::put_PackageFamilyName(_In_ HSTRING /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::get_Square30x30Logo(_Outptr_ IRandomAccessStreamReference** value)
+IFACEMETHODIMP DataPackagePropertySet::get_Square30x30Logo(_Outptr_ IRandomAccessStreamReference** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-IFACEMETHODIMP DataPackagePropertySet::put_Square30x30Logo(_In_ IRandomAccessStreamReference* value)
+IFACEMETHODIMP DataPackagePropertySet::put_Square30x30Logo(_In_ IRandomAccessStreamReference* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet3
-IFACEMETHODIMP DataPackagePropertySet::get_EnterpriseId(_Out_ HSTRING* value)
+IFACEMETHODIMP DataPackagePropertySet::get_EnterpriseId(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet3
-IFACEMETHODIMP DataPackagePropertySet::put_EnterpriseId(_In_ HSTRING value)
+IFACEMETHODIMP DataPackagePropertySet::put_EnterpriseId(_In_ HSTRING /* value */)
 {
     return E_NOTIMPL;
 }

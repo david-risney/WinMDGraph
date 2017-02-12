@@ -4,6 +4,6 @@
     {
         string Name { get; }
 
-        string GetParameters(ReferenceCollector refs);
+        string GetParameters(ReferenceCollector refs, bool commentOutParamNames = false);
     }
 }

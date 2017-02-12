@@ -63,55 +63,55 @@ IFACEMETHODIMP AppointmentCalendarSyncManager::remove_SyncStatusChanged(_In_ Eve
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
-IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastAttemptedSyncTime(_Out_ DateTime* value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastAttemptedSyncTime(_Out_ DateTime* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
-IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastSuccessfulSyncTime(_Out_ DateTime* value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastSuccessfulSyncTime(_Out_ DateTime* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
-IFACEMETHODIMP AppointmentCalendarSyncManager::get_Status(_Out_ AppointmentCalendarSyncStatus* value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_Status(_Out_ AppointmentCalendarSyncStatus* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
-IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastAttemptedSyncTime(_Out_ DateTime* value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastAttemptedSyncTime(_Out_ DateTime* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
-IFACEMETHODIMP AppointmentCalendarSyncManager::put_LastAttemptedSyncTime(_In_ DateTime value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::put_LastAttemptedSyncTime(_In_ DateTime /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
-IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastSuccessfulSyncTime(_Out_ DateTime* value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_LastSuccessfulSyncTime(_Out_ DateTime* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
-IFACEMETHODIMP AppointmentCalendarSyncManager::put_LastSuccessfulSyncTime(_In_ DateTime value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::put_LastSuccessfulSyncTime(_In_ DateTime /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
-IFACEMETHODIMP AppointmentCalendarSyncManager::get_Status(_Out_ AppointmentCalendarSyncStatus* value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::get_Status(_Out_ AppointmentCalendarSyncStatus* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
-IFACEMETHODIMP AppointmentCalendarSyncManager::put_Status(_In_ AppointmentCalendarSyncStatus value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::put_Status(_In_ AppointmentCalendarSyncStatus /* value */)
 {
     return E_NOTIMPL;
 }

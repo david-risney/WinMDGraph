@@ -49,7 +49,7 @@ IFACEMETHODIMP AdcChannel::ReadRatio(_Out_ DOUBLE* value)
 }
 
 // Windows::Devices::Adc::IAdcChannel
-IFACEMETHODIMP AdcChannel::get_Controller(_Outptr_ IAdcController** value)
+IFACEMETHODIMP AdcChannel::get_Controller(_Outptr_ IAdcController** /* value */)
 {
     return E_NOTIMPL;
 }

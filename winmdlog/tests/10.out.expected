@@ -48,73 +48,73 @@ private:
 
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_ApplicationId(_Out_ HSTRING* value)
+IFACEMETHODIMP SmsWapMessage::get_ApplicationId(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_BinaryBody(_Outptr_ IBuffer** value)
+IFACEMETHODIMP SmsWapMessage::get_BinaryBody(_Outptr_ IBuffer** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_ContentType(_Out_ HSTRING* value)
+IFACEMETHODIMP SmsWapMessage::get_ContentType(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_From(_Out_ HSTRING* value)
+IFACEMETHODIMP SmsWapMessage::get_From(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_Headers(_Outptr_ IMap<HSTRING, HSTRING>** value)
+IFACEMETHODIMP SmsWapMessage::get_Headers(_Outptr_ IMap<HSTRING, HSTRING>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_Timestamp(_Out_ DateTime* value)
+IFACEMETHODIMP SmsWapMessage::get_Timestamp(_Out_ DateTime* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsWapMessage
-IFACEMETHODIMP SmsWapMessage::get_To(_Out_ HSTRING* value)
+IFACEMETHODIMP SmsWapMessage::get_To(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsMessageBase
-IFACEMETHODIMP SmsWapMessage::get_CellularClass(_Out_ CellularClass* value)
+IFACEMETHODIMP SmsWapMessage::get_CellularClass(_Out_ CellularClass* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsMessageBase
-IFACEMETHODIMP SmsWapMessage::get_DeviceId(_Out_ HSTRING* value)
+IFACEMETHODIMP SmsWapMessage::get_DeviceId(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsMessageBase
-IFACEMETHODIMP SmsWapMessage::get_MessageClass(_Out_ SmsMessageClass* value)
+IFACEMETHODIMP SmsWapMessage::get_MessageClass(_Out_ SmsMessageClass* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsMessageBase
-IFACEMETHODIMP SmsWapMessage::get_MessageType(_Out_ SmsMessageType* value)
+IFACEMETHODIMP SmsWapMessage::get_MessageType(_Out_ SmsMessageType* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Sms::ISmsMessageBase
-IFACEMETHODIMP SmsWapMessage::get_SimIccId(_Out_ HSTRING* value)
+IFACEMETHODIMP SmsWapMessage::get_SimIccId(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }

@@ -30,7 +30,7 @@ private:
 
 
 // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
-IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* value)
+IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -127,25 +127,25 @@ IFACEMETHODIMP GpioPin::remove_ValueChanged(_In_ EventRegistrationToken token)
 }
 
 // Windows::Devices::Gpio::IGpioPin
-IFACEMETHODIMP GpioPin::get_PinNumber(_Out_ INT32* value)
+IFACEMETHODIMP GpioPin::get_PinNumber(_Out_ INT32* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioPin
-IFACEMETHODIMP GpioPin::get_SharingMode(_Out_ GpioSharingMode* value)
+IFACEMETHODIMP GpioPin::get_SharingMode(_Out_ GpioSharingMode* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioPin
-IFACEMETHODIMP GpioPin::get_DebounceTimeout(_Out_ TimeSpan* value)
+IFACEMETHODIMP GpioPin::get_DebounceTimeout(_Out_ TimeSpan* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioPin
-IFACEMETHODIMP GpioPin::put_DebounceTimeout(_In_ TimeSpan value)
+IFACEMETHODIMP GpioPin::put_DebounceTimeout(_In_ TimeSpan /* value */)
 {
     return E_NOTIMPL;
 }

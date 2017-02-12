@@ -48,13 +48,13 @@ IFACEMETHODIMP SmartCardPinResetRequest::SetResponse(_In_ IBuffer* response)
 }
 
 // Windows::Devices::SmartCards::ISmartCardPinResetRequest
-IFACEMETHODIMP SmartCardPinResetRequest::get_Challenge(_Outptr_ IBuffer** value)
+IFACEMETHODIMP SmartCardPinResetRequest::get_Challenge(_Outptr_ IBuffer** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::SmartCards::ISmartCardPinResetRequest
-IFACEMETHODIMP SmartCardPinResetRequest::get_Deadline(_Out_ DateTime* value)
+IFACEMETHODIMP SmartCardPinResetRequest::get_Deadline(_Out_ DateTime* /* value */)
 {
     return E_NOTIMPL;
 }

@@ -32,31 +32,31 @@ private:
 
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_ActivityId(_Out_ GUID* value)
+IFACEMETHODIMP PackageStagingEventArgs::get_ActivityId(_Out_ GUID* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_ErrorCode(_Out_ HRESULT* value)
+IFACEMETHODIMP PackageStagingEventArgs::get_ErrorCode(_Out_ HRESULT* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_IsComplete(_Out_ boolean* value)
+IFACEMETHODIMP PackageStagingEventArgs::get_IsComplete(_Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_Package(_Outptr_ IPackage** value)
+IFACEMETHODIMP PackageStagingEventArgs::get_Package(_Outptr_ IPackage** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::IPackageStagingEventArgs
-IFACEMETHODIMP PackageStagingEventArgs::get_Progress(_Out_ DOUBLE* value)
+IFACEMETHODIMP PackageStagingEventArgs::get_Progress(_Out_ DOUBLE* /* value */)
 {
     return E_NOTIMPL;
 }

@@ -76,6 +76,17 @@ namespace WinMDLog
             this.args = args;
         }
 
+        struct FileOutput
+        {
+            public FileOutput(string name, string content)
+            {
+                this.Name = name;
+                this.Content = content;
+            }
+            public string Name;
+            public string Content;
+        }
+
         void Run()
         {
             string[] filesExpanded = args.files.SelectMany<string, string>(path =>
@@ -89,21 +100,55 @@ namespace WinMDLog
                     return new string[] { path };
                 }
             }).ToArray();
+            List<Type> allTypes = (new WinMDTypes(filesExpanded)).Types;
 
-            var types = (new WinMDTypes(filesExpanded)).Types.Where(type =>
+            var types = allTypes.Where(type =>
                 AbiTypeRuntimeClass.IsValidRuntimeClass(type) &&
                 args.matches.Any(regex => regex.IsMatch(type.Namespace + "." + type.Name))
-            ).SelectMany(rawType => {
-                List<IAbiType> typeAndFactory = new List<IAbiType>();
-                IAbiType type = new AbiTypeRuntimeClass(rawType);
-                typeAndFactory.Add(type);
-                if (type.Factory != null)
-                {
-                    typeAndFactory.Add(type.Factory);
-                }
-                return typeAndFactory;
-            }).Where(abiType => !abiType.NoInstanceClass);
+            ).Select(rawType =>
+                new AbiTypeRuntimeClass(rawType)
+            ).Where(abiType => !abiType.NoInstanceClass);
+
+            var typeFactories = allTypes.Where(type =>
+                AbiTypeRuntimeClass.IsValidRuntimeClass(type) &&
+                args.matches.Any(regex => regex.IsMatch(type.Namespace + "." + type.Name))
+            ).Select(
+                rawType => new AbiTypeRuntimeClass(rawType)
+            ).Where(
+                abiType => abiType.Factory != null
+            ).Select(
+                abiType => abiType.Factory
+            );
+
+            var results = ProcessTypes(types.ToList<IAbiType>()).Concat(
+                ProcessTypes(typeFactories.ToList<IAbiType>())).
+                ToList<FileOutput>();
             
+            results.Sort(delegate(FileOutput left, FileOutput right)
+            {
+                return left.Name.CompareTo(right.Name);
+            });
+
+            foreach (var result in results)
+            {
+                if (args.outPath == null)
+                {
+                    Console.WriteLine(result.Content);
+                }
+                else
+                {
+                    StreamWriter streamWriter = File.CreateText(args.outPath + "\\" + result.Name);
+                    streamWriter.WriteLine(result.Content);
+
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+            }
+        }
+
+        List<FileOutput> ProcessTypes(List<IAbiType> types)
+        {
+            List<FileOutput> results = new List<FileOutput>();
             foreach (IAbiType type in types)
             {
                 ReferenceCollector refs = new ReferenceCollector(type.Namespace);
@@ -214,7 +259,7 @@ $namespaceDefinitionEnd";
 
                         IEnumerable<string> readOnlyProperties = tinterface.ReadOnlyProperties.SelectMany(property => new string[] {
                             header,
-                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::get_" + property.Name + "(" + property.PropertyType.GetShortNameAsOutParam(refs) + " value)",
+                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::get_" + property.Name + "(" + property.PropertyType.GetShortNameAsOutParam(refs) + " /* value */)",
                             "{",
                             "    return E_NOTIMPL;",
                             "}",
@@ -223,13 +268,13 @@ $namespaceDefinitionEnd";
 
                         IEnumerable<string> readWriteProperties = tinterface.ReadWriteProperties.SelectMany(property => new string[] {
                             header,
-                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::get_" + property.Name + "(" + property.PropertyType.GetShortNameAsOutParam(refs) + " value)",
+                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::get_" + property.Name + "(" + property.PropertyType.GetShortNameAsOutParam(refs) + " /* value */)",
                             "{",
                             "    return E_NOTIMPL;",
                             "}",
                             "",
                             header,
-                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::put_" + property.Name + "(" + property.PropertyType.GetShortNameAsInParam(refs) + " value)",
+                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::put_" + property.Name + "(" + property.PropertyType.GetShortNameAsInParam(refs) + " /* value */)",
                             "{",
                             "    return E_NOTIMPL;",
                             "}",
@@ -251,19 +296,10 @@ $namespaceDefinitionEnd";
                     Replace("$includeStatements", String.Join(Environment.NewLine, refs.IncludeStatements)).
                     Replace("$usingNamespaceStatements", String.Join(Environment.NewLine, refs.UsingNamespaceStatements));
 
-                if (args.outPath == null)
-                {
-                    Console.WriteLine(result);
-                }
-                else
-                {
-                    StreamWriter streamWriter = File.CreateText(args.outPath + "\\" + type.ShortNameNoTypeParameters + ".cpp");
-                    streamWriter.WriteLine(result);
-
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
+                results.Add(new FileOutput(type.ShortNameNoTypeParameters + ".cpp", result));
             }
+
+            return results;
         }
 
         static void Main(string[] args)

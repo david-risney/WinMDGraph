@@ -37,31 +37,31 @@ private:
 
 
 // Windows::Devices::Power::IBatteryReport
-IFACEMETHODIMP BatteryReport::get_ChargeRateInMilliwatts(_Outptr_ IReference<INT32>** value)
+IFACEMETHODIMP BatteryReport::get_ChargeRateInMilliwatts(_Outptr_ IReference<INT32>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Power::IBatteryReport
-IFACEMETHODIMP BatteryReport::get_DesignCapacityInMilliwattHours(_Outptr_ IReference<INT32>** value)
+IFACEMETHODIMP BatteryReport::get_DesignCapacityInMilliwattHours(_Outptr_ IReference<INT32>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Power::IBatteryReport
-IFACEMETHODIMP BatteryReport::get_FullChargeCapacityInMilliwattHours(_Outptr_ IReference<INT32>** value)
+IFACEMETHODIMP BatteryReport::get_FullChargeCapacityInMilliwattHours(_Outptr_ IReference<INT32>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Power::IBatteryReport
-IFACEMETHODIMP BatteryReport::get_RemainingCapacityInMilliwattHours(_Outptr_ IReference<INT32>** value)
+IFACEMETHODIMP BatteryReport::get_RemainingCapacityInMilliwattHours(_Outptr_ IReference<INT32>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Power::IBatteryReport
-IFACEMETHODIMP BatteryReport::get_Status(_Out_ BatteryStatus* value)
+IFACEMETHODIMP BatteryReport::get_Status(_Out_ BatteryStatus* /* value */)
 {
     return E_NOTIMPL;
 }

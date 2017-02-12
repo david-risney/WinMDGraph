@@ -32,7 +32,7 @@ private:
 
 
 // Windows::Devices::Custom::IKnownDeviceTypesStatics
-IFACEMETHODIMP KnownDeviceTypesFactory::get_Unknown(_Out_ UINT16* value)
+IFACEMETHODIMP KnownDeviceTypesFactory::get_Unknown(_Out_ UINT16* /* value */)
 {
     return E_NOTIMPL;
 }

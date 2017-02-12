@@ -2,84 +2,6 @@
 #include <wrl/implements.h>
 
 using namespace Microsoft::WRL;
-using namespace Windows::Foundation::Collections;
-
-namespace Windows
-{
-namespace Foundation
-{
-class WwwFormUrlDecoder WrlFinal : RuntimeClass<
-    FtmBase,
-    IWwwFormUrlDecoderRuntimeClass,
-    IIterable<IWwwFormUrlDecoderEntry>,
-    IVectorView<IWwwFormUrlDecoderEntry>
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoder, BaseTrust);
-
-public:
-    WwwFormUrlDecoder();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
-    IFACEMETHOD(GetFirstValueByName)(_In_ HSTRING name, _Out_ HSTRING* value);
-
-    // Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>
-    IFACEMETHOD(First)(_Outptr_ IIterator<IWwwFormUrlDecoderEntry>** value);
-
-    // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-    IFACEMETHOD(GetAt)(_In_ UINT32 index, _Outptr_ IWwwFormUrlDecoderEntry** value);
-    IFACEMETHOD(IndexOf)(_In_ IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value);
-    IFACEMETHOD(GetMany)(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value);
-    IFACEMETHOD(get_Size)(_Out_ UINT32* value);
-
-private:
-
-};
-ActivatableClassWithFactory(WwwFormUrlDecoder, WwwFormUrlDecoderFactory);
-
-// Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
-IFACEMETHODIMP WwwFormUrlDecoder::GetFirstValueByName(_In_ HSTRING name, _Out_ HSTRING* value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::First(_Outptr_ IIterator<IWwwFormUrlDecoderEntry>** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::GetAt(_In_ UINT32 index, _Outptr_ IWwwFormUrlDecoderEntry** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::IndexOf(_In_ IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::get_Size(_Out_ UINT32* value)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
 
 
 namespace Windows
@@ -152,13 +74,91 @@ private:
 
 
 // Windows::Foundation::IWwwFormUrlDecoderEntry
-IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Name(_Out_ HSTRING* value)
+IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Name(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IWwwFormUrlDecoderEntry
-IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Value(_Out_ HSTRING* value)
+IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Value(_Out_ HSTRING* /* value */)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation::Collections;
+
+namespace Windows
+{
+namespace Foundation
+{
+class WwwFormUrlDecoder WrlFinal : RuntimeClass<
+    FtmBase,
+    IWwwFormUrlDecoderRuntimeClass,
+    IIterable<IWwwFormUrlDecoderEntry>,
+    IVectorView<IWwwFormUrlDecoderEntry>
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoder, BaseTrust);
+
+public:
+    WwwFormUrlDecoder();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
+    IFACEMETHOD(GetFirstValueByName)(_In_ HSTRING name, _Out_ HSTRING* value);
+
+    // Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>
+    IFACEMETHOD(First)(_Outptr_ IIterator<IWwwFormUrlDecoderEntry>** value);
+
+    // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
+    IFACEMETHOD(GetAt)(_In_ UINT32 index, _Outptr_ IWwwFormUrlDecoderEntry** value);
+    IFACEMETHOD(IndexOf)(_In_ IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value);
+    IFACEMETHOD(GetMany)(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value);
+    IFACEMETHOD(get_Size)(_Out_ UINT32* value);
+
+private:
+
+};
+ActivatableClassWithFactory(WwwFormUrlDecoder, WwwFormUrlDecoderFactory);
+
+// Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
+IFACEMETHODIMP WwwFormUrlDecoder::GetFirstValueByName(_In_ HSTRING name, _Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>
+IFACEMETHODIMP WwwFormUrlDecoder::First(_Outptr_ IIterator<IWwwFormUrlDecoderEntry>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
+IFACEMETHODIMP WwwFormUrlDecoder::GetAt(_In_ UINT32 index, _Outptr_ IWwwFormUrlDecoderEntry** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
+IFACEMETHODIMP WwwFormUrlDecoder::IndexOf(_In_ IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
+IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
+IFACEMETHODIMP WwwFormUrlDecoder::get_Size(_Out_ UINT32* /* value */)
 {
     return E_NOTIMPL;
 }
