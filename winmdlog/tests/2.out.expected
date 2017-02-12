@@ -1,59 +1,4 @@
 ﻿#include <Windows.System.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
-
-
-namespace Windows
-{
-namespace System
-{
-namespace RemoteSystems
-{
-class RemoteSystemSessionControllerFactory WrlFinal : AgileActivationFactory<
-    IRemoteSystemSessionControllerFactory
-    >
-{
-    InspectableClass(RuntimeClass_Windows_System_RemoteSystems_RemoteSystemSessionControllerFactory, BaseTrust);
-
-public:
-    RemoteSystemSessionControllerFactory();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
-    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _Outptr_ IRemoteSystemSessionController** value);
-    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _In_ IRemoteSystemSessionOptions* options, _Outptr_ IRemoteSystemSessionController** value);
-
-    // IActivationFactory
-    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
-
-private:
-
-};
-
-
-// Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
-IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _Outptr_ IRemoteSystemSessionController** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
-IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _In_ IRemoteSystemSessionOptions* options, _Outptr_ IRemoteSystemSessionController** value)
-{
-    return E_NOTIMPL;
-}
-
-// IActivationFactory
-IFACEMETHODIMP RemoteSystemSessionControllerFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-}
-#include <Windows.System.h>
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
 
@@ -110,6 +55,61 @@ IFACEMETHODIMP RemoteSystemSessionController::add_JoinRequested(_In_ TypedEventH
 IFACEMETHODIMP RemoteSystemSessionController::remove_JoinRequested(_In_ EventRegistrationToken token)
 {
     return m_JoinRequestedEventHandlers.Remove(token);
+}
+
+}
+}
+}
+#include <Windows.System.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace System
+{
+namespace RemoteSystems
+{
+class RemoteSystemSessionControllerFactory WrlFinal : AgileActivationFactory<
+    IRemoteSystemSessionControllerFactory
+    >
+{
+    InspectableClass(RuntimeClass_Windows_System_RemoteSystems_RemoteSystemSessionControllerFactory, BaseTrust);
+
+public:
+    RemoteSystemSessionControllerFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
+    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _Outptr_ IRemoteSystemSessionController** value);
+    IFACEMETHOD(CreateController)(_In_ HSTRING displayName, _In_ IRemoteSystemSessionOptions* options, _Outptr_ IRemoteSystemSessionController** value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+// Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
+IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _Outptr_ IRemoteSystemSessionController** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::System::RemoteSystems::IRemoteSystemSessionControllerFactory
+IFACEMETHODIMP RemoteSystemSessionControllerFactory::CreateController(_In_ HSTRING displayName, _In_ IRemoteSystemSessionOptions* options, _Outptr_ IRemoteSystemSessionController** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP RemoteSystemSessionControllerFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
+{
+    return E_NOTIMPL;
 }
 
 }

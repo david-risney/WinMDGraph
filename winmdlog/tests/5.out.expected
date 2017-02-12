@@ -1,4 +1,65 @@
 ﻿#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioController WrlFinal : RuntimeClass<
+    FtmBase,
+    IGpioController
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioController, BaseTrust);
+
+public:
+    GpioController();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioController
+    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _Outptr_ IGpioPin** value);
+    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** value);
+    IFACEMETHOD(TryOpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value);
+    IFACEMETHOD(get_PinCount)(_Out_ INT32* value);
+
+private:
+
+};
+
+
+// Windows::Devices::Gpio::IGpioController
+IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _Outptr_ IGpioPin** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioController
+IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioController
+IFACEMETHODIMP GpioController::TryOpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::Gpio::IGpioController
+IFACEMETHODIMP GpioController::get_PinCount(_Out_ INT32* /* value */)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+#include <Windows.Devices.h>
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
 
@@ -59,67 +120,6 @@ IFACEMETHODIMP GpioControllerFactory::GetDefaultAsync(_Outptr_ IAsyncOperation<I
 
 // IActivationFactory
 IFACEMETHODIMP GpioControllerFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-}
-#include <Windows.Devices.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
-
-
-namespace Windows
-{
-namespace Devices
-{
-namespace Gpio
-{
-class GpioController WrlFinal : RuntimeClass<
-    FtmBase,
-    IGpioController
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioController, BaseTrust);
-
-public:
-    GpioController();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::Gpio::IGpioController
-    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _Outptr_ IGpioPin** value);
-    IFACEMETHOD(OpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** value);
-    IFACEMETHOD(TryOpenPin)(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value);
-    IFACEMETHOD(get_PinCount)(_Out_ INT32* value);
-
-private:
-
-};
-
-
-// Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _Outptr_ IGpioPin** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::OpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::TryOpenPin(_In_ INT32 pinNumber, _In_ GpioSharingMode sharingMode, _Outptr_ IGpioPin** pin, _Out_ GpioOpenStatus* openStatus, _Out_ boolean* value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Devices::Gpio::IGpioController
-IFACEMETHODIMP GpioController::get_PinCount(_Out_ INT32* /* value */)
 {
     return E_NOTIMPL;
 }

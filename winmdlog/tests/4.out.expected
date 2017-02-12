@@ -1,44 +1,4 @@
 ﻿#include <Windows.Devices.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
-
-
-namespace Windows
-{
-namespace Devices
-{
-namespace Gpio
-{
-class GpioPinValueChangedEventArgs WrlFinal : RuntimeClass<
-    FtmBase,
-    IGpioPinValueChangedEventArgs
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPinValueChangedEventArgs, BaseTrust);
-
-public:
-    GpioPinValueChangedEventArgs();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
-    IFACEMETHOD(get_Edge)(_Out_ GpioPinEdge* value);
-
-private:
-
-};
-
-
-// Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
-IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* /* value */)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-}
-#include <Windows.Devices.h>
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
 
@@ -152,6 +112,46 @@ IFACEMETHODIMP GpioPin::put_DebounceTimeout(_In_ TimeSpan /* value */)
 
 // Windows::Foundation::IClosable
 IFACEMETHODIMP GpioPin::Close()
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioPinValueChangedEventArgs WrlFinal : RuntimeClass<
+    FtmBase,
+    IGpioPinValueChangedEventArgs
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPinValueChangedEventArgs, BaseTrust);
+
+public:
+    GpioPinValueChangedEventArgs();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
+    IFACEMETHOD(get_Edge)(_Out_ GpioPinEdge* value);
+
+private:
+
+};
+
+
+// Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
+IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* /* value */)
 {
     return E_NOTIMPL;
 }

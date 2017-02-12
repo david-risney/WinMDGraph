@@ -8,75 +8,6 @@ namespace Windows
 {
 namespace Foundation
 {
-class UriFactory WrlFinal : AgileActivationFactory<
-    IUriRuntimeClassFactory,
-    IUriEscapeStatics
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Foundation_UriFactory, BaseTrust);
-
-public:
-    UriFactory();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::IUriRuntimeClassFactory
-    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value);
-
-    // Windows::Foundation::IUriEscapeStatics
-    IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
-    IFACEMETHOD(EscapeComponent)(_In_ HSTRING toEscape, _Out_ HSTRING* value);
-
-    // IActivationFactory
-    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
-
-private:
-
-};
-
-
-// Windows::Foundation::IUriRuntimeClassFactory
-IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::IUriRuntimeClassFactory
-IFACEMETHODIMP UriFactory::CreateWithRelativeUri(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::IUriEscapeStatics
-IFACEMETHODIMP UriFactory::UnescapeComponent(_In_ HSTRING toUnescape, _Out_ HSTRING* value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::IUriEscapeStatics
-IFACEMETHODIMP UriFactory::EscapeComponent(_In_ HSTRING toEscape, _Out_ HSTRING* value)
-{
-    return E_NOTIMPL;
-}
-
-// IActivationFactory
-IFACEMETHODIMP UriFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
-
-
-namespace Windows
-{
-namespace Foundation
-{
 class Uri WrlFinal : RuntimeClass<
     FtmBase,
     IUriRuntimeClass,
@@ -237,6 +168,75 @@ IFACEMETHODIMP Uri::get_DisplayIri(_Out_ HSTRING* /* value */)
 
 // Windows::Foundation::IStringable
 IFACEMETHODIMP Uri::ToString(_Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Foundation
+{
+class UriFactory WrlFinal : AgileActivationFactory<
+    IUriRuntimeClassFactory,
+    IUriEscapeStatics
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Foundation_UriFactory, BaseTrust);
+
+public:
+    UriFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::IUriRuntimeClassFactory
+    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value);
+    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value);
+
+    // Windows::Foundation::IUriEscapeStatics
+    IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
+    IFACEMETHOD(EscapeComponent)(_In_ HSTRING toEscape, _Out_ HSTRING* value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+// Windows::Foundation::IUriRuntimeClassFactory
+IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IUriRuntimeClassFactory
+IFACEMETHODIMP UriFactory::CreateWithRelativeUri(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IUriEscapeStatics
+IFACEMETHODIMP UriFactory::UnescapeComponent(_In_ HSTRING toUnescape, _Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IUriEscapeStatics
+IFACEMETHODIMP UriFactory::EscapeComponent(_In_ HSTRING toEscape, _Out_ HSTRING* value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP UriFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

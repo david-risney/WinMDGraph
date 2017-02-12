@@ -2,95 +2,6 @@
 #include <wrl/implements.h>
 
 using namespace Microsoft::WRL;
-
-
-namespace Windows
-{
-namespace Foundation
-{
-class WwwFormUrlDecoderFactory WrlFinal : AgileActivationFactory<
-    IWwwFormUrlDecoderRuntimeClassFactory
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderFactory, BaseTrust);
-
-public:
-    WwwFormUrlDecoderFactory();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
-    IFACEMETHOD(CreateWwwFormUrlDecoder)(_In_ HSTRING query, _Outptr_ IWwwFormUrlDecoderRuntimeClass** value);
-
-    // IActivationFactory
-    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
-
-private:
-
-};
-
-
-// Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
-IFACEMETHODIMP WwwFormUrlDecoderFactory::CreateWwwFormUrlDecoder(_In_ HSTRING query, _Outptr_ IWwwFormUrlDecoderRuntimeClass** value)
-{
-    return E_NOTIMPL;
-}
-
-// IActivationFactory
-IFACEMETHODIMP WwwFormUrlDecoderFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
-
-
-namespace Windows
-{
-namespace Foundation
-{
-class WwwFormUrlDecoderEntry WrlFinal : RuntimeClass<
-    FtmBase,
-    IWwwFormUrlDecoderEntry
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderEntry, BaseTrust);
-
-public:
-    WwwFormUrlDecoderEntry();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::IWwwFormUrlDecoderEntry
-    IFACEMETHOD(get_Name)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Value)(_Out_ HSTRING* value);
-
-private:
-
-};
-
-
-// Windows::Foundation::IWwwFormUrlDecoderEntry
-IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Name(_Out_ HSTRING* /* value */)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Foundation::IWwwFormUrlDecoderEntry
-IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Value(_Out_ HSTRING* /* value */)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
 using namespace Windows::Foundation::Collections;
 
 namespace Windows
@@ -159,6 +70,95 @@ IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 startIndex, _Outptr_ IWwwF
 
 // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
 IFACEMETHODIMP WwwFormUrlDecoder::get_Size(_Out_ UINT32* /* value */)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Foundation
+{
+class WwwFormUrlDecoderEntry WrlFinal : RuntimeClass<
+    FtmBase,
+    IWwwFormUrlDecoderEntry
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderEntry, BaseTrust);
+
+public:
+    WwwFormUrlDecoderEntry();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::IWwwFormUrlDecoderEntry
+    IFACEMETHOD(get_Name)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Value)(_Out_ HSTRING* value);
+
+private:
+
+};
+
+
+// Windows::Foundation::IWwwFormUrlDecoderEntry
+IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Name(_Out_ HSTRING* /* value */)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Foundation::IWwwFormUrlDecoderEntry
+IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Value(_Out_ HSTRING* /* value */)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+
+
+namespace Windows
+{
+namespace Foundation
+{
+class WwwFormUrlDecoderFactory WrlFinal : AgileActivationFactory<
+    IWwwFormUrlDecoderRuntimeClassFactory
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderFactory, BaseTrust);
+
+public:
+    WwwFormUrlDecoderFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
+    IFACEMETHOD(CreateWwwFormUrlDecoder)(_In_ HSTRING query, _Outptr_ IWwwFormUrlDecoderRuntimeClass** value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+// Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
+IFACEMETHODIMP WwwFormUrlDecoderFactory::CreateWwwFormUrlDecoder(_In_ HSTRING query, _Outptr_ IWwwFormUrlDecoderRuntimeClass** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP WwwFormUrlDecoderFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }

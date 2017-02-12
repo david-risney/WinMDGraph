@@ -151,8 +151,6 @@ namespace WinMDLog
             List<FileOutput> results = new List<FileOutput>();
             foreach (IAbiType type in types)
             {
-                ReferenceCollector refs = new ReferenceCollector(type.Namespace);
-
                 const string rootTemplate =
 @"$includeStatements
 #include <wrl/implements.h>
@@ -180,69 +178,79 @@ $activatableClassStatements
 $interfaceImplementationDefinitions
 $namespaceDefinitionEnd";
 
-                string result = rootTemplate.
-                    Replace("$namespaceDefinitionBegin", type.NamespaceDefinitionBeginStatement).
-                    Replace("$namespaceDefinitionEnd", type.NamespaceDefinitionEndStatement).
-                    Replace("$className", type.ShortNameNoTypeParameters).
-                    Replace("$runtimeclassStringName", type.RuntimeClassName).
-                    Replace("$parentHelperClass", type.ParentHelperClassName).
-                    Replace("$inspectableClassKind", type.InspectableClassKind).
-                    Replace("$activatableClassStatements", String.Join(Environment.NewLine, type.GetActivatableClassStatements(refs)));
+                results = results.Concat(ProcessType(rootTemplate, type)).ToList<FileOutput>();
+            }
 
-                var parentClasses = type.GetParentClasses(refs).
-                    Where(parent => !parent.ImplicitParent).
-                    Select(parent => "    " + parent.GetShortName(refs));
+            return results;
+        }
 
-                if (type.IsAgile)
+        List<FileOutput> ProcessType(string rootTemplate, IAbiType type)
+        {
+            List<FileOutput> results = new List<FileOutput>();
+            ReferenceCollector refs = new ReferenceCollector(type.Namespace);
+            string result = rootTemplate.
+                Replace("$namespaceDefinitionBegin", type.NamespaceDefinitionBeginStatement).
+                Replace("$namespaceDefinitionEnd", type.NamespaceDefinitionEndStatement).
+                Replace("$className", type.ShortNameNoTypeParameters).
+                Replace("$runtimeclassStringName", type.RuntimeClassName).
+                Replace("$parentHelperClass", type.ParentHelperClassName).
+                Replace("$inspectableClassKind", type.InspectableClassKind).
+                Replace("$activatableClassStatements", String.Join(Environment.NewLine, type.GetActivatableClassStatements(refs)));
+
+            var parentClasses = type.GetParentClasses(refs).
+                Where(parent => !parent.ImplicitParent).
+                Select(parent => "    " + parent.GetShortName(refs));
+
+            if (type.IsAgile)
+            {
+                parentClasses = new string[] { "    FtmBase" }.Concat(parentClasses);
+            }
+
+            result = result.
+                Replace("$parentClasses", String.Join("," + Environment.NewLine, parentClasses));
+
+            result = result.Replace("$interfaceImplementationDeclarations",
+                String.Join(Environment.NewLine, type.GetParentClasses(refs).Select(tinterface =>
                 {
-                    parentClasses = new string[] { "    FtmBase" }.Concat(parentClasses);
-                }
+                    string[] header = new string[] { "    // " + tinterface.GetFullName(refs) };
+                    string[] tail = new string[] { "" };
 
-                result = result.
-                    Replace("$parentClasses", String.Join("," + Environment.NewLine, parentClasses));
-
-                result = result.Replace("$interfaceImplementationDeclarations",
-                    String.Join(Environment.NewLine, type.GetParentClasses(refs).Select(tinterface =>
-                    {
-                        string[] header = new string[] { "    // " + tinterface.GetFullName(refs) };
-                        string[] tail = new string[] { "" };
-
-                        IEnumerable<string> methods = tinterface.Methods.SelectMany(method => new string[] {
+                    IEnumerable<string> methods = tinterface.Methods.SelectMany(method => new string[] {
                             "    IFACEMETHOD(" + method.Name +")(" + method.GetParameters(refs) + ");"
-                        });
+                    });
 
-                        IEnumerable<string> events = tinterface.Events.SelectMany(tevent => new string[] {
+                    IEnumerable<string> events = tinterface.Events.SelectMany(tevent => new string[] {
                             "    IFACEMETHOD(add_" + tevent.Name + ")(" + tevent.EventHandlerType.GetShortNameAsInParam(refs) + " eventHandler, _Out_ EventRegistrationToken* token);",
                             "    IFACEMETHOD(remove_" + tevent.Name + ")(_In_ EventRegistrationToken token);",
-                        });
+                    });
 
-                        IEnumerable<string> readOnlyProperties = tinterface.ReadOnlyProperties.SelectMany(property => new string[] {
+                    IEnumerable<string> readOnlyProperties = tinterface.ReadOnlyProperties.SelectMany(property => new string[] {
                             "    IFACEMETHOD(get_" + property.Name + ")(" + property.PropertyType.GetShortNameAsOutParam(refs) + " value);"
-                        });
+                    });
 
-                        IEnumerable<string> readWriteProperties = tinterface.ReadWriteProperties.SelectMany(property => new string[] {
+                    IEnumerable<string> readWriteProperties = tinterface.ReadWriteProperties.SelectMany(property => new string[] {
                             "    IFACEMETHOD(get_" + property.Name + ")(" + property.PropertyType.GetShortNameAsOutParam(refs) + " value);",
                             "    IFACEMETHOD(put_" + property.Name + ")(" + property.PropertyType.GetShortNameAsInParam(refs) + " value);"
-                        });
+                    });
 
-                        return String.Join(Environment.NewLine, header.Concat(methods).Concat(readOnlyProperties).Concat(readWriteProperties).Concat(events).Concat(tail));
-                    })));
+                    return String.Join(Environment.NewLine, header.Concat(methods).Concat(readOnlyProperties).Concat(readWriteProperties).Concat(events).Concat(tail));
+                })));
 
-                result = result.Replace("$interfaceImplementationDefinitions",
-                    String.Join(Environment.NewLine, type.GetParentClasses(refs).Select(tinterface =>
-                    {
-                        string header = "// " + tinterface.GetFullName(refs);
+            result = result.Replace("$interfaceImplementationDefinitions",
+                String.Join(Environment.NewLine, type.GetParentClasses(refs).Select(tinterface =>
+                {
+                    string header = "// " + tinterface.GetFullName(refs);
 
-                        IEnumerable<string> methods = tinterface.Methods.SelectMany(method => new string[] {
+                    IEnumerable<string> methods = tinterface.Methods.SelectMany(method => new string[] {
                             header,
                             "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::" + method.Name + "(" + method.GetParameters(refs) + ")",
                             "{",
                             "    return E_NOTIMPL;",
                             "}",
                             ""
-                        });
+                    });
 
-                        IEnumerable<string> events = tinterface.Events.SelectMany(tevent => new string[] {
+                    IEnumerable<string> events = tinterface.Events.SelectMany(tevent => new string[] {
                             header,
                             "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::add_" + tevent.Name + "(" + tevent.EventHandlerType.GetShortNameAsInParam(refs) + " eventHandler, _Out_ EventRegistrationToken* token)",
                             "{",
@@ -255,18 +263,18 @@ $namespaceDefinitionEnd";
                             "    return m_" + tevent.Name + "EventHandlers.Remove(token);",
                             "}",
                             ""
-                        });
+                    });
 
-                        IEnumerable<string> readOnlyProperties = tinterface.ReadOnlyProperties.SelectMany(property => new string[] {
+                    IEnumerable<string> readOnlyProperties = tinterface.ReadOnlyProperties.SelectMany(property => new string[] {
                             header,
                             "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::get_" + property.Name + "(" + property.PropertyType.GetShortNameAsOutParam(refs) + " /* value */)",
                             "{",
                             "    return E_NOTIMPL;",
                             "}",
                             ""
-                        });
+                    });
 
-                        IEnumerable<string> readWriteProperties = tinterface.ReadWriteProperties.SelectMany(property => new string[] {
+                    IEnumerable<string> readWriteProperties = tinterface.ReadWriteProperties.SelectMany(property => new string[] {
                             header,
                             "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::get_" + property.Name + "(" + property.PropertyType.GetShortNameAsOutParam(refs) + " /* value */)",
                             "{",
@@ -279,25 +287,24 @@ $namespaceDefinitionEnd";
                             "    return E_NOTIMPL;",
                             "}",
                             ""
-                        });
+                    });
 
-                        return String.Join(Environment.NewLine, methods.Concat(events).Concat(readOnlyProperties).Concat(readWriteProperties));
-                    })));
+                    return String.Join(Environment.NewLine, methods.Concat(events).Concat(readOnlyProperties).Concat(readWriteProperties));
+                })));
 
-                result = result.Replace("$eventHelperDeclaration", 
-                    String.Join(Environment.NewLine, type.GetParentClasses(refs).SelectMany(
-                        tinterface => tinterface.Events
-                    ).Select(
-                        tevent => "    AgileEventSource<" + tevent.EventHandlerType.GetShortName(refs) + "> m_" + tevent.Name + "EventHandlers;"
-                    )));
+            result = result.Replace("$eventHelperDeclaration",
+                String.Join(Environment.NewLine, type.GetParentClasses(refs).SelectMany(
+                    tinterface => tinterface.Events
+                ).Select(
+                    tevent => "    AgileEventSource<" + tevent.EventHandlerType.GetShortName(refs) + "> m_" + tevent.Name + "EventHandlers;"
+                )));
 
-                // Do these last once refs has been fully populated.
-                result = result.
-                    Replace("$includeStatements", String.Join(Environment.NewLine, refs.IncludeStatements)).
-                    Replace("$usingNamespaceStatements", String.Join(Environment.NewLine, refs.UsingNamespaceStatements));
+            // Do these last once refs has been fully populated.
+            result = result.
+                Replace("$includeStatements", String.Join(Environment.NewLine, refs.IncludeStatements)).
+                Replace("$usingNamespaceStatements", String.Join(Environment.NewLine, refs.UsingNamespaceStatements));
 
-                results.Add(new FileOutput(type.ShortNameNoTypeParameters + ".cpp", result));
-            }
+            results.Add(new FileOutput(type.ShortNameNoTypeParameters + ".cpp", result));
 
             return results;
         }

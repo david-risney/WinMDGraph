@@ -6,64 +6,6 @@
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation;
 using namespace Windows::Globalization;
-
-namespace Windows
-{
-namespace Devices
-{
-namespace AllJoyn
-{
-class AllJoynAboutDataViewFactory WrlFinal : AgileActivationFactory<
-    IAllJoynAboutDataViewStatics
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataViewFactory, BaseTrust);
-
-public:
-    AllJoynAboutDataViewFactory();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
-    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
-
-    // IActivationFactory
-    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
-
-private:
-
-};
-
-
-// Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
-{
-    return E_NOTIMPL;
-}
-
-// Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
-{
-    return E_NOTIMPL;
-}
-
-// IActivationFactory
-IFACEMETHODIMP AllJoynAboutDataViewFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-}
-#include <Windows.Devices.h>
-#include <Windows.Foundation.h>
-#include <Windows.Globalization.h>
-#include <wrl/implements.h>
-
-using namespace Microsoft::WRL;
-using namespace Windows::Foundation;
-using namespace Windows::Globalization;
 using namespace Windows::Foundation::Collections;
 
 namespace Windows
@@ -198,6 +140,64 @@ IFACEMETHODIMP AllJoynAboutDataView::get_SupportUrl(_Outptr_ IUriRuntimeClass** 
 
 // Windows::Devices::AllJoyn::IAllJoynAboutDataView
 IFACEMETHODIMP AllJoynAboutDataView::get_SupportedLanguages(_Outptr_ IVectorView<ILanguage>** /* value */)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <Windows.Globalization.h>
+#include <wrl/implements.h>
+
+using namespace Microsoft::WRL;
+using namespace Windows::Foundation;
+using namespace Windows::Globalization;
+
+namespace Windows
+{
+namespace Devices
+{
+namespace AllJoyn
+{
+class AllJoynAboutDataViewFactory WrlFinal : AgileActivationFactory<
+    IAllJoynAboutDataViewStatics
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataViewFactory, BaseTrust);
+
+public:
+    AllJoynAboutDataViewFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
+{
+    return E_NOTIMPL;
+}
+
+// Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP AllJoynAboutDataViewFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 {
     return E_NOTIMPL;
 }
