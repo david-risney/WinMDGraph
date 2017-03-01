@@ -1,7 +1,5 @@
-﻿#include <Windows.Devices.h>
-#include <Windows.Foundation.h>
-#include <Windows.Globalization.h>
-#include <wrl/implements.h>
+﻿// AllJoynAboutDataView.cpp
+#include "AllJoynAboutDataView.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation;
@@ -14,40 +12,6 @@ namespace Devices
 {
 namespace AllJoyn
 {
-class AllJoynAboutDataView WrlFinal : RuntimeClass<
-    FtmBase,
-    IAllJoynAboutDataView
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataView, BaseTrust);
-
-public:
-    AllJoynAboutDataView();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::AllJoyn::IAllJoynAboutDataView
-    IFACEMETHOD(get_AJSoftwareVersion)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_AppId)(_Out_ GUID* value);
-    IFACEMETHOD(get_AppName)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_DateOfManufacture)(_Outptr_ IReference<DateTime>** value);
-    IFACEMETHOD(get_DefaultLanguage)(_Outptr_ ILanguage** value);
-    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_DeviceName)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_HardwareVersion)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Manufacturer)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_ModelNumber)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Properties)(_Outptr_ IMapView<HSTRING, IInspectable>** value);
-    IFACEMETHOD(get_SoftwareVersion)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Status)(_Out_ INT32* value);
-    IFACEMETHOD(get_SupportUrl)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(get_SupportedLanguages)(_Outptr_ IVectorView<ILanguage>** value);
-
-private:
-
-};
-
-
 // Windows::Devices::AllJoyn::IAllJoynAboutDataView
 IFACEMETHODIMP AllJoynAboutDataView::get_AJSoftwareVersion(_Out_ HSTRING* /* value */)
 {
@@ -147,10 +111,60 @@ IFACEMETHODIMP AllJoynAboutDataView::get_SupportedLanguages(_Outptr_ IVectorView
 }
 }
 }
+
+// AllJoynAboutDataView.h
 #include <Windows.Devices.h>
 #include <Windows.Foundation.h>
 #include <Windows.Globalization.h>
+#include "AllJoynAboutDataViewFactory.h"
 #include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace AllJoyn
+{
+class AllJoynAboutDataView WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Devices::AllJoyn::IAllJoynAboutDataView
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataView, BaseTrust);
+
+public:
+    AllJoynAboutDataView();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::AllJoyn::IAllJoynAboutDataView
+    IFACEMETHOD(get_AJSoftwareVersion)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_AppId)(_Out_ GUID* value);
+    IFACEMETHOD(get_AppName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DateOfManufacture)(_Outptr_ Windows::Foundation::IReference<Windows::Foundation::DateTime>** value);
+    IFACEMETHOD(get_DefaultLanguage)(_Outptr_ Windows::Globalization::ILanguage** value);
+    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DeviceName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_HardwareVersion)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Manufacturer)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_ModelNumber)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Properties)(_Outptr_ Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>** value);
+    IFACEMETHOD(get_SoftwareVersion)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Status)(_Out_ INT32* value);
+    IFACEMETHOD(get_SupportUrl)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(get_SupportedLanguages)(_Outptr_ Windows::Foundation::Collections::IVectorView<Windows::Globalization::ILanguage>** value);
+
+private:
+
+};
+
+
+}
+}
+}
+
+// AllJoynAboutDataViewFactory.cpp
+#include "AllJoynAboutDataViewFactory.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation;
@@ -162,28 +176,6 @@ namespace Devices
 {
 namespace AllJoyn
 {
-class AllJoynAboutDataViewFactory WrlFinal : AgileActivationFactory<
-    IAllJoynAboutDataViewStatics
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataViewFactory, BaseTrust);
-
-public:
-    AllJoynAboutDataViewFactory();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
-    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
-    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ ILanguage* language, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value);
-
-    // IActivationFactory
-    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
-
-private:
-
-};
-
-
 // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
 IFACEMETHODIMP AllJoynAboutDataViewFactory::GetDataBySessionPortAsync(_In_ HSTRING uniqueName, _In_ IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ IAsyncOperation<IAllJoynAboutDataView>** value)
 {
@@ -205,3 +197,42 @@ IFACEMETHODIMP AllJoynAboutDataViewFactory::ActivateInstance(_Outptr_ IInspectab
 }
 }
 }
+
+// AllJoynAboutDataViewFactory.h
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <Windows.Globalization.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace AllJoyn
+{
+class AllJoynAboutDataViewFactory WrlFinal : Microsoft::WRL::AgileActivationFactory<
+    Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_AllJoyn_AllJoynAboutDataViewFactory, BaseTrust);
+
+public:
+    AllJoynAboutDataViewFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::AllJoyn::IAllJoynAboutDataViewStatics
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ Windows::Devices::AllJoyn::IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _Outptr_ Windows::Foundation::IAsyncOperation<Windows::Devices::AllJoyn::IAllJoynAboutDataView>** value);
+    IFACEMETHOD(GetDataBySessionPortAsync)(_In_ HSTRING uniqueName, _In_ Windows::Devices::AllJoyn::IAllJoynBusAttachment* busAttachment, _In_ UINT16 sessionPort, _In_ Windows::Globalization::ILanguage* language, _Outptr_ Windows::Foundation::IAsyncOperation<Windows::Devices::AllJoyn::IAllJoynAboutDataView>** value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+}
+}
+}
+

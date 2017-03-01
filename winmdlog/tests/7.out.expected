@@ -1,5 +1,5 @@
-﻿#include <Windows.Devices.h>
-#include <wrl/implements.h>
+﻿// KnownDeviceTypesFactory.cpp
+#include "KnownDeviceTypesFactory.h"
 
 using namespace Microsoft::WRL;
 
@@ -10,8 +10,34 @@ namespace Devices
 {
 namespace Custom
 {
-class KnownDeviceTypesFactory WrlFinal : AgileActivationFactory<
-    IKnownDeviceTypesStatics
+// Windows::Devices::Custom::IKnownDeviceTypesStatics
+IFACEMETHODIMP KnownDeviceTypesFactory::get_Unknown(_Out_ UINT16* /* value */)
+{
+    return E_NOTIMPL;
+}
+
+// IActivationFactory
+IFACEMETHODIMP KnownDeviceTypesFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
+{
+    return E_NOTIMPL;
+}
+
+}
+}
+}
+
+// KnownDeviceTypesFactory.h
+#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Custom
+{
+class KnownDeviceTypesFactory WrlFinal : Microsoft::WRL::AgileActivationFactory<
+    Windows::Devices::Custom::IKnownDeviceTypesStatics
     >
 {
     InspectableClassStatic(RuntimeClass_Windows_Devices_Custom_KnownDeviceTypesFactory, BaseTrust);
@@ -31,18 +57,7 @@ private:
 };
 
 
-// Windows::Devices::Custom::IKnownDeviceTypesStatics
-IFACEMETHODIMP KnownDeviceTypesFactory::get_Unknown(_Out_ UINT16* /* value */)
-{
-    return E_NOTIMPL;
+}
+}
 }
 
-// IActivationFactory
-IFACEMETHODIMP KnownDeviceTypesFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
-{
-    return E_NOTIMPL;
-}
-
-}
-}
-}

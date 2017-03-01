@@ -1,5 +1,5 @@
-﻿#include <Windows.ApplicationModel.h>
-#include <wrl/implements.h>
+﻿// PackageStagingEventArgs.cpp
+#include "PackageStagingEventArgs.h"
 
 using namespace Microsoft::WRL;
 
@@ -8,29 +8,6 @@ namespace Windows
 {
 namespace ApplicationModel
 {
-class PackageStagingEventArgs WrlFinal : RuntimeClass<
-    FtmBase,
-    IPackageStagingEventArgs
-    >
-{
-    InspectableClass(RuntimeClass_Windows_ApplicationModel_PackageStagingEventArgs, BaseTrust);
-
-public:
-    PackageStagingEventArgs();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::ApplicationModel::IPackageStagingEventArgs
-    IFACEMETHOD(get_ActivityId)(_Out_ GUID* value);
-    IFACEMETHOD(get_ErrorCode)(_Out_ HRESULT* value);
-    IFACEMETHOD(get_IsComplete)(_Out_ boolean* value);
-    IFACEMETHOD(get_Package)(_Outptr_ IPackage** value);
-    IFACEMETHOD(get_Progress)(_Out_ DOUBLE* value);
-
-private:
-
-};
-
-
 // Windows::ApplicationModel::IPackageStagingEventArgs
 IFACEMETHODIMP PackageStagingEventArgs::get_ActivityId(_Out_ GUID* /* value */)
 {
@@ -63,3 +40,38 @@ IFACEMETHODIMP PackageStagingEventArgs::get_Progress(_Out_ DOUBLE* /* value */)
 
 }
 }
+
+// PackageStagingEventArgs.h
+#include <Windows.ApplicationModel.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+class PackageStagingEventArgs WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::ApplicationModel::IPackageStagingEventArgs
+    >
+{
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_PackageStagingEventArgs, BaseTrust);
+
+public:
+    PackageStagingEventArgs();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::ApplicationModel::IPackageStagingEventArgs
+    IFACEMETHOD(get_ActivityId)(_Out_ GUID* value);
+    IFACEMETHOD(get_ErrorCode)(_Out_ HRESULT* value);
+    IFACEMETHOD(get_IsComplete)(_Out_ boolean* value);
+    IFACEMETHOD(get_Package)(_Outptr_ Windows::ApplicationModel::IPackage** value);
+    IFACEMETHOD(get_Progress)(_Out_ DOUBLE* value);
+
+private:
+
+};
+
+
+}
+}
+

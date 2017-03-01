@@ -1,7 +1,5 @@
-﻿#include <Windows.Devices.h>
-#include <Windows.Storage.h>
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
+﻿// SmartCardPinResetRequest.cpp
+#include "SmartCardPinResetRequest.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Storage::Streams;
@@ -13,28 +11,6 @@ namespace Devices
 {
 namespace SmartCards
 {
-class SmartCardPinResetRequest WrlFinal : RuntimeClass<
-    FtmBase,
-    ISmartCardPinResetRequest
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_SmartCards_SmartCardPinResetRequest, BaseTrust);
-
-public:
-    SmartCardPinResetRequest();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::SmartCards::ISmartCardPinResetRequest
-    IFACEMETHOD(GetDeferral)(_Outptr_ ISmartCardPinResetDeferral** value);
-    IFACEMETHOD(SetResponse)(_In_ IBuffer* response);
-    IFACEMETHOD(get_Challenge)(_Outptr_ IBuffer** value);
-    IFACEMETHOD(get_Deadline)(_Out_ DateTime* value);
-
-private:
-
-};
-
-
 // Windows::Devices::SmartCards::ISmartCardPinResetRequest
 IFACEMETHODIMP SmartCardPinResetRequest::GetDeferral(_Outptr_ ISmartCardPinResetDeferral** value)
 {
@@ -62,3 +38,42 @@ IFACEMETHODIMP SmartCardPinResetRequest::get_Deadline(_Out_ DateTime* /* value *
 }
 }
 }
+
+// SmartCardPinResetRequest.h
+#include <Windows.Devices.h>
+#include <Windows.Storage.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace SmartCards
+{
+class SmartCardPinResetRequest WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Devices::SmartCards::ISmartCardPinResetRequest
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_SmartCards_SmartCardPinResetRequest, BaseTrust);
+
+public:
+    SmartCardPinResetRequest();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::SmartCards::ISmartCardPinResetRequest
+    IFACEMETHOD(GetDeferral)(_Outptr_ Windows::Devices::SmartCards::ISmartCardPinResetDeferral** value);
+    IFACEMETHOD(SetResponse)(_In_ Windows::Storage::Streams::IBuffer* response);
+    IFACEMETHOD(get_Challenge)(_Outptr_ Windows::Storage::Streams::IBuffer** value);
+    IFACEMETHOD(get_Deadline)(_Out_ Windows::Foundation::DateTime* value);
+
+private:
+
+};
+
+
+}
+}
+}
+

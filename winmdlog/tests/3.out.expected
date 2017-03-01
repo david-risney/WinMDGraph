@@ -1,6 +1,5 @@
-﻿#include <Windows.Devices.h>
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
+﻿// AdcChannel.cpp
+#include "AdcChannel.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation;
@@ -11,31 +10,6 @@ namespace Devices
 {
 namespace Adc
 {
-class AdcChannel WrlFinal : RuntimeClass<
-    FtmBase,
-    IAdcChannel,
-    IClosable
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_Adc_AdcChannel, BaseTrust);
-
-public:
-    AdcChannel();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::Adc::IAdcChannel
-    IFACEMETHOD(ReadValue)(_Out_ INT32* value);
-    IFACEMETHOD(ReadRatio)(_Out_ DOUBLE* value);
-    IFACEMETHOD(get_Controller)(_Outptr_ IAdcController** value);
-
-    // Windows::Foundation::IClosable
-    IFACEMETHOD(Close)();
-
-private:
-
-};
-
-
 // Windows::Devices::Adc::IAdcChannel
 IFACEMETHODIMP AdcChannel::ReadValue(_Out_ INT32* value)
 {
@@ -63,3 +37,44 @@ IFACEMETHODIMP AdcChannel::Close()
 }
 }
 }
+
+// AdcChannel.h
+#include <Windows.Devices.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Adc
+{
+class AdcChannel WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Devices::Adc::IAdcChannel,
+    Windows::Foundation::IClosable
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Adc_AdcChannel, BaseTrust);
+
+public:
+    AdcChannel();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Adc::IAdcChannel
+    IFACEMETHOD(ReadValue)(_Out_ INT32* value);
+    IFACEMETHOD(ReadRatio)(_Out_ DOUBLE* value);
+    IFACEMETHOD(get_Controller)(_Outptr_ Windows::Devices::Adc::IAdcController** value);
+
+    // Windows::Foundation::IClosable
+    IFACEMETHOD(Close)();
+
+private:
+
+};
+
+
+}
+}
+}
+

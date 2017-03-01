@@ -1,6 +1,5 @@
-﻿#include <Windows.Foundation.h>
-#include <Windows.ApplicationModel.h>
-#include <wrl/implements.h>
+﻿// ResourceMapIterator.cpp
+#include "ResourceMapIterator.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation::Collections;
@@ -13,28 +12,6 @@ namespace Resources
 {
 namespace Core
 {
-class ResourceMapIterator WrlFinal : RuntimeClass<
-    FtmBase,
-    IIterator<IKeyValuePair<HSTRING, NamedResource>>
-    >
-{
-    InspectableClass(RuntimeClass_Windows_ApplicationModel_Resources_Core_ResourceMapIterator, BaseTrust);
-
-public:
-    ResourceMapIterator();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::NamedResource>>
-    IFACEMETHOD(MoveNext)(_Out_ boolean* value);
-    IFACEMETHOD(GetMany)(_Outptr_ IKeyValuePair<HSTRING, INamedResource>** items, _Out_ UINT32* value);
-    IFACEMETHOD(get_Current)(_Outptr_ IKeyValuePair<HSTRING, INamedResource>** value);
-    IFACEMETHOD(get_HasCurrent)(_Out_ boolean* value);
-
-private:
-
-};
-
-
 // Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::NamedResource>>
 IFACEMETHODIMP ResourceMapIterator::MoveNext(_Out_ boolean* value)
 {
@@ -63,3 +40,44 @@ IFACEMETHODIMP ResourceMapIterator::get_HasCurrent(_Out_ boolean* /* value */)
 }
 }
 }
+
+// ResourceMapIterator.h
+#include <Windows.Foundation.h>
+#include <Windows.ApplicationModel.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+namespace Resources
+{
+namespace Core
+{
+class ResourceMapIterator WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::NamedResource>>
+    >
+{
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_Resources_Core_ResourceMapIterator, BaseTrust);
+
+public:
+    ResourceMapIterator();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::NamedResource>>
+    IFACEMETHOD(MoveNext)(_Out_ boolean* value);
+    IFACEMETHOD(GetMany)(_Outptr_ Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::INamedResource>** items, _Out_ UINT32* value);
+    IFACEMETHOD(get_Current)(_Outptr_ Windows::Foundation::Collections::IKeyValuePair<HSTRING, Windows::ApplicationModel::Resources::Core::INamedResource>** value);
+    IFACEMETHOD(get_HasCurrent)(_Out_ boolean* value);
+
+private:
+
+};
+
+
+}
+}
+}
+}
+

@@ -73,7 +73,7 @@ namespace WinMDLog
             }
         }
 
-        public string GetParameters(ReferenceCollector refs, bool commentOutParamNames)
+        public string GetParameters(ReferenceCollector refs, bool commentOutParamNames, bool shortNames)
         {
             return this.parameters;
         }
@@ -88,7 +88,7 @@ namespace WinMDLog
 
         public string Name { get { return this.methodInfo.Name; } }
 
-        public string GetParameters(ReferenceCollector refs, bool commentOutParamNames = false)
+        public string GetParameters(ReferenceCollector refs, bool commentOutParamNames = false, bool shortNames = true)
         {
             List<string> parameters = this.methodInfo.GetParameters().Where(
                 parameter => AbiTypeRuntimeClass.IsValidType(parameter.ParameterType)
@@ -99,7 +99,16 @@ namespace WinMDLog
                     paramName = "/* " + paramName + " */";
                 }
                 IAbiType paramType = (new AbiTypeRuntimeClass(parameter.ParameterType)).DefaultInterface;
-                return (parameter.IsIn ? paramType.GetShortNameAsInParam(refs) : paramType.GetShortNameAsOutParam(refs)) + " " + paramName;
+                string paramTypeName = "";
+                if (parameter.IsIn)
+                {
+                    paramTypeName = shortNames ? paramType.GetShortNameAsInParam(refs) : paramType.GetFullNameAsInParam(refs);
+                }
+                else
+                {
+                    paramTypeName = shortNames ? paramType.GetShortNameAsOutParam(refs) : paramType.GetFullNameAsOutParam(refs);
+                }
+                return paramTypeName + " " + paramName;
             }).ToList();
 
             if (methodInfo.ReturnType != null && methodInfo.ReturnType.Name != "Void")
@@ -109,7 +118,10 @@ namespace WinMDLog
                 {
                     paramName = "/* " + paramName + " */";
                 }
-                parameters.Add((new AbiTypeRuntimeClass(methodInfo.ReturnType)).DefaultInterface.GetShortNameAsOutParam(refs) + " " + paramName);
+
+                var defaultInterface = (new AbiTypeRuntimeClass(methodInfo.ReturnType)).DefaultInterface;
+                string paramType = shortNames ? defaultInterface.GetShortNameAsOutParam(refs) : defaultInterface.GetFullNameAsOutParam(refs);
+                parameters.Add(paramType + " " + paramName);
             }
 
             return String.Join(", ", parameters);
@@ -300,12 +312,32 @@ namespace WinMDLog
             return "IActivationFactory";
         }
 
+        public string GetParamPrefix(bool inParam)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetParamSuffix(bool inParam)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetShortNameAsInParam(ReferenceCollector refs)
         {
             throw new NotImplementedException();
         }
 
         public string GetShortNameAsOutParam(ReferenceCollector refs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetFullNameAsInParam(ReferenceCollector refs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetFullNameAsOutParam(ReferenceCollector refs)
         {
             throw new NotImplementedException();
         }
@@ -339,7 +371,7 @@ namespace WinMDLog
         {
             get
             {
-                return this.innerClass.IsAgile ? "AgileActivationFactory" : "ActivationFactory";
+                return this.innerClass.IsAgile ? "Microsoft::WRL::AgileActivationFactory" : "Microsoft::WRL::ActivationFactory";
             }
         }
         public AbiTypeRuntimeClassFactory(AbiTypeRuntimeClass innerClass)
@@ -351,7 +383,7 @@ namespace WinMDLog
         {
             get
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
 
@@ -465,6 +497,16 @@ namespace WinMDLog
             return this.innerClass.GetShortName(refs) + ClassNameSuffix;
         }
 
+        public string GetParamPrefix(bool inParam)
+        {
+            return this.innerClass.GetParamPrefix(inParam);
+        }
+
+        public string GetParamSuffix(bool inParam)
+        {
+            return this.innerClass.GetParamSuffix(inParam);
+        }
+
         public string GetShortNameAsInParam(ReferenceCollector refs)
         {
             return this.innerClass.GetShortNameAsInParam(refs) + ClassNameSuffix;
@@ -473,6 +515,16 @@ namespace WinMDLog
         public string GetShortNameAsOutParam(ReferenceCollector refs)
         {
             return this.innerClass.GetShortNameAsOutParam(refs) + ClassNameSuffix;
+        }
+
+        public string GetFullNameAsInParam(ReferenceCollector refs)
+        {
+            return this.innerClass.GetFullNameAsInParam(refs) + ClassNameSuffix;
+        }
+
+        public string GetFullNameAsOutParam(ReferenceCollector refs)
+        {
+            return this.innerClass.GetFullNameAsOutParam(refs) + ClassNameSuffix;
         }
     }
 
@@ -598,7 +650,7 @@ namespace WinMDLog
         {
             get
             {
-                return "RuntimeClass";
+                return "Microsoft::WRL::RuntimeClass";
             }
         }
 
@@ -933,6 +985,35 @@ namespace WinMDLog
             }
         }
 
+        public string GetParamPrefix(bool inParam)
+        {
+            Type type = this.unprojectedType;
+            if (inParam)
+            {
+                return "_In_ ";
+            }
+            else
+            {
+                bool doublePointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+                return (doublePointer ? "_Outptr_" : "_Out_");
+            }
+        }
+
+        public string GetParamSuffix(bool inParam)
+        {
+            Type type = this.unprojectedType;
+            if (inParam)
+            {
+                bool pointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+                return (pointer ? "*" : "");
+            }
+            else
+            {
+                bool doublePointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+                return (doublePointer ? "**" : "*");
+            }
+        }
+
         public string GetShortNameAsOutParam(ReferenceCollector refs)
         {
             Type type = this.unprojectedType;
@@ -945,6 +1026,20 @@ namespace WinMDLog
             Type type = this.unprojectedType;
             bool pointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
             return "_In_ " + this.GetShortName(refs) + (pointer ? "*" : "");
+        }
+
+        public string GetFullNameAsInParam(ReferenceCollector refs)
+        {
+            Type type = this.unprojectedType;
+            bool pointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+            return "_In_ " + this.GetFullName(refs) + (pointer ? "*" : "");
+        }
+
+        public string GetFullNameAsOutParam(ReferenceCollector refs)
+        {
+            Type type = this.unprojectedType;
+            bool doublePointer = !IgnoreIndirection(type) && (type.IsClass || type.IsInterface || type.IsByRef || type.IsPointer);
+            return (doublePointer ? "_Outptr_" : "_Out_") + " " + this.GetFullName(refs) + (doublePointer ? "**" : "*");
         }
 
         public IAbiType[] GetParentClasses(ReferenceCollector refs)

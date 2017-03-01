@@ -25,6 +25,10 @@
         string GetShortName(ReferenceCollector refs);
         string GetShortNameAsInParam(ReferenceCollector refs);
         string GetShortNameAsOutParam(ReferenceCollector refs);
+        string GetParamPrefix(bool inParam);
+        string GetParamSuffix(bool inParam);
         IAbiType[] GetFactoryAndStaticInterfaces(ReferenceCollector refs);
+        string GetFullNameAsInParam(ReferenceCollector refs);
+        string GetFullNameAsOutParam(ReferenceCollector refs);
     }
 }

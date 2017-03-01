@@ -1,5 +1,5 @@
-﻿#include <Windows.Foundation.h>
-#include <wrl/implements.h>
+﻿// Uri.cpp
+#include "Uri.h"
 
 using namespace Microsoft::WRL;
 
@@ -8,50 +8,6 @@ namespace Windows
 {
 namespace Foundation
 {
-class Uri WrlFinal : RuntimeClass<
-    FtmBase,
-    IUriRuntimeClass,
-    IUriRuntimeClassWithAbsoluteCanonicalUri,
-    IStringable
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Foundation_Uri, BaseTrust);
-
-public:
-    Uri();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::IUriRuntimeClass
-    IFACEMETHOD(Equals)(_In_ IUriRuntimeClass* pUri, _Out_ boolean* value);
-    IFACEMETHOD(CombineUri)(_In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(get_AbsoluteUri)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_DisplayUri)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Domain)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Extension)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Fragment)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Host)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Password)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Path)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Port)(_Out_ INT32* value);
-    IFACEMETHOD(get_Query)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_QueryParsed)(_Outptr_ IWwwFormUrlDecoderRuntimeClass** value);
-    IFACEMETHOD(get_RawUri)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_SchemeName)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Suspicious)(_Out_ boolean* value);
-    IFACEMETHOD(get_UserName)(_Out_ HSTRING* value);
-
-    // Windows::Foundation::IUriRuntimeClassWithAbsoluteCanonicalUri
-    IFACEMETHOD(get_AbsoluteCanonicalUri)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_DisplayIri)(_Out_ HSTRING* value);
-
-    // Windows::Foundation::IStringable
-    IFACEMETHOD(ToString)(_Out_ HSTRING* value);
-
-private:
-
-};
-ActivatableClassWithFactory(Uri, UriFactory);
-
 // Windows::Foundation::IUriRuntimeClass
 IFACEMETHODIMP Uri::Equals(_In_ IUriRuntimeClass* pUri, _Out_ boolean* value)
 {
@@ -174,8 +130,65 @@ IFACEMETHODIMP Uri::ToString(_Out_ HSTRING* value)
 
 }
 }
+
+// Uri.h
 #include <Windows.Foundation.h>
+#include "UriFactory.h"
 #include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Foundation
+{
+class Uri WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Foundation::IUriRuntimeClass,
+    Windows::Foundation::IUriRuntimeClassWithAbsoluteCanonicalUri,
+    Windows::Foundation::IStringable
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Foundation_Uri, BaseTrust);
+
+public:
+    Uri();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::IUriRuntimeClass
+    IFACEMETHOD(Equals)(_In_ Windows::Foundation::IUriRuntimeClass* pUri, _Out_ boolean* value);
+    IFACEMETHOD(CombineUri)(_In_ HSTRING relativeUri, _Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(get_AbsoluteUri)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DisplayUri)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Domain)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Extension)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Fragment)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Host)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Password)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Path)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Port)(_Out_ INT32* value);
+    IFACEMETHOD(get_Query)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_QueryParsed)(_Outptr_ Windows::Foundation::IWwwFormUrlDecoderRuntimeClass** value);
+    IFACEMETHOD(get_RawUri)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_SchemeName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Suspicious)(_Out_ boolean* value);
+    IFACEMETHOD(get_UserName)(_Out_ HSTRING* value);
+
+    // Windows::Foundation::IUriRuntimeClassWithAbsoluteCanonicalUri
+    IFACEMETHOD(get_AbsoluteCanonicalUri)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_DisplayIri)(_Out_ HSTRING* value);
+
+    // Windows::Foundation::IStringable
+    IFACEMETHOD(ToString)(_Out_ HSTRING* value);
+
+private:
+
+};
+ActivatableClassWithFactory(Uri, UriFactory);
+
+}
+}
+
+// UriFactory.cpp
+#include "UriFactory.h"
 
 using namespace Microsoft::WRL;
 
@@ -184,33 +197,6 @@ namespace Windows
 {
 namespace Foundation
 {
-class UriFactory WrlFinal : AgileActivationFactory<
-    IUriRuntimeClassFactory,
-    IUriEscapeStatics
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Foundation_UriFactory, BaseTrust);
-
-public:
-    UriFactory();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Foundation::IUriRuntimeClassFactory
-    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value);
-
-    // Windows::Foundation::IUriEscapeStatics
-    IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
-    IFACEMETHOD(EscapeComponent)(_In_ HSTRING toEscape, _Out_ HSTRING* value);
-
-    // IActivationFactory
-    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
-
-private:
-
-};
-
-
 // Windows::Foundation::IUriRuntimeClassFactory
 IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value)
 {
@@ -243,3 +229,42 @@ IFACEMETHODIMP UriFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 
 }
 }
+
+// UriFactory.h
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Foundation
+{
+class UriFactory WrlFinal : Microsoft::WRL::AgileActivationFactory<
+    Windows::Foundation::IUriRuntimeClassFactory,
+    Windows::Foundation::IUriEscapeStatics
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Foundation_UriFactory, BaseTrust);
+
+public:
+    UriFactory();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Foundation::IUriRuntimeClassFactory
+    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+
+    // Windows::Foundation::IUriEscapeStatics
+    IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
+    IFACEMETHOD(EscapeComponent)(_In_ HSTRING toEscape, _Out_ HSTRING* value);
+
+    // IActivationFactory
+    IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);
+
+private:
+
+};
+
+
+}
+}
+

@@ -1,8 +1,5 @@
-﻿#include <Windows.ApplicationModel.h>
-#include <Windows.Foundation.h>
-#include <Windows.Storage.h>
-#include <Windows.UI.h>
-#include <wrl/implements.h>
+﻿// DataPackagePropertySet.cpp
+#include "DataPackagePropertySet.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation::Collections;
@@ -16,67 +13,6 @@ namespace ApplicationModel
 {
 namespace DataTransfer
 {
-class DataPackagePropertySet WrlFinal : RuntimeClass<
-    FtmBase,
-    IDataPackagePropertySet,
-    IMap<HSTRING, IInspectable>,
-    IIterable<IKeyValuePair<HSTRING, IInspectable>>,
-    IDataPackagePropertySet2,
-    IDataPackagePropertySet3
-    >
-{
-    InspectableClass(RuntimeClass_Windows_ApplicationModel_DataTransfer_DataPackagePropertySet, BaseTrust);
-
-public:
-    DataPackagePropertySet();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
-    IFACEMETHOD(get_FileTypes)(_Outptr_ IVector<HSTRING>** value);
-    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(put_ApplicationListingUri)(_In_ IUriRuntimeClass* value);
-    IFACEMETHOD(get_ApplicationName)(_Out_ HSTRING* value);
-    IFACEMETHOD(put_ApplicationName)(_In_ HSTRING value);
-    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
-    IFACEMETHOD(put_Description)(_In_ HSTRING value);
-    IFACEMETHOD(get_Thumbnail)(_Outptr_ IRandomAccessStreamReference** value);
-    IFACEMETHOD(put_Thumbnail)(_In_ IRandomAccessStreamReference* value);
-    IFACEMETHOD(get_Title)(_Out_ HSTRING* value);
-    IFACEMETHOD(put_Title)(_In_ HSTRING value);
-
-    // Windows::Foundation::Collections::IMap<HSTRING, IInspectable>
-    IFACEMETHOD(Lookup)(_In_ HSTRING key, _Outptr_ IInspectable** value);
-    IFACEMETHOD(HasKey)(_In_ HSTRING key, _Out_ boolean* value);
-    IFACEMETHOD(GetView)(_Outptr_ IMapView<HSTRING, IInspectable>** value);
-    IFACEMETHOD(Insert)(_In_ HSTRING key, _In_ IInspectable* value, _Out_ boolean* value);
-    IFACEMETHOD(Remove)(_In_ HSTRING key);
-    IFACEMETHOD(Clear)();
-    IFACEMETHOD(get_Size)(_Out_ UINT32* value);
-
-    // Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-    IFACEMETHOD(First)(_Outptr_ IIterator<IKeyValuePair<HSTRING, IInspectable>>** value);
-
-    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
-    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(put_ContentSourceApplicationLink)(_In_ IUriRuntimeClass* value);
-    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(put_ContentSourceWebLink)(_In_ IUriRuntimeClass* value);
-    IFACEMETHOD(get_LogoBackgroundColor)(_Out_ Color* value);
-    IFACEMETHOD(put_LogoBackgroundColor)(_In_ Color value);
-    IFACEMETHOD(get_PackageFamilyName)(_Out_ HSTRING* value);
-    IFACEMETHOD(put_PackageFamilyName)(_In_ HSTRING value);
-    IFACEMETHOD(get_Square30x30Logo)(_Outptr_ IRandomAccessStreamReference** value);
-    IFACEMETHOD(put_Square30x30Logo)(_In_ IRandomAccessStreamReference* value);
-
-    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet3
-    IFACEMETHOD(get_EnterpriseId)(_Out_ HSTRING* value);
-    IFACEMETHOD(put_EnterpriseId)(_In_ HSTRING value);
-
-private:
-
-};
-
-
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
 IFACEMETHODIMP DataPackagePropertySet::get_FileTypes(_Outptr_ IVector<HSTRING>** /* value */)
 {
@@ -266,11 +202,87 @@ IFACEMETHODIMP DataPackagePropertySet::put_EnterpriseId(_In_ HSTRING /* value */
 }
 }
 }
+
+// DataPackagePropertySet.h
 #include <Windows.ApplicationModel.h>
 #include <Windows.Foundation.h>
 #include <Windows.Storage.h>
 #include <Windows.UI.h>
 #include <wrl/implements.h>
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+namespace DataTransfer
+{
+class DataPackagePropertySet WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet,
+    Windows::Foundation::Collections::IMap<HSTRING, IInspectable>,
+    Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>,
+    Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2,
+    Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet3
+    >
+{
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_DataTransfer_DataPackagePropertySet, BaseTrust);
+
+public:
+    DataPackagePropertySet();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet
+    IFACEMETHOD(get_FileTypes)(_Outptr_ Windows::Foundation::Collections::IVector<HSTRING>** value);
+    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(put_ApplicationListingUri)(_In_ Windows::Foundation::IUriRuntimeClass* value);
+    IFACEMETHOD(get_ApplicationName)(_Out_ HSTRING* value);
+    IFACEMETHOD(put_ApplicationName)(_In_ HSTRING value);
+    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
+    IFACEMETHOD(put_Description)(_In_ HSTRING value);
+    IFACEMETHOD(get_Thumbnail)(_Outptr_ Windows::Storage::Streams::IRandomAccessStreamReference** value);
+    IFACEMETHOD(put_Thumbnail)(_In_ Windows::Storage::Streams::IRandomAccessStreamReference* value);
+    IFACEMETHOD(get_Title)(_Out_ HSTRING* value);
+    IFACEMETHOD(put_Title)(_In_ HSTRING value);
+
+    // Windows::Foundation::Collections::IMap<HSTRING, IInspectable>
+    IFACEMETHOD(Lookup)(_In_ HSTRING key, _Outptr_ IInspectable** value);
+    IFACEMETHOD(HasKey)(_In_ HSTRING key, _Out_ boolean* value);
+    IFACEMETHOD(GetView)(_Outptr_ Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>** value);
+    IFACEMETHOD(Insert)(_In_ HSTRING key, _In_ IInspectable* value, _Out_ boolean* value);
+    IFACEMETHOD(Remove)(_In_ HSTRING key);
+    IFACEMETHOD(Clear)();
+    IFACEMETHOD(get_Size)(_Out_ UINT32* value);
+
+    // Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
+    IFACEMETHOD(First)(_Outptr_ Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>** value);
+
+    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet2
+    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(put_ContentSourceApplicationLink)(_In_ Windows::Foundation::IUriRuntimeClass* value);
+    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(put_ContentSourceWebLink)(_In_ Windows::Foundation::IUriRuntimeClass* value);
+    IFACEMETHOD(get_LogoBackgroundColor)(_Out_ Windows::UI::Color* value);
+    IFACEMETHOD(put_LogoBackgroundColor)(_In_ Windows::UI::Color value);
+    IFACEMETHOD(get_PackageFamilyName)(_Out_ HSTRING* value);
+    IFACEMETHOD(put_PackageFamilyName)(_In_ HSTRING value);
+    IFACEMETHOD(get_Square30x30Logo)(_Outptr_ Windows::Storage::Streams::IRandomAccessStreamReference** value);
+    IFACEMETHOD(put_Square30x30Logo)(_In_ Windows::Storage::Streams::IRandomAccessStreamReference* value);
+
+    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySet3
+    IFACEMETHOD(get_EnterpriseId)(_Out_ HSTRING* value);
+    IFACEMETHOD(put_EnterpriseId)(_In_ HSTRING value);
+
+private:
+
+};
+
+
+}
+}
+}
+
+// DataPackagePropertySetView.cpp
+#include "DataPackagePropertySetView.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation::Collections;
@@ -284,53 +296,6 @@ namespace ApplicationModel
 {
 namespace DataTransfer
 {
-class DataPackagePropertySetView WrlFinal : RuntimeClass<
-    FtmBase,
-    IDataPackagePropertySetView,
-    IMapView<HSTRING, IInspectable>,
-    IIterable<IKeyValuePair<HSTRING, IInspectable>>,
-    IDataPackagePropertySetView2,
-    IDataPackagePropertySetView3
-    >
-{
-    InspectableClass(RuntimeClass_Windows_ApplicationModel_DataTransfer_DataPackagePropertySetView, BaseTrust);
-
-public:
-    DataPackagePropertySetView();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
-    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(get_ApplicationName)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_FileTypes)(_Outptr_ IVectorView<HSTRING>** value);
-    IFACEMETHOD(get_Thumbnail)(_Outptr_ IRandomAccessStreamReference** value);
-    IFACEMETHOD(get_Title)(_Out_ HSTRING* value);
-
-    // Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>
-    IFACEMETHOD(Lookup)(_In_ HSTRING key, _Outptr_ IInspectable** value);
-    IFACEMETHOD(HasKey)(_In_ HSTRING key, _Out_ boolean* value);
-    IFACEMETHOD(Split)(_Outptr_ IMapView<HSTRING, IInspectable>** first, _Outptr_ IMapView<HSTRING, IInspectable>** second);
-    IFACEMETHOD(get_Size)(_Out_ UINT32* value);
-
-    // Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
-    IFACEMETHOD(First)(_Outptr_ IIterator<IKeyValuePair<HSTRING, IInspectable>>** value);
-
-    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
-    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ IUriRuntimeClass** value);
-    IFACEMETHOD(get_LogoBackgroundColor)(_Out_ Color* value);
-    IFACEMETHOD(get_PackageFamilyName)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Square30x30Logo)(_Outptr_ IRandomAccessStreamReference** value);
-
-    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView3
-    IFACEMETHOD(get_EnterpriseId)(_Out_ HSTRING* value);
-
-private:
-
-};
-
-
 // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
 IFACEMETHODIMP DataPackagePropertySetView::get_ApplicationListingUri(_Outptr_ IUriRuntimeClass** /* value */)
 {
@@ -436,3 +401,68 @@ IFACEMETHODIMP DataPackagePropertySetView::get_EnterpriseId(_Out_ HSTRING* /* va
 }
 }
 }
+
+// DataPackagePropertySetView.h
+#include <Windows.ApplicationModel.h>
+#include <Windows.Foundation.h>
+#include <Windows.Storage.h>
+#include <Windows.UI.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace ApplicationModel
+{
+namespace DataTransfer
+{
+class DataPackagePropertySetView WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView,
+    Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>,
+    Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>,
+    Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2,
+    Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView3
+    >
+{
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_DataTransfer_DataPackagePropertySetView, BaseTrust);
+
+public:
+    DataPackagePropertySetView();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView
+    IFACEMETHOD(get_ApplicationListingUri)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(get_ApplicationName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Description)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_FileTypes)(_Outptr_ Windows::Foundation::Collections::IVectorView<HSTRING>** value);
+    IFACEMETHOD(get_Thumbnail)(_Outptr_ Windows::Storage::Streams::IRandomAccessStreamReference** value);
+    IFACEMETHOD(get_Title)(_Out_ HSTRING* value);
+
+    // Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>
+    IFACEMETHOD(Lookup)(_In_ HSTRING key, _Outptr_ IInspectable** value);
+    IFACEMETHOD(HasKey)(_In_ HSTRING key, _Out_ boolean* value);
+    IFACEMETHOD(Split)(_Outptr_ Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>** first, _Outptr_ Windows::Foundation::Collections::IMapView<HSTRING, IInspectable>** second);
+    IFACEMETHOD(get_Size)(_Out_ UINT32* value);
+
+    // Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>
+    IFACEMETHOD(First)(_Outptr_ Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable>>** value);
+
+    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView2
+    IFACEMETHOD(get_ContentSourceApplicationLink)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(get_ContentSourceWebLink)(_Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(get_LogoBackgroundColor)(_Out_ Windows::UI::Color* value);
+    IFACEMETHOD(get_PackageFamilyName)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Square30x30Logo)(_Outptr_ Windows::Storage::Streams::IRandomAccessStreamReference** value);
+
+    // Windows::ApplicationModel::DataTransfer::IDataPackagePropertySetView3
+    IFACEMETHOD(get_EnterpriseId)(_Out_ HSTRING* value);
+
+private:
+
+};
+
+
+}
+}
+}
+

@@ -1,6 +1,5 @@
-﻿#include <Windows.Devices.h>
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
+﻿// GpioPin.cpp
+#include "GpioPin.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation;
@@ -11,39 +10,6 @@ namespace Devices
 {
 namespace Gpio
 {
-class GpioPin WrlFinal : RuntimeClass<
-    FtmBase,
-    IGpioPin,
-    IClosable
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPin, BaseTrust);
-
-public:
-    GpioPin();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::Gpio::IGpioPin
-    IFACEMETHOD(IsDriveModeSupported)(_In_ GpioPinDriveMode driveMode, _Out_ boolean* value);
-    IFACEMETHOD(GetDriveMode)(_Out_ GpioPinDriveMode* value);
-    IFACEMETHOD(SetDriveMode)(_In_ GpioPinDriveMode value);
-    IFACEMETHOD(Write)(_In_ GpioPinValue value);
-    IFACEMETHOD(Read)(_Out_ GpioPinValue* value);
-    IFACEMETHOD(get_PinNumber)(_Out_ INT32* value);
-    IFACEMETHOD(get_SharingMode)(_Out_ GpioSharingMode* value);
-    IFACEMETHOD(get_DebounceTimeout)(_Out_ TimeSpan* value);
-    IFACEMETHOD(put_DebounceTimeout)(_In_ TimeSpan value);
-    IFACEMETHOD(add_ValueChanged)(_In_ TypedEventHandler<IGpioPin, IGpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
-    IFACEMETHOD(remove_ValueChanged)(_In_ EventRegistrationToken token);
-
-    // Windows::Foundation::IClosable
-    IFACEMETHOD(Close)();
-
-private:
-    AgileEventSource<TypedEventHandler<IGpioPin, IGpioPinValueChangedEventArgs>> m_ValueChangedEventHandlers;
-};
-
-
 // Windows::Devices::Gpio::IGpioPin
 IFACEMETHODIMP GpioPin::IsDriveModeSupported(_In_ GpioPinDriveMode driveMode, _Out_ boolean* value)
 {
@@ -119,8 +85,57 @@ IFACEMETHODIMP GpioPin::Close()
 }
 }
 }
+
+// GpioPin.h
 #include <Windows.Devices.h>
+#include <Windows.Foundation.h>
 #include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioPin WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Devices::Gpio::IGpioPin,
+    Windows::Foundation::IClosable
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPin, BaseTrust);
+
+public:
+    GpioPin();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioPin
+    IFACEMETHOD(IsDriveModeSupported)(_In_ Windows::Devices::Gpio::GpioPinDriveMode driveMode, _Out_ boolean* value);
+    IFACEMETHOD(GetDriveMode)(_Out_ Windows::Devices::Gpio::GpioPinDriveMode* value);
+    IFACEMETHOD(SetDriveMode)(_In_ Windows::Devices::Gpio::GpioPinDriveMode value);
+    IFACEMETHOD(Write)(_In_ Windows::Devices::Gpio::GpioPinValue value);
+    IFACEMETHOD(Read)(_Out_ Windows::Devices::Gpio::GpioPinValue* value);
+    IFACEMETHOD(get_PinNumber)(_Out_ INT32* value);
+    IFACEMETHOD(get_SharingMode)(_Out_ Windows::Devices::Gpio::GpioSharingMode* value);
+    IFACEMETHOD(get_DebounceTimeout)(_Out_ Windows::Foundation::TimeSpan* value);
+    IFACEMETHOD(put_DebounceTimeout)(_In_ Windows::Foundation::TimeSpan value);
+    IFACEMETHOD(add_ValueChanged)(_In_ Windows::Foundation::TypedEventHandler<Windows::Devices::Gpio::IGpioPin, Windows::Devices::Gpio::IGpioPinValueChangedEventArgs>* eventHandler, _Out_ EventRegistrationToken* token);
+    IFACEMETHOD(remove_ValueChanged)(_In_ EventRegistrationToken token);
+
+    // Windows::Foundation::IClosable
+    IFACEMETHOD(Close)();
+
+private:
+    AgileEventSource<Windows::Foundation::TypedEventHandler<Windows::Devices::Gpio::IGpioPin, Windows::Devices::Gpio::IGpioPinValueChangedEventArgs>> m_ValueChangedEventHandlers;
+};
+
+
+}
+}
+}
+
+// GpioPinValueChangedEventArgs.cpp
+#include "GpioPinValueChangedEventArgs.h"
 
 using namespace Microsoft::WRL;
 
@@ -131,25 +146,6 @@ namespace Devices
 {
 namespace Gpio
 {
-class GpioPinValueChangedEventArgs WrlFinal : RuntimeClass<
-    FtmBase,
-    IGpioPinValueChangedEventArgs
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPinValueChangedEventArgs, BaseTrust);
-
-public:
-    GpioPinValueChangedEventArgs();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
-    IFACEMETHOD(get_Edge)(_Out_ GpioPinEdge* value);
-
-private:
-
-};
-
-
 // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
 IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* /* value */)
 {
@@ -159,3 +155,37 @@ IFACEMETHODIMP GpioPinValueChangedEventArgs::get_Edge(_Out_ GpioPinEdge* /* valu
 }
 }
 }
+
+// GpioPinValueChangedEventArgs.h
+#include <Windows.Devices.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Gpio
+{
+class GpioPinValueChangedEventArgs WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioPinValueChangedEventArgs, BaseTrust);
+
+public:
+    GpioPinValueChangedEventArgs();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Gpio::IGpioPinValueChangedEventArgs
+    IFACEMETHOD(get_Edge)(_Out_ Windows::Devices::Gpio::GpioPinEdge* value);
+
+private:
+
+};
+
+
+}
+}
+}
+

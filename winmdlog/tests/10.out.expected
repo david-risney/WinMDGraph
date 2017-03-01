@@ -1,7 +1,5 @@
-﻿#include <Windows.Devices.h>
-#include <Windows.Storage.h>
-#include <Windows.Foundation.h>
-#include <wrl/implements.h>
+﻿// SmsWapMessage.cpp
+#include "SmsWapMessage.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Storage::Streams;
@@ -14,39 +12,6 @@ namespace Devices
 {
 namespace Sms
 {
-class SmsWapMessage WrlFinal : RuntimeClass<
-    FtmBase,
-    ISmsWapMessage,
-    ISmsMessageBase
-    >
-{
-    InspectableClass(RuntimeClass_Windows_Devices_Sms_SmsWapMessage, BaseTrust);
-
-public:
-    SmsWapMessage();
-    HRESULT RuntimeClassInitialize();
-
-    // Windows::Devices::Sms::ISmsWapMessage
-    IFACEMETHOD(get_ApplicationId)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_BinaryBody)(_Outptr_ IBuffer** value);
-    IFACEMETHOD(get_ContentType)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_From)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_Headers)(_Outptr_ IMap<HSTRING, HSTRING>** value);
-    IFACEMETHOD(get_Timestamp)(_Out_ DateTime* value);
-    IFACEMETHOD(get_To)(_Out_ HSTRING* value);
-
-    // Windows::Devices::Sms::ISmsMessageBase
-    IFACEMETHOD(get_CellularClass)(_Out_ CellularClass* value);
-    IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
-    IFACEMETHOD(get_MessageClass)(_Out_ SmsMessageClass* value);
-    IFACEMETHOD(get_MessageType)(_Out_ SmsMessageType* value);
-    IFACEMETHOD(get_SimIccId)(_Out_ HSTRING* value);
-
-private:
-
-};
-
-
 // Windows::Devices::Sms::ISmsWapMessage
 IFACEMETHODIMP SmsWapMessage::get_ApplicationId(_Out_ HSTRING* /* value */)
 {
@@ -122,3 +87,53 @@ IFACEMETHODIMP SmsWapMessage::get_SimIccId(_Out_ HSTRING* /* value */)
 }
 }
 }
+
+// SmsWapMessage.h
+#include <Windows.Devices.h>
+#include <Windows.Storage.h>
+#include <Windows.Foundation.h>
+#include <wrl/implements.h>
+
+namespace Windows
+{
+namespace Devices
+{
+namespace Sms
+{
+class SmsWapMessage WrlFinal : Microsoft::WRL::RuntimeClass<
+    FtmBase,
+    Windows::Devices::Sms::ISmsWapMessage,
+    Windows::Devices::Sms::ISmsMessageBase
+    >
+{
+    InspectableClass(RuntimeClass_Windows_Devices_Sms_SmsWapMessage, BaseTrust);
+
+public:
+    SmsWapMessage();
+    HRESULT RuntimeClassInitialize();
+
+    // Windows::Devices::Sms::ISmsWapMessage
+    IFACEMETHOD(get_ApplicationId)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_BinaryBody)(_Outptr_ Windows::Storage::Streams::IBuffer** value);
+    IFACEMETHOD(get_ContentType)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_From)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_Headers)(_Outptr_ Windows::Foundation::Collections::IMap<HSTRING, HSTRING>** value);
+    IFACEMETHOD(get_Timestamp)(_Out_ Windows::Foundation::DateTime* value);
+    IFACEMETHOD(get_To)(_Out_ HSTRING* value);
+
+    // Windows::Devices::Sms::ISmsMessageBase
+    IFACEMETHOD(get_CellularClass)(_Out_ Windows::Devices::Sms::CellularClass* value);
+    IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
+    IFACEMETHOD(get_MessageClass)(_Out_ Windows::Devices::Sms::SmsMessageClass* value);
+    IFACEMETHOD(get_MessageType)(_Out_ Windows::Devices::Sms::SmsMessageType* value);
+    IFACEMETHOD(get_SimIccId)(_Out_ HSTRING* value);
+
+private:
+
+};
+
+
+}
+}
+}
+
