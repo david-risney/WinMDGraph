@@ -1,4 +1,5 @@
 ﻿// PackageStagingEventArgs.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "PackageStagingEventArgs.h"
 
 using namespace Microsoft::WRL;
@@ -42,6 +43,9 @@ IFACEMETHODIMP PackageStagingEventArgs::get_Progress(_Out_ DOUBLE* /* value */)
 }
 
 // PackageStagingEventArgs.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.ApplicationModel.h>
 #include <wrl/implements.h>
 
@@ -49,12 +53,12 @@ namespace Windows
 {
 namespace ApplicationModel
 {
-class PackageStagingEventArgs WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class PackageStagingEventArgs WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::ApplicationModel::IPackageStagingEventArgs
     >
 {
-    InspectableClass(RuntimeClass_Windows_ApplicationModel_PackageStagingEventArgs, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_PackageStagingEventArgs, TrustLevel::BaseTrust);
 
 public:
     PackageStagingEventArgs();

@@ -1,4 +1,5 @@
 ﻿// Uri.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "Uri.h"
 
 using namespace Microsoft::WRL;
@@ -9,13 +10,13 @@ namespace Windows
 namespace Foundation
 {
 // Windows::Foundation::IUriRuntimeClass
-IFACEMETHODIMP Uri::Equals(_In_ IUriRuntimeClass* pUri, _Out_ boolean* value)
+IFACEMETHODIMP Uri::Equals(_In_ IUriRuntimeClass* /* pUri */, _Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IUriRuntimeClass
-IFACEMETHODIMP Uri::CombineUri(_In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP Uri::CombineUri(_In_ HSTRING /* relativeUri */, _Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -123,7 +124,7 @@ IFACEMETHODIMP Uri::get_DisplayIri(_Out_ HSTRING* /* value */)
 }
 
 // Windows::Foundation::IStringable
-IFACEMETHODIMP Uri::ToString(_Out_ HSTRING* value)
+IFACEMETHODIMP Uri::ToString(_Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -132,6 +133,9 @@ IFACEMETHODIMP Uri::ToString(_Out_ HSTRING* value)
 }
 
 // Uri.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Foundation.h>
 #include "UriFactory.h"
 #include <wrl/implements.h>
@@ -140,22 +144,22 @@ namespace Windows
 {
 namespace Foundation
 {
-class Uri WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class Uri WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::Foundation::IUriRuntimeClass,
     Windows::Foundation::IUriRuntimeClassWithAbsoluteCanonicalUri,
     Windows::Foundation::IStringable
     >
 {
-    InspectableClass(RuntimeClass_Windows_Foundation_Uri, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_Foundation_Uri, TrustLevel::BaseTrust);
 
 public:
     Uri();
     HRESULT RuntimeClassInitialize();
 
     // Windows::Foundation::IUriRuntimeClass
-    IFACEMETHOD(Equals)(_In_ Windows::Foundation::IUriRuntimeClass* pUri, _Out_ boolean* value);
-    IFACEMETHOD(CombineUri)(_In_ HSTRING relativeUri, _Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(Equals)(_In_ Windows::Foundation::IUriRuntimeClass* /* pUri */, _Out_ boolean* /* value */);
+    IFACEMETHOD(CombineUri)(_In_ HSTRING /* relativeUri */, _Outptr_ Windows::Foundation::IUriRuntimeClass** /* value */);
     IFACEMETHOD(get_AbsoluteUri)(_Out_ HSTRING* value);
     IFACEMETHOD(get_DisplayUri)(_Out_ HSTRING* value);
     IFACEMETHOD(get_Domain)(_Out_ HSTRING* value);
@@ -177,7 +181,7 @@ public:
     IFACEMETHOD(get_DisplayIri)(_Out_ HSTRING* value);
 
     // Windows::Foundation::IStringable
-    IFACEMETHOD(ToString)(_Out_ HSTRING* value);
+    IFACEMETHOD(ToString)(_Out_ HSTRING* /* value */);
 
 private:
 
@@ -188,6 +192,7 @@ ActivatableClassWithFactory(Uri, UriFactory);
 }
 
 // UriFactory.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "UriFactory.h"
 
 using namespace Microsoft::WRL;
@@ -198,25 +203,25 @@ namespace Windows
 namespace Foundation
 {
 // Windows::Foundation::IUriRuntimeClassFactory
-IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING uri, _Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP UriFactory::CreateUri(_In_ HSTRING /* uri */, _Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IUriRuntimeClassFactory
-IFACEMETHODIMP UriFactory::CreateWithRelativeUri(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ IUriRuntimeClass** value)
+IFACEMETHODIMP UriFactory::CreateWithRelativeUri(_In_ HSTRING /* baseUri */, _In_ HSTRING /* relativeUri */, _Outptr_ IUriRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IUriEscapeStatics
-IFACEMETHODIMP UriFactory::UnescapeComponent(_In_ HSTRING toUnescape, _Out_ HSTRING* value)
+IFACEMETHODIMP UriFactory::UnescapeComponent(_In_ HSTRING /* toUnescape */, _Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::IUriEscapeStatics
-IFACEMETHODIMP UriFactory::EscapeComponent(_In_ HSTRING toEscape, _Out_ HSTRING* value)
+IFACEMETHODIMP UriFactory::EscapeComponent(_In_ HSTRING /* toEscape */, _Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -231,6 +236,9 @@ IFACEMETHODIMP UriFactory::ActivateInstance(_Outptr_ IInspectable** inspectable)
 }
 
 // UriFactory.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
 
@@ -238,24 +246,24 @@ namespace Windows
 {
 namespace Foundation
 {
-class UriFactory WrlFinal : Microsoft::WRL::AgileActivationFactory<
+class UriFactory WrlFinal : public Microsoft::WRL::AgileActivationFactory<
     Windows::Foundation::IUriRuntimeClassFactory,
     Windows::Foundation::IUriEscapeStatics
     >
 {
-    InspectableClass(RuntimeClass_Windows_Foundation_UriFactory, BaseTrust);
+    InspectableClassStatic(RuntimeClass_Windows_Foundation_UriFactory, TrustLevel::BaseTrust);
 
 public:
     UriFactory();
     HRESULT RuntimeClassInitialize();
 
     // Windows::Foundation::IUriRuntimeClassFactory
-    IFACEMETHOD(CreateUri)(_In_ HSTRING uri, _Outptr_ Windows::Foundation::IUriRuntimeClass** value);
-    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING baseUri, _In_ HSTRING relativeUri, _Outptr_ Windows::Foundation::IUriRuntimeClass** value);
+    IFACEMETHOD(CreateUri)(_In_ HSTRING /* uri */, _Outptr_ Windows::Foundation::IUriRuntimeClass** /* value */);
+    IFACEMETHOD(CreateWithRelativeUri)(_In_ HSTRING /* baseUri */, _In_ HSTRING /* relativeUri */, _Outptr_ Windows::Foundation::IUriRuntimeClass** /* value */);
 
     // Windows::Foundation::IUriEscapeStatics
-    IFACEMETHOD(UnescapeComponent)(_In_ HSTRING toUnescape, _Out_ HSTRING* value);
-    IFACEMETHOD(EscapeComponent)(_In_ HSTRING toEscape, _Out_ HSTRING* value);
+    IFACEMETHOD(UnescapeComponent)(_In_ HSTRING /* toUnescape */, _Out_ HSTRING* /* value */);
+    IFACEMETHOD(EscapeComponent)(_In_ HSTRING /* toEscape */, _Out_ HSTRING* /* value */);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);

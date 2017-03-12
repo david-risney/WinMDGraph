@@ -1,4 +1,5 @@
 ﻿// ClipboardFactory.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "ClipboardFactory.h"
 
 using namespace Microsoft::WRL;
@@ -11,13 +12,13 @@ namespace ApplicationModel
 namespace DataTransfer
 {
 // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-IFACEMETHODIMP ClipboardFactory::GetContent(_Outptr_ IDataPackageView** value)
+IFACEMETHODIMP ClipboardFactory::GetContent(_Outptr_ IDataPackageView** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-IFACEMETHODIMP ClipboardFactory::SetContent(_In_ IDataPackage* content)
+IFACEMETHODIMP ClipboardFactory::SetContent(_In_ IDataPackage* /* content */)
 {
     return E_NOTIMPL;
 }
@@ -57,6 +58,9 @@ IFACEMETHODIMP ClipboardFactory::ActivateInstance(_Outptr_ IInspectable** inspec
 }
 
 // ClipboardFactory.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.ApplicationModel.h>
 #include <wrl/implements.h>
 
@@ -66,19 +70,19 @@ namespace ApplicationModel
 {
 namespace DataTransfer
 {
-class ClipboardFactory WrlFinal : Microsoft::WRL::ActivationFactory<
+class ClipboardFactory WrlFinal : public Microsoft::WRL::ActivationFactory<
     Windows::ApplicationModel::DataTransfer::IClipboardStatics
     >
 {
-    InspectableClassStatic(RuntimeClass_Windows_ApplicationModel_DataTransfer_ClipboardFactory, BaseTrust);
+    InspectableClassStatic(RuntimeClass_Windows_ApplicationModel_DataTransfer_ClipboardFactory, TrustLevel::BaseTrust);
 
 public:
     ClipboardFactory();
     HRESULT RuntimeClassInitialize();
 
     // Windows::ApplicationModel::DataTransfer::IClipboardStatics
-    IFACEMETHOD(GetContent)(_Outptr_ Windows::ApplicationModel::DataTransfer::IDataPackageView** value);
-    IFACEMETHOD(SetContent)(_In_ Windows::ApplicationModel::DataTransfer::IDataPackage* content);
+    IFACEMETHOD(GetContent)(_Outptr_ Windows::ApplicationModel::DataTransfer::IDataPackageView** /* value */);
+    IFACEMETHOD(SetContent)(_In_ Windows::ApplicationModel::DataTransfer::IDataPackage* /* content */);
     IFACEMETHOD(Flush)();
     IFACEMETHOD(Clear)();
     IFACEMETHOD(add_ContentChanged)(_In_ IEventHandler<IInspectable>* eventHandler, _Out_ EventRegistrationToken* token);

@@ -1,4 +1,5 @@
 ﻿// WwwFormUrlDecoder.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "WwwFormUrlDecoder.h"
 
 using namespace Microsoft::WRL;
@@ -9,31 +10,31 @@ namespace Windows
 namespace Foundation
 {
 // Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
-IFACEMETHODIMP WwwFormUrlDecoder::GetFirstValueByName(_In_ HSTRING name, _Out_ HSTRING* value)
+IFACEMETHODIMP WwwFormUrlDecoder::GetFirstValueByName(_In_ HSTRING /* name */, _Out_ HSTRING* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::First(_Outptr_ IIterator<IWwwFormUrlDecoderEntry>** value)
+IFACEMETHODIMP WwwFormUrlDecoder::First(_Outptr_ IIterator<IWwwFormUrlDecoderEntry>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::GetAt(_In_ UINT32 index, _Outptr_ IWwwFormUrlDecoderEntry** value)
+IFACEMETHODIMP WwwFormUrlDecoder::GetAt(_In_ UINT32 /* index */, _Outptr_ IWwwFormUrlDecoderEntry** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::IndexOf(_In_ IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value)
+IFACEMETHODIMP WwwFormUrlDecoder::IndexOf(_In_ IWwwFormUrlDecoderEntry* /* value */, _Out_ UINT32* /* index */, _Out_ boolean* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 startIndex, _Outptr_ IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value)
+IFACEMETHODIMP WwwFormUrlDecoder::GetMany(_In_ UINT32 /* startIndex */, _Outptr_ IWwwFormUrlDecoderEntry** /* items */, _Out_ UINT32* /* value */)
 {
     return E_NOTIMPL;
 }
@@ -48,6 +49,9 @@ IFACEMETHODIMP WwwFormUrlDecoder::get_Size(_Out_ UINT32* /* value */)
 }
 
 // WwwFormUrlDecoder.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Foundation.h>
 #include "WwwFormUrlDecoderFactory.h"
 #include <wrl/implements.h>
@@ -56,29 +60,29 @@ namespace Windows
 {
 namespace Foundation
 {
-class WwwFormUrlDecoder WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class WwwFormUrlDecoder WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::Foundation::IWwwFormUrlDecoderRuntimeClass,
     Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>,
     Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
     >
 {
-    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoder, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoder, TrustLevel::BaseTrust);
 
 public:
     WwwFormUrlDecoder();
     HRESULT RuntimeClassInitialize();
 
     // Windows::Foundation::IWwwFormUrlDecoderRuntimeClass
-    IFACEMETHOD(GetFirstValueByName)(_In_ HSTRING name, _Out_ HSTRING* value);
+    IFACEMETHOD(GetFirstValueByName)(_In_ HSTRING /* name */, _Out_ HSTRING* /* value */);
 
     // Windows::Foundation::Collections::IIterable<Windows::Foundation::IWwwFormUrlDecoderEntry>
-    IFACEMETHOD(First)(_Outptr_ Windows::Foundation::Collections::IIterator<Windows::Foundation::IWwwFormUrlDecoderEntry>** value);
+    IFACEMETHOD(First)(_Outptr_ Windows::Foundation::Collections::IIterator<Windows::Foundation::IWwwFormUrlDecoderEntry>** /* value */);
 
     // Windows::Foundation::Collections::IVectorView<Windows::Foundation::IWwwFormUrlDecoderEntry>
-    IFACEMETHOD(GetAt)(_In_ UINT32 index, _Outptr_ Windows::Foundation::IWwwFormUrlDecoderEntry** value);
-    IFACEMETHOD(IndexOf)(_In_ Windows::Foundation::IWwwFormUrlDecoderEntry* value, _Out_ UINT32* index, _Out_ boolean* value);
-    IFACEMETHOD(GetMany)(_In_ UINT32 startIndex, _Outptr_ Windows::Foundation::IWwwFormUrlDecoderEntry** items, _Out_ UINT32* value);
+    IFACEMETHOD(GetAt)(_In_ UINT32 /* index */, _Outptr_ Windows::Foundation::IWwwFormUrlDecoderEntry** /* value */);
+    IFACEMETHOD(IndexOf)(_In_ Windows::Foundation::IWwwFormUrlDecoderEntry* /* value */, _Out_ UINT32* /* index */, _Out_ boolean* /* value */);
+    IFACEMETHOD(GetMany)(_In_ UINT32 /* startIndex */, _Outptr_ Windows::Foundation::IWwwFormUrlDecoderEntry** /* items */, _Out_ UINT32* /* value */);
     IFACEMETHOD(get_Size)(_Out_ UINT32* value);
 
 private:
@@ -90,6 +94,7 @@ ActivatableClassWithFactory(WwwFormUrlDecoder, WwwFormUrlDecoderFactory);
 }
 
 // WwwFormUrlDecoderEntry.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "WwwFormUrlDecoderEntry.h"
 
 using namespace Microsoft::WRL;
@@ -115,6 +120,9 @@ IFACEMETHODIMP WwwFormUrlDecoderEntry::get_Value(_Out_ HSTRING* /* value */)
 }
 
 // WwwFormUrlDecoderEntry.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
 
@@ -122,12 +130,12 @@ namespace Windows
 {
 namespace Foundation
 {
-class WwwFormUrlDecoderEntry WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class WwwFormUrlDecoderEntry WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::Foundation::IWwwFormUrlDecoderEntry
     >
 {
-    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderEntry, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderEntry, TrustLevel::BaseTrust);
 
 public:
     WwwFormUrlDecoderEntry();
@@ -146,6 +154,7 @@ private:
 }
 
 // WwwFormUrlDecoderFactory.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "WwwFormUrlDecoderFactory.h"
 
 using namespace Microsoft::WRL;
@@ -156,7 +165,7 @@ namespace Windows
 namespace Foundation
 {
 // Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
-IFACEMETHODIMP WwwFormUrlDecoderFactory::CreateWwwFormUrlDecoder(_In_ HSTRING query, _Outptr_ IWwwFormUrlDecoderRuntimeClass** value)
+IFACEMETHODIMP WwwFormUrlDecoderFactory::CreateWwwFormUrlDecoder(_In_ HSTRING /* query */, _Outptr_ IWwwFormUrlDecoderRuntimeClass** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -171,6 +180,9 @@ IFACEMETHODIMP WwwFormUrlDecoderFactory::ActivateInstance(_Outptr_ IInspectable*
 }
 
 // WwwFormUrlDecoderFactory.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
 
@@ -178,18 +190,18 @@ namespace Windows
 {
 namespace Foundation
 {
-class WwwFormUrlDecoderFactory WrlFinal : Microsoft::WRL::AgileActivationFactory<
+class WwwFormUrlDecoderFactory WrlFinal : public Microsoft::WRL::AgileActivationFactory<
     Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
     >
 {
-    InspectableClass(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderFactory, BaseTrust);
+    InspectableClassStatic(RuntimeClass_Windows_Foundation_WwwFormUrlDecoderFactory, TrustLevel::BaseTrust);
 
 public:
     WwwFormUrlDecoderFactory();
     HRESULT RuntimeClassInitialize();
 
     // Windows::Foundation::IWwwFormUrlDecoderRuntimeClassFactory
-    IFACEMETHOD(CreateWwwFormUrlDecoder)(_In_ HSTRING query, _Outptr_ Windows::Foundation::IWwwFormUrlDecoderRuntimeClass** value);
+    IFACEMETHOD(CreateWwwFormUrlDecoder)(_In_ HSTRING /* query */, _Outptr_ Windows::Foundation::IWwwFormUrlDecoderRuntimeClass** /* value */);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);

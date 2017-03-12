@@ -1,4 +1,5 @@
 ﻿// ClaimedBarcodeScanner.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "ClaimedBarcodeScanner.h"
 
 using namespace Microsoft::WRL;
@@ -12,13 +13,13 @@ namespace Devices
 namespace PointOfService
 {
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::EnableAsync(_Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::EnableAsync(_Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::DisableAsync(_Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::DisableAsync(_Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -30,25 +31,25 @@ IFACEMETHODIMP ClaimedBarcodeScanner::RetainDevice()
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::SetActiveSymbologiesAsync(_In_ IIterable<UINT32>* symbologies, _Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::SetActiveSymbologiesAsync(_In_ IIterable<UINT32>* /* symbologies */, _Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::ResetStatisticsAsync(_In_ IIterable<HSTRING>* statisticsCategories, _Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::ResetStatisticsAsync(_In_ IIterable<HSTRING>* /* statisticsCategories */, _Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::UpdateStatisticsAsync(_In_ IIterable<IKeyValuePair<HSTRING, HSTRING>>* statistics, _Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::UpdateStatisticsAsync(_In_ IIterable<IKeyValuePair<HSTRING, HSTRING>>* /* statistics */, _Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-IFACEMETHODIMP ClaimedBarcodeScanner::SetActiveProfileAsync(_In_ HSTRING profile, _Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::SetActiveProfileAsync(_In_ HSTRING /* profile */, _Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -168,25 +169,25 @@ IFACEMETHODIMP ClaimedBarcodeScanner::Close()
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner1
-IFACEMETHODIMP ClaimedBarcodeScanner::StartSoftwareTriggerAsync(_Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::StartSoftwareTriggerAsync(_Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner1
-IFACEMETHODIMP ClaimedBarcodeScanner::StopSoftwareTriggerAsync(_Outptr_ IAsyncAction** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::StopSoftwareTriggerAsync(_Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner2
-IFACEMETHODIMP ClaimedBarcodeScanner::GetSymbologyAttributesAsync(_In_ UINT32 barcodeSymbology, _Outptr_ IAsyncOperation<IBarcodeSymbologyAttributes>** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::GetSymbologyAttributesAsync(_In_ UINT32 /* barcodeSymbology */, _Outptr_ IAsyncOperation<IBarcodeSymbologyAttributes>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::PointOfService::IClaimedBarcodeScanner2
-IFACEMETHODIMP ClaimedBarcodeScanner::SetSymbologyAttributesAsync(_In_ UINT32 barcodeSymbology, _In_ IBarcodeSymbologyAttributes* attributes, _Outptr_ IAsyncOperation<boolean>** value)
+IFACEMETHODIMP ClaimedBarcodeScanner::SetSymbologyAttributesAsync(_In_ UINT32 /* barcodeSymbology */, _In_ IBarcodeSymbologyAttributes* /* attributes */, _Outptr_ IAsyncOperation<boolean>** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -196,6 +197,9 @@ IFACEMETHODIMP ClaimedBarcodeScanner::SetSymbologyAttributesAsync(_In_ UINT32 ba
 }
 
 // ClaimedBarcodeScanner.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Devices.h>
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
@@ -206,28 +210,28 @@ namespace Devices
 {
 namespace PointOfService
 {
-class ClaimedBarcodeScanner WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class ClaimedBarcodeScanner WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::Devices::PointOfService::IClaimedBarcodeScanner,
     Windows::Foundation::IClosable,
     Windows::Devices::PointOfService::IClaimedBarcodeScanner1,
     Windows::Devices::PointOfService::IClaimedBarcodeScanner2
     >
 {
-    InspectableClass(RuntimeClass_Windows_Devices_PointOfService_ClaimedBarcodeScanner, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_Devices_PointOfService_ClaimedBarcodeScanner, TrustLevel::BaseTrust);
 
 public:
     ClaimedBarcodeScanner();
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::PointOfService::IClaimedBarcodeScanner
-    IFACEMETHOD(EnableAsync)(_Outptr_ Windows::Foundation::IAsyncAction** value);
-    IFACEMETHOD(DisableAsync)(_Outptr_ Windows::Foundation::IAsyncAction** value);
+    IFACEMETHOD(EnableAsync)(_Outptr_ Windows::Foundation::IAsyncAction** /* value */);
+    IFACEMETHOD(DisableAsync)(_Outptr_ Windows::Foundation::IAsyncAction** /* value */);
     IFACEMETHOD(RetainDevice)();
-    IFACEMETHOD(SetActiveSymbologiesAsync)(_In_ Windows::Foundation::Collections::IIterable<UINT32>* symbologies, _Outptr_ Windows::Foundation::IAsyncAction** value);
-    IFACEMETHOD(ResetStatisticsAsync)(_In_ Windows::Foundation::Collections::IIterable<HSTRING>* statisticsCategories, _Outptr_ Windows::Foundation::IAsyncAction** value);
-    IFACEMETHOD(UpdateStatisticsAsync)(_In_ Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, HSTRING>>* statistics, _Outptr_ Windows::Foundation::IAsyncAction** value);
-    IFACEMETHOD(SetActiveProfileAsync)(_In_ HSTRING profile, _Outptr_ Windows::Foundation::IAsyncAction** value);
+    IFACEMETHOD(SetActiveSymbologiesAsync)(_In_ Windows::Foundation::Collections::IIterable<UINT32>* /* symbologies */, _Outptr_ Windows::Foundation::IAsyncAction** /* value */);
+    IFACEMETHOD(ResetStatisticsAsync)(_In_ Windows::Foundation::Collections::IIterable<HSTRING>* /* statisticsCategories */, _Outptr_ Windows::Foundation::IAsyncAction** /* value */);
+    IFACEMETHOD(UpdateStatisticsAsync)(_In_ Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<HSTRING, HSTRING>>* /* statistics */, _Outptr_ Windows::Foundation::IAsyncAction** /* value */);
+    IFACEMETHOD(SetActiveProfileAsync)(_In_ HSTRING /* profile */, _Outptr_ Windows::Foundation::IAsyncAction** /* value */);
     IFACEMETHOD(get_DeviceId)(_Out_ HSTRING* value);
     IFACEMETHOD(get_IsEnabled)(_Out_ boolean* value);
     IFACEMETHOD(get_IsDecodeDataEnabled)(_Out_ boolean* value);
@@ -251,12 +255,12 @@ public:
     IFACEMETHOD(Close)();
 
     // Windows::Devices::PointOfService::IClaimedBarcodeScanner1
-    IFACEMETHOD(StartSoftwareTriggerAsync)(_Outptr_ Windows::Foundation::IAsyncAction** value);
-    IFACEMETHOD(StopSoftwareTriggerAsync)(_Outptr_ Windows::Foundation::IAsyncAction** value);
+    IFACEMETHOD(StartSoftwareTriggerAsync)(_Outptr_ Windows::Foundation::IAsyncAction** /* value */);
+    IFACEMETHOD(StopSoftwareTriggerAsync)(_Outptr_ Windows::Foundation::IAsyncAction** /* value */);
 
     // Windows::Devices::PointOfService::IClaimedBarcodeScanner2
-    IFACEMETHOD(GetSymbologyAttributesAsync)(_In_ UINT32 barcodeSymbology, _Outptr_ Windows::Foundation::IAsyncOperation<Windows::Devices::PointOfService::IBarcodeSymbologyAttributes>** value);
-    IFACEMETHOD(SetSymbologyAttributesAsync)(_In_ UINT32 barcodeSymbology, _In_ Windows::Devices::PointOfService::IBarcodeSymbologyAttributes* attributes, _Outptr_ Windows::Foundation::IAsyncOperation<boolean>** value);
+    IFACEMETHOD(GetSymbologyAttributesAsync)(_In_ UINT32 /* barcodeSymbology */, _Outptr_ Windows::Foundation::IAsyncOperation<Windows::Devices::PointOfService::IBarcodeSymbologyAttributes>** /* value */);
+    IFACEMETHOD(SetSymbologyAttributesAsync)(_In_ UINT32 /* barcodeSymbology */, _In_ Windows::Devices::PointOfService::IBarcodeSymbologyAttributes* /* attributes */, _Outptr_ Windows::Foundation::IAsyncOperation<boolean>** /* value */);
 
 private:
     AgileEventSource<Windows::Foundation::TypedEventHandler<Windows::Devices::PointOfService::IClaimedBarcodeScanner, Windows::Devices::PointOfService::IBarcodeScannerDataReceivedEventArgs>> m_DataReceivedEventHandlers;

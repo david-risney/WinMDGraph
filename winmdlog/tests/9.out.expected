@@ -1,4 +1,5 @@
 ﻿// BatteryReport.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "BatteryReport.h"
 
 using namespace Microsoft::WRL;
@@ -46,6 +47,9 @@ IFACEMETHODIMP BatteryReport::get_Status(_Out_ BatteryStatus* /* value */)
 }
 
 // BatteryReport.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Devices.h>
 #include <Windows.Foundation.h>
 #include <Windows.System.h>
@@ -57,12 +61,12 @@ namespace Devices
 {
 namespace Power
 {
-class BatteryReport WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class BatteryReport WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::Devices::Power::IBatteryReport
     >
 {
-    InspectableClass(RuntimeClass_Windows_Devices_Power_BatteryReport, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_Devices_Power_BatteryReport, TrustLevel::BaseTrust);
 
 public:
     BatteryReport();

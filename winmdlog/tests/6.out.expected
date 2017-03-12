@@ -1,4 +1,5 @@
 ﻿// GpioChangeReader.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "GpioChangeReader.h"
 
 using namespace Microsoft::WRL;
@@ -30,25 +31,25 @@ IFACEMETHODIMP GpioChangeReader::Clear()
 }
 
 // Windows::Devices::Gpio::IGpioChangeReader
-IFACEMETHODIMP GpioChangeReader::GetNextItem(_Out_ GpioChangeRecord* value)
+IFACEMETHODIMP GpioChangeReader::GetNextItem(_Out_ GpioChangeRecord* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioChangeReader
-IFACEMETHODIMP GpioChangeReader::PeekNextItem(_Out_ GpioChangeRecord* value)
+IFACEMETHODIMP GpioChangeReader::PeekNextItem(_Out_ GpioChangeRecord* /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioChangeReader
-IFACEMETHODIMP GpioChangeReader::GetAllItems(_Outptr_ IVector<GpioChangeRecord>** value)
+IFACEMETHODIMP GpioChangeReader::GetAllItems(_Outptr_ IVector<GpioChangeRecord>** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioChangeReader
-IFACEMETHODIMP GpioChangeReader::WaitForItemsAsync(_In_ INT32 count, _Outptr_ IAsyncAction** value)
+IFACEMETHODIMP GpioChangeReader::WaitForItemsAsync(_In_ INT32 /* count */, _Outptr_ IAsyncAction** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -106,6 +107,9 @@ IFACEMETHODIMP GpioChangeReader::Close()
 }
 
 // GpioChangeReader.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Devices.h>
 #include <Windows.Foundation.h>
 #include "GpioChangeReaderFactory.h"
@@ -117,13 +121,13 @@ namespace Devices
 {
 namespace Gpio
 {
-class GpioChangeReader WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class GpioChangeReader WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::Devices::Gpio::IGpioChangeReader,
     Windows::Foundation::IClosable
     >
 {
-    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioChangeReader, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioChangeReader, TrustLevel::BaseTrust);
 
 public:
     GpioChangeReader();
@@ -133,10 +137,10 @@ public:
     IFACEMETHOD(Start)();
     IFACEMETHOD(Stop)();
     IFACEMETHOD(Clear)();
-    IFACEMETHOD(GetNextItem)(_Out_ Windows::Devices::Gpio::GpioChangeRecord* value);
-    IFACEMETHOD(PeekNextItem)(_Out_ Windows::Devices::Gpio::GpioChangeRecord* value);
-    IFACEMETHOD(GetAllItems)(_Outptr_ Windows::Foundation::Collections::IVector<Windows::Devices::Gpio::GpioChangeRecord>** value);
-    IFACEMETHOD(WaitForItemsAsync)(_In_ INT32 count, _Outptr_ Windows::Foundation::IAsyncAction** value);
+    IFACEMETHOD(GetNextItem)(_Out_ Windows::Devices::Gpio::GpioChangeRecord* /* value */);
+    IFACEMETHOD(PeekNextItem)(_Out_ Windows::Devices::Gpio::GpioChangeRecord* /* value */);
+    IFACEMETHOD(GetAllItems)(_Outptr_ Windows::Foundation::Collections::IVector<Windows::Devices::Gpio::GpioChangeRecord>** /* value */);
+    IFACEMETHOD(WaitForItemsAsync)(_In_ INT32 /* count */, _Outptr_ Windows::Foundation::IAsyncAction** /* value */);
     IFACEMETHOD(get_Capacity)(_Out_ INT32* value);
     IFACEMETHOD(get_IsEmpty)(_Out_ boolean* value);
     IFACEMETHOD(get_IsOverflowed)(_Out_ boolean* value);
@@ -158,6 +162,7 @@ ActivatableClassWithFactory(GpioChangeReader, GpioChangeReaderFactory);
 }
 
 // GpioChangeReaderFactory.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "GpioChangeReaderFactory.h"
 
 using namespace Microsoft::WRL;
@@ -170,13 +175,13 @@ namespace Devices
 namespace Gpio
 {
 // Windows::Devices::Gpio::IGpioChangeReaderFactory
-IFACEMETHODIMP GpioChangeReaderFactory::Create(_In_ IGpioPin* pin, _Outptr_ IGpioChangeReader** value)
+IFACEMETHODIMP GpioChangeReaderFactory::Create(_In_ IGpioPin* /* pin */, _Outptr_ IGpioChangeReader** /* value */)
 {
     return E_NOTIMPL;
 }
 
 // Windows::Devices::Gpio::IGpioChangeReaderFactory
-IFACEMETHODIMP GpioChangeReaderFactory::CreateWithCapacity(_In_ IGpioPin* pin, _In_ INT32 minCapacity, _Outptr_ IGpioChangeReader** value)
+IFACEMETHODIMP GpioChangeReaderFactory::CreateWithCapacity(_In_ IGpioPin* /* pin */, _In_ INT32 /* minCapacity */, _Outptr_ IGpioChangeReader** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -192,6 +197,9 @@ IFACEMETHODIMP GpioChangeReaderFactory::ActivateInstance(_Outptr_ IInspectable**
 }
 
 // GpioChangeReaderFactory.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.Devices.h>
 #include <wrl/implements.h>
 
@@ -201,19 +209,19 @@ namespace Devices
 {
 namespace Gpio
 {
-class GpioChangeReaderFactory WrlFinal : Microsoft::WRL::AgileActivationFactory<
+class GpioChangeReaderFactory WrlFinal : public Microsoft::WRL::AgileActivationFactory<
     Windows::Devices::Gpio::IGpioChangeReaderFactory
     >
 {
-    InspectableClass(RuntimeClass_Windows_Devices_Gpio_GpioChangeReaderFactory, BaseTrust);
+    InspectableClassStatic(RuntimeClass_Windows_Devices_Gpio_GpioChangeReaderFactory, TrustLevel::BaseTrust);
 
 public:
     GpioChangeReaderFactory();
     HRESULT RuntimeClassInitialize();
 
     // Windows::Devices::Gpio::IGpioChangeReaderFactory
-    IFACEMETHOD(Create)(_In_ Windows::Devices::Gpio::IGpioPin* pin, _Outptr_ Windows::Devices::Gpio::IGpioChangeReader** value);
-    IFACEMETHOD(CreateWithCapacity)(_In_ Windows::Devices::Gpio::IGpioPin* pin, _In_ INT32 minCapacity, _Outptr_ Windows::Devices::Gpio::IGpioChangeReader** value);
+    IFACEMETHOD(Create)(_In_ Windows::Devices::Gpio::IGpioPin* /* pin */, _Outptr_ Windows::Devices::Gpio::IGpioChangeReader** /* value */);
+    IFACEMETHOD(CreateWithCapacity)(_In_ Windows::Devices::Gpio::IGpioPin* /* pin */, _In_ INT32 /* minCapacity */, _Outptr_ Windows::Devices::Gpio::IGpioChangeReader** /* value */);
 
     // IActivationFactory
     IFACEMETHOD(ActivateInstance)(_Outptr_ IInspectable** inspectable);

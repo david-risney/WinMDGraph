@@ -1,4 +1,5 @@
 ﻿// AppointmentCalendarSyncManager.cpp
+// Copyright (c) Microsoft Corporation. All rights reserved.
 #include "AppointmentCalendarSyncManager.h"
 
 using namespace Microsoft::WRL;
@@ -11,7 +12,7 @@ namespace ApplicationModel
 namespace Appointments
 {
 // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
-IFACEMETHODIMP AppointmentCalendarSyncManager::SyncAsync(_Outptr_ IAsyncOperation<boolean>** value)
+IFACEMETHODIMP AppointmentCalendarSyncManager::SyncAsync(_Outptr_ IAsyncOperation<boolean>** /* value */)
 {
     return E_NOTIMPL;
 }
@@ -87,6 +88,9 @@ IFACEMETHODIMP AppointmentCalendarSyncManager::put_Status(_In_ AppointmentCalend
 }
 
 // AppointmentCalendarSyncManager.h
+// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
 #include <Windows.ApplicationModel.h>
 #include <Windows.Foundation.h>
 #include <wrl/implements.h>
@@ -97,20 +101,20 @@ namespace ApplicationModel
 {
 namespace Appointments
 {
-class AppointmentCalendarSyncManager WrlFinal : Microsoft::WRL::RuntimeClass<
-    FtmBase,
+class AppointmentCalendarSyncManager WrlFinal : public Microsoft::WRL::RuntimeClass<
+    Microsoft::WRL::FtmBase,
     Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager,
     Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager2
     >
 {
-    InspectableClass(RuntimeClass_Windows_ApplicationModel_Appointments_AppointmentCalendarSyncManager, BaseTrust);
+    InspectableClass(RuntimeClass_Windows_ApplicationModel_Appointments_AppointmentCalendarSyncManager, TrustLevel::BaseTrust);
 
 public:
     AppointmentCalendarSyncManager();
     HRESULT RuntimeClassInitialize();
 
     // Windows::ApplicationModel::Appointments::IAppointmentCalendarSyncManager
-    IFACEMETHOD(SyncAsync)(_Outptr_ Windows::Foundation::IAsyncOperation<boolean>** value);
+    IFACEMETHOD(SyncAsync)(_Outptr_ Windows::Foundation::IAsyncOperation<boolean>** /* value */);
     IFACEMETHOD(get_LastAttemptedSyncTime)(_Out_ Windows::Foundation::DateTime* value);
     IFACEMETHOD(get_LastSuccessfulSyncTime)(_Out_ Windows::Foundation::DateTime* value);
     IFACEMETHOD(get_Status)(_Out_ Windows::ApplicationModel::Appointments::AppointmentCalendarSyncStatus* value);

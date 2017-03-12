@@ -353,9 +353,7 @@ namespace WinMDLog
         {
             get
             {
-                return this.innerClass.NoInstanceClass ? 
-                    "InspectableClassStatic" : 
-                    "InspectableClass";
+                return "InspectableClassStatic";
             }
         }
         public IAbiType[] GetFactoryAndStaticInterfaces(ReferenceCollector refs)

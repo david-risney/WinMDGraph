@@ -154,15 +154,18 @@ namespace WinMDLog
             foreach (IAbiType type in types)
             {
                 const string headerTemplate =
-@"$headerIncludeStatements
+@"// Copyright (c) Microsoft Corporation. All rights reserved.
+#pragma once
+
+$headerIncludeStatements
 #include <wrl/implements.h>
 
 $namespaceDefinitionBegin
-class $className WrlFinal : $parentHelperClass<
+class $className WrlFinal : public $parentHelperClass<
 $parentClasses
     >
 {
-    $inspectableClassKind($runtimeclassStringName, BaseTrust);
+    $inspectableClassKind($runtimeclassStringName, TrustLevel::BaseTrust);
 
 public:
     $className();
@@ -183,7 +186,8 @@ $namespaceDefinitionEnd";
                 })).ToList<FileOutput>();
 
                 const string sourceTemplate =
-@"$sourceIncludeStatements
+@"// Copyright (c) Microsoft Corporation. All rights reserved.
+$sourceIncludeStatements
 
 using namespace Microsoft::WRL;
 $usingNamespaceStatements
@@ -221,7 +225,7 @@ $namespaceDefinitionEnd";
 
             if (type.IsAgile)
             {
-                parentClasses = new string[] { "    FtmBase" }.Concat(parentClasses);
+                parentClasses = new string[] { "    Microsoft::WRL::FtmBase" }.Concat(parentClasses);
             }
 
             result = result.
@@ -234,7 +238,7 @@ $namespaceDefinitionEnd";
                     string[] tail = new string[] { "" };
 
                     IEnumerable<string> methods = tinterface.Methods.SelectMany(method => new string[] {
-                            "    IFACEMETHOD(" + method.Name +")(" + method.GetParameters(refs, false, shortNames) + ");"
+                            "    IFACEMETHOD(" + method.Name +")(" + method.GetParameters(refs, true, shortNames) + ");"
                     });
 
                     IEnumerable<string> events = tinterface.Events.SelectMany(tevent => new string[] {
@@ -261,7 +265,7 @@ $namespaceDefinitionEnd";
 
                     IEnumerable<string> methods = tinterface.Methods.SelectMany(method => new string[] {
                             header,
-                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::" + method.Name + "(" + method.GetParameters(refs, false, shortNames) + ")",
+                            "IFACEMETHODIMP " + type.ShortNameNoTypeParameters + "::" + method.Name + "(" + method.GetParameters(refs, true, shortNames) + ")",
                             "{",
                             "    return E_NOTIMPL;",
                             "}",
