@@ -342,7 +342,6 @@ $namespaceDefinitionEnd";
             try
             {
                 parsedArgs = new ParsedArgs(args);
-                (new Program(parsedArgs)).Run();
             }
             catch (Exception e)
             {
@@ -353,7 +352,12 @@ $namespaceDefinitionEnd";
                     + "\t-match [WinMD file path] - Process runtime classes with matching full name" + Environment.NewLine
                     + "\t-outPath [output directory] - Write runtime classes into individual files in that path" + Environment.NewLine
                     );
-            }            
+            }
+
+            if (parsedArgs != null)
+            {
+                (new Program(parsedArgs)).Run();
+            }
         }
     }
 }
