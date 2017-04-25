@@ -1,7 +1,7 @@
-﻿#WinMD
+# WinMD
 The WinMD.dll module uses the builtin .NET WinMD parsing to expose the WinRT type system of specified WinMD files. You can use it from PowerShell or .NET
 
-##PowerShell
+## PowerShell
 To use WinMD.dll in powershell to load the metadata from the current OS:
 
     [System.Reflection.Assembly]::LoadFile("C:\Users\Dave\Development\WinMDGraph\WinMD\bin\Debug\WinMD.dll");
@@ -12,8 +12,9 @@ Or to load specific metadata:
     [System.Reflection.Assembly]::LoadFile("C:\Users\Dave\Development\WinMDGraph\WinMD\bin\Debug\WinMD.dll");
     $types = (New-Object WinMD.WinMDTypes -ArgumentList @(,("C:\example1.winmd","C:\example2.winmd"))).Types;
 
-##Examples
-###Changed events and their corresponding properties
+## Examples
+
+### Changed events and their corresponding properties
 
     $results = $typeSystem.Types.GetEvents() | ?{ $_.Name -match "Changed" } | %{ 
       $e = $_; 
